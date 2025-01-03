@@ -28,7 +28,7 @@ export const auth = betterAuth({
 
       return true;
     },
-    sendResetPassword: async ({ user, url, token }, request) => {
+    sendResetPassword: async ({ user, url }) => {
       await resend.emails.send({
         from: "Tabula <mail@messages.tom.so>",
         to: user.email,
