@@ -18,6 +18,7 @@ import { Loader2, X } from "lucide-react";
 import { signUp } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { whitelistEmails } from "@/lib/constants";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -155,6 +156,14 @@ export default function SignUp() {
               className="w-full"
               disabled={loading}
               onClick={async () => {
+                const domain = email.split("@")[1];
+                if (!whitelistEmails.includes(domain)) {
+                  toast.error(
+                    "Only authorised schools are allowed to register"
+                  );
+                  return;
+                }
+
                 await signUp.email({
                   email,
                   password,
