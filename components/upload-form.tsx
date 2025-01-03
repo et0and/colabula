@@ -1,0 +1,156 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Loader2, Paperclip } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { ArtCategory } from "@prisma/client";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+export function UploadForm() {
+  const [open, setOpen] = useState(false);
+  const [schools, setSchools] = useState<string[]>([]);
+  const [loadingSchools, setLoadingSchools] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    async function fetchSchools() {
+      setLoadingSchools(true);
+      const response = await fetch("/api/schools");
+      const schoolNames = await response.json();
+      setSchools(schoolNames);
+      setLoadingSchools(false);
+    }
+    fetchSchools();
+  }, []);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsUploading(true);
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        setOpen(false);
+        const category = formData.get("category")?.toString().toLowerCase();
+        router.push(`/portal/${category}`);
+        router.refresh();
+      }
+    } finally {
+      setIsUploading(false);
+    }
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="ghost" className="w-full justify-start">
+          <Paperclip className="h-4 w-4" />
+          From computer
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Upload portfolio</DialogTitle>
+          <DialogDescription>
+            Add an image (JPG, PNG or WEBP up to 50MiB) of a portfolio you wish
+            to share.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="file">Portfolio image</Label>
+            <Input
+              id="file"
+              type="file"
+              accept="image/*"
+              name="file"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="category">Category</Label>
+            <Select name="category" required>
+              <SelectTrigger>
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(ArtCategory).map((category) => (
+                  <SelectItem key={category} value={category}>
+                    {category.charAt(0) + category.slice(1).toLowerCase()}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="title">Title</Label>
+            <Input id="title" name="title" required />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="school">School</Label>
+            <Select name="school" required>
+              <SelectTrigger>
+                {loadingSchools ? (
+                  <div className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Loading schools...</span>
+                  </div>
+                ) : (
+                  <SelectValue placeholder="Select school" />
+                )}
+              </SelectTrigger>
+              <SelectContent>
+                {schools.map((schoolName) => (
+                  <SelectItem key={schoolName} value={schoolName}>
+                    {schoolName}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="tags">Tags (comma separated)</Label>
+            <Input
+              id="tags"
+              name="tags"
+              placeholder="landscape, oil paint, nature"
+              required
+            />
+          </div>
+
+          <Button type="submit" className="w-full" disabled={isUploading}>
+            {isUploading ? "Uploading..." : "Upload Artwork"}
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}

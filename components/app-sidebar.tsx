@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,7 +12,6 @@ import {
   Cookie,
   Info,
   LogOut,
-  Paperclip,
   ReceiptText,
   Search,
   Settings,
@@ -41,6 +42,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
+import { UploadForm } from "./upload-form";
 
 // This is sample data.
 const data = {
@@ -127,22 +129,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Upload Image</DropdownMenuLabel>
+                    <DropdownMenuLabel>Upload image</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <Paperclip className="h-4 w-4" />
-                      <span>From computer</span>
+                    <DropdownMenuItem
+                      className="p-0"
+                      onSelect={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }}
+                    >
+                      <UploadForm />
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <FontAwesomeIcon icon={faGoogleDrive} />{" "}
+                      <FontAwesomeIcon icon={faGoogleDrive} className="ml-2" />{" "}
                       <span>From Google Drive</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <FontAwesomeIcon icon={faMicrosoft} />
+                      <FontAwesomeIcon icon={faMicrosoft} className="ml-2" />
                       <span>From Microsoft OneDrive</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <FontAwesomeIcon icon={faDropbox} />
+                      <FontAwesomeIcon icon={faDropbox} className="ml-2" />
                       <span>From Dropbox</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
