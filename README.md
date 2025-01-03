@@ -18,7 +18,7 @@ Tabula is an open-source platform designed specifically for New Zealand's art ed
 
 ## License
 
-Tabula is licensed under the GNU Affero General Public License v3.0. See the [LICENSE file](/LICENSE.md) for details.
+Tabula is licensed under the GNU Affero General Public License v3.0. See the [LICENSE file](/LICENSE) for details.
 
 This means:
 - You can freely use, modify, and distribute this software
