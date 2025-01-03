@@ -2,13 +2,14 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { ArtCategory } from "@prisma/client";
 
-interface Props {
+interface PageProps {
   params: {
     category: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params }: PageProps) {
   // Validate category exists
   const category = params.category.toUpperCase() as ArtCategory;
   if (!Object.values(ArtCategory).includes(category)) {
