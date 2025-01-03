@@ -3,22 +3,23 @@ import { prisma } from "@/lib/prisma";
 import { ArtCategory } from "@prisma/client";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     category: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function CategoryPage({ params }: PageProps) {
-  // Validate category exists
-  const category = params.category.toUpperCase() as ArtCategory;
-  if (!Object.values(ArtCategory).includes(category)) {
+  const { category } = await params;
+
+  const categoryUpper = category.toUpperCase() as ArtCategory;
+  if (!Object.values(ArtCategory).includes(categoryUpper)) {
     notFound();
   }
 
   const artworks = await prisma.artwork.findMany({
     where: {
-      category: category,
+      category: categoryUpper,
     },
     orderBy: {
       createdAt: "desc",
