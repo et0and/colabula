@@ -84,12 +84,17 @@ export function UploadForm() {
               type="file"
               accept="image/jpeg,image/png,image/webp"
               name="file"
+              multiple
               required
               onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file && file.size > 50 * 1024 * 1024) {
+                const files = Array.from(e.target.files || []);
+                const totalSize = files.reduce(
+                  (sum, file) => sum + file.size,
+                  0
+                );
+                if (totalSize > 50 * 1024 * 1024) {
                   e.target.value = "";
-                  alert("File size must be less than 50MiB");
+                  alert("Total file size must be less than 50MiB");
                 }
               }}
             />
@@ -103,7 +108,6 @@ export function UploadForm() {
             <Input
               id="title"
               name="title"
-              pattern=".*"
               placeholder="Enter a name for this portfolio"
               required
             />
@@ -163,7 +167,6 @@ export function UploadForm() {
             <Input
               id="tags"
               name="tags"
-              pattern=".*"
               placeholder="landscape,oil paint,nature"
               required
             />

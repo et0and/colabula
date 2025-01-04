@@ -25,20 +25,35 @@ export async function POST(req: Request) {
   }
 
   const formData = await req.formData();
-  const file = formData.get("file") as File;
+  const files = formData.getAll("file") as File[];
+  const imageUrls = [];
 
-  if (!ALLOWED_TYPES.includes(file.type)) {
-    return Response.json(
-      { error: "Only JPG, PNG and WEBP files are allowed" },
-      { status: 400 }
-    );
-  }
+  for (const file of files) {
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      return Response.json(
+        { error: "Only JPG, PNG and WEBP files are allowed" },
+        { status: 400 }
+      );
+    }
 
-  if (file.size > MAX_FILE_SIZE) {
-    return Response.json(
-      { error: "File size must be less than 50MiB" },
-      { status: 400 }
-    );
+    if (file.size > MAX_FILE_SIZE) {
+      return Response.json(
+        { error: "Individual file size must be less than 50MiB" },
+        { status: 400 }
+      );
+    }
+
+    const fileName = `${Date.now()}-${file.name}`;
+    const uploadCommand = new PutObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME!,
+      Key: fileName,
+      Body: Buffer.from(await file.arrayBuffer()),
+      ContentType: file.type,
+      ACL: "public-read",
+    });
+
+    await s3.send(uploadCommand);
+    imageUrls.push(`${process.env.AWS_PUBLIC_ENDPOINT_URL}/${fileName}`);
   }
 
   const category = formData.get("category") as ArtCategory;
@@ -49,31 +64,16 @@ export async function POST(req: Request) {
     .map((tag) => tag.trim());
   const content = formData.get("content") as string;
 
-  // Generate unique filename
-  const fileName = `${Date.now()}-${file.name}`;
-
-  // Upload to S3
-  const uploadCommand = new PutObjectCommand({
-    Bucket: process.env.AWS_BUCKET_NAME!,
-    Key: fileName,
-    Body: Buffer.from(await file.arrayBuffer()),
-    ContentType: file.type,
-    ACL: "public-read",
-  });
-
-  await s3.send(uploadCommand);
-
   const artwork = await prisma.artwork.create({
     data: {
       title,
       school,
       category,
-      imageUrl: `${process.env.AWS_ENDPOINT_URL}/${fileName}`,
+      imageUrls,
       tags,
       content,
       userId: sessionData.user.id,
     },
   });
-
   return Response.json({ success: true, artwork });
 }

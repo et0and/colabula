@@ -9,8 +9,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum ArtCategory {
@@ -22,11 +23,11 @@ enum ArtCategory {
 
 model Artwork {
   id          String      @id @default(cuid())
-  title       String
+  title       String      @db.Text
   school      String
   category    ArtCategory
-  imageUrl    String
-  tags        String[]
+  imageUrls   String[]    
+  tags        String[]    @db.Text
   content     String      @db.Text
   likes       Int         @default(0)
   createdAt   DateTime    @default(now())
@@ -38,7 +39,7 @@ model Artwork {
 
 model Comment {
   id        String    @id @default(cuid())
-  content   String
+  content   String    @db.Text
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   artworkId String

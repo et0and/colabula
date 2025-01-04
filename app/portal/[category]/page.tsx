@@ -130,17 +130,19 @@ export default async function CategoryPage({ params }: PageProps) {
                 <p className="mb-4">{artwork.content}</p>
                 <Carousel className="w-full max-w-xl mx-auto">
                   <CarouselContent>
-                    <CarouselItem>
-                      <div className="p-1">
-                        <Image
-                          src={artwork.imageUrl}
-                          alt={artwork.title}
-                          width={800}
-                          height={600}
-                          className="w-full h-auto rounded-lg"
-                        />
-                      </div>
-                    </CarouselItem>
+                    {artwork.imageUrls.map((imageUrl, index) => (
+                      <CarouselItem key={index}>
+                        <div className="p-1">
+                          <Image
+                            src={imageUrl}
+                            alt={`${artwork.title} - Image ${index + 1}`}
+                            width={800}
+                            height={600}
+                            className="w-full h-auto rounded-lg"
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
                   </CarouselContent>
                   <CarouselPrevious />
                   <CarouselNext />

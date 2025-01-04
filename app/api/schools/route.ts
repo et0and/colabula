@@ -1,8 +1,13 @@
 import { SchoolApiResponse } from "@/types/schools";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = 50;
+  const offset = (page - 1) * limit;
+
   const response = await fetch(
-    "https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT%20*%20FROM%20%224b292323-9fcc-41f8-814b-3c7b19cf14b3%22"
+    `https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT * FROM "4b292323-9fcc-41f8-814b-3c7b19cf14b3" LIMIT ${limit} OFFSET ${offset}`
   );
   const data: SchoolApiResponse = await response.json();
 

@@ -146,15 +146,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     >
                       <UploadForm />
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem disabled>
                       <FontAwesomeIcon icon={faGoogleDrive} className="ml-2" />{" "}
                       <span>From Google Drive</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem disabled>
                       <FontAwesomeIcon icon={faMicrosoft} className="ml-2" />
                       <span>From Microsoft OneDrive</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem disabled>
                       <FontAwesomeIcon icon={faDropbox} className="ml-2" />
                       <span>From Dropbox</span>
                     </DropdownMenuItem>
