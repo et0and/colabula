@@ -12,7 +12,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-export default function Page() {
+export default function PrivacyPolicyPage() {
   return (
     <SidebarProvider
       style={
@@ -84,7 +84,7 @@ export default function Page() {
             (and their guardians where applicable) before uploading any student
             work to Tabula. This includes:
           </p>
-          <ul className="list-disc list-inside mb-4">
+          <ul className="list-disc pl-6 space-y-2 mb-4">
             <li>Written consent for sharing student artwork</li>
             <li>Permission to use work for educational purposes</li>
             <li>Clear communication about how the work will be used</li>

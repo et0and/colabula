@@ -51,7 +51,7 @@ export default function Page() {
         </header>
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-6 flex flex-row gap-2">
-            <Handshake className="w-8 h-8 align-middle inline-block" />
+            <Handshake className="w-8 h-8 align-middle inline-block hidden md:block" />
             <span className="align-middle">Contributing on Tabula</span>
           </h1>
 
@@ -78,49 +78,55 @@ export default function Page() {
               </CardLink>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Privacy</CardTitle>
-                <CardDescription>
-                  Ensuring student privacy is respected
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>
-                  Understand our guidelines for handling student artwork and
-                  personal information with appropriate care and consent.
-                </p>
-              </CardContent>
+            <Card className="hover:bg-muted">
+              <CardLink href="/portal/contributing/privacy">
+                <CardHeader>
+                  <CardTitle>Privacy</CardTitle>
+                  <CardDescription>
+                    Ensuring student privacy is respected
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p>
+                    Understand our guidelines for handling student artwork and
+                    personal information with appropriate care and consent.
+                  </p>
+                </CardContent>
+              </CardLink>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Sharing</CardTitle>
-                <CardDescription>
-                  Seeking permissions for sharing content outside of Tabula
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>
-                  Follow our process for obtaining proper permissions before
-                  sharing any student work outside of the Tabula platform.
-                </p>
-              </CardContent>
+            <Card className="hover:bg-muted">
+              <CardLink href="/portal/contributing/sharing">
+                <CardHeader>
+                  <CardTitle>Sharing</CardTitle>
+                  <CardDescription>
+                    Seeking permissions for sharing content outside of Tabula
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p>
+                    Follow our process for obtaining proper permissions before
+                    sharing any student work outside of the Tabula platform.
+                  </p>
+                </CardContent>
+              </CardLink>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Uploading</CardTitle>
-                <CardDescription>
-                  How to ensure the best outcome when adding a portfolio
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>
-                  Get guidance on image formats, file sizes, and metadata
-                  requirements for optimal portfolio submissions.
-                </p>
-              </CardContent>
+            <Card className="hover:bg-muted">
+              <CardLink href="/portal/contributing/format">
+                <CardHeader>
+                  <CardTitle>Uploading</CardTitle>
+                  <CardDescription>
+                    How to ensure the best outcome when adding a portfolio
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p>
+                    Get guidance on image formats, file sizes, and metadata
+                    requirements for optimal portfolio submissions.
+                  </p>
+                </CardContent>
+              </CardLink>
             </Card>
           </div>
         </div>

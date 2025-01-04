@@ -91,7 +91,7 @@ const nav = {
         },
         {
           title: "Achievement standards",
-          url: "#",
+          url: "https://www.nzqa.govt.nz/ncea/assessment/search.do?query=visual+arts&view=all&level=all",
         },
         {
           title: "Contribution guide",
@@ -99,7 +99,7 @@ const nav = {
         },
         {
           title: "Participating schools",
-          url: "#",
+          url: "/portal/participating-schools",
         },
       ],
     },

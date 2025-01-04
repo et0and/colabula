@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 
-export default function EtiquettePage() {
+export default function PrivacyPage() {
   return (
     <SidebarProvider
       style={
@@ -42,57 +42,59 @@ export default function EtiquettePage() {
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
-                <BreadcrumbPage>Etiquette</BreadcrumbPage>
+                <BreadcrumbPage>Privacy</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </header>
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-6 flex flex-row gap-2">
-            <span className="align-middle">Etiquette</span>
+            <span className="align-middle">Privacy guidelines</span>
           </h1>
 
-          <h2 className="font-semibold text-xl">Focus on the work</h2>
           <p className="mb-4">
-            When providing feedback, focus your comments on the artwork and
-            portfolio elements rather than the student or teacher. Frame your
-            critique around the visual and technical aspects of the work being
-            presented.
+            Before uploading any student artwork, ensure you have their consent.
+            This consent should specifically cover sharing work within the
+            Tabula platform for educational, non-commercial purposes.
           </p>
 
-          <h2 className="font-semibold text-xl">Constructive communication</h2>
           <p className="mb-4">
-            Personal attacks or negative comments about individuals have no
-            place on Tabula. Keep discussions professional and centered on
-            artistic development.
+            Remove or obscure any personally identifiable information from
+            artwork and descriptions, including full names, contact details, or
+            location data. Use student IDs or initials when referencing work.
           </p>
 
-          <h2 className="font-semibold text-xl">
-            Keep feedback aligned to Achievement Standards
-          </h2>
           <p className="mb-4">
-            Structure your feedback around NCEA Achievement Standards rather
-            than personal preferences. Instead of &quot;I would do this
-            differently,&quot; explain how certain choices align with or could
-            better meet the standards.
+            When tagging and categorising artwork, focus on artistic elements,
+            subject matter and achievement standards rather than personal
+            student information. Include only relevant academic context such as
+            year level and subject area.
           </p>
 
-          <h2 className="font-semibold text-xl">The feedback sandwich</h2>
           <p className="mb-4">
-            Use the proven &quot;praise sandwich&quot; approach when giving
-            feedback:
+            Restrict portfolio sharing to verified art educators within the
+            Tabula network. Never share direct links to student work outside the
+            platform without explicit permission.{" "}
+            <a
+              href="/portal/contributing/sharing"
+              className="link"
+              target="_blank"
+            >
+              Learn more about sharing portfolios
+            </a>
+            .
           </p>
-          <ul className="list-disc pl-6 space-y-2 mb-4">
-            <li>Begin with specific positive aspects of the work</li>
-            <li>Address areas for improvement or development</li>
-            <li>Conclude with encouraging observations and potential</li>
-          </ul>
 
-          <h2 className="font-semibold text-xl">Be specific</h2>
           <p className="mb-4">
-            Provide specific, actionable feedback rather than general comments.
-            Explain exactly what elements are successful and why they work well
-            in the context of the portfolio.
+            Respect that students retain copyright of their artwork. The
+            platform facilitates educational review while protecting student
+            intellectual property rights.
+          </p>
+
+          <p className="mb-4">
+            Should a student wish to have their work removed from the platform,
+            they can email removal@tabula.org.nz. We will then remove the work
+            and destroy it from our database permanently.
           </p>
         </div>
       </SidebarInset>
