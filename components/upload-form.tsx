@@ -141,23 +141,36 @@ export function UploadForm() {
 
           <div className="space-y-2">
             <Label htmlFor="school">School</Label>
-            <Select name="school" required>
+            <Select
+              name="school"
+              required
+              onOpenChange={(open) => {
+                if (open && schools.length === 0) {
+                  setLoadingSchools(true);
+                  fetch("/api/schools")
+                    .then((response) => response.json())
+                    .then((schoolNames) => {
+                      setSchools(schoolNames);
+                      setLoadingSchools(false);
+                    });
+                }
+              }}
+            >
               <SelectTrigger>
-                {loadingSchools ? (
-                  <div className="flex items-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span>Loading schools...</span>
-                  </div>
-                ) : (
-                  <SelectValue placeholder="Select school" />
-                )}
+                <SelectValue placeholder="Select school" />
               </SelectTrigger>
               <SelectContent>
-                {schools.map((schoolName) => (
-                  <SelectItem key={schoolName} value={schoolName}>
-                    {schoolName}
-                  </SelectItem>
-                ))}
+                {loadingSchools ? (
+                  <div className="flex items-center justify-center py-6">
+                    <Loader2 className="h-6 w-6 animate-spin" />
+                  </div>
+                ) : (
+                  schools.map((schoolName) => (
+                    <SelectItem key={schoolName} value={schoolName}>
+                      {schoolName}
+                    </SelectItem>
+                  ))
+                )}
               </SelectContent>
             </Select>
           </div>

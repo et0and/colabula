@@ -7,12 +7,21 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardLink,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { Handshake } from "lucide-react";
 
 export default function Page() {
   return (
@@ -40,13 +49,80 @@ export default function Page() {
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-3xl font-bold mb-6 flex flex-row gap-2">
+            <Handshake className="w-8 h-8 align-middle inline-block" />
+            <span className="align-middle">Contributing on Tabula</span>
+          </h1>
+
+          <p className="mb-6">
+            Tabula is a shared collaborative platform. For getting the most out
+            of your time here, we have a few small house-keeping rules.
+          </p>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card className="hover:bg-muted">
+              <CardLink href="/portal/contributing/etiquette">
+                <CardHeader>
+                  <CardTitle>Etiquette</CardTitle>
+                  <CardDescription>
+                    Communicating with other teachers
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p>
+                    Learn how to provide constructive feedback and engage
+                    professionally with fellow art educators on the platform.
+                  </p>
+                </CardContent>
+              </CardLink>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Privacy</CardTitle>
+                <CardDescription>
+                  Ensuring student privacy is respected
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>
+                  Understand our guidelines for handling student artwork and
+                  personal information with appropriate care and consent.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Sharing</CardTitle>
+                <CardDescription>
+                  Seeking permissions for sharing content outside of Tabula
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>
+                  Follow our process for obtaining proper permissions before
+                  sharing any student work outside of the Tabula platform.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Uploading</CardTitle>
+                <CardDescription>
+                  How to ensure the best outcome when adding a portfolio
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>
+                  Get guidance on image formats, file sizes, and metadata
+                  requirements for optimal portfolio submissions.
+                </p>
+              </CardContent>
+            </Card>
           </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
         </div>
       </SidebarInset>
     </SidebarProvider>

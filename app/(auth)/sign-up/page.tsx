@@ -42,9 +42,16 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-neutral-50">
+    <div className="min-h-screen w-full flex items-center justify-center bg-neutral-50 py-8">
       <Card className="z-50 rounded-xl max-w-md w-full mx-4">
         <CardHeader>
+          <div className="flex justify-center items-center">
+            <img
+              src="/tabula-logo.svg"
+              alt="Tabula Logo"
+              className="w-48 h-48"
+            />
+          </div>
           <CardTitle className="text-lg md:text-xl">
             Create an account
           </CardTitle>
@@ -199,7 +206,7 @@ export default function SignUp() {
           <div className="flex justify-center w-full border-t py-4">
             <p className="text-center text-xs text-neutral-500">
               Have an account?{" "}
-              <Link href="/sign-in" className="text-orange-400">
+              <Link href="/sign-in" className="link">
                 Login instead.
               </Link>
             </p>

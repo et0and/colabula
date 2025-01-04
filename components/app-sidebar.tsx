@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "@/lib/auth-client";
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -43,9 +44,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { UploadForm } from "./upload-form";
+import Link from "next/link";
 
 // This is sample data.
-const data = {
+const nav = {
   navMain: [
     {
       title: "Browse",
@@ -53,7 +55,7 @@ const data = {
       items: [
         {
           title: "Painting",
-          url: "#",
+          url: "/portal/painting",
           isActive: true,
         },
         /* {
@@ -105,6 +107,8 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data } = useSession();
+
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
@@ -171,16 +175,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           src="/placeholder.svg?height=32&width=32"
                           alt="@user"
                         />
-                        <AvatarFallback>U</AvatarFallback>
+                        <AvatarFallback className="bg-orange-900" />
                       </Avatar>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56" align="end" forceMount>
                     <DropdownMenuLabel className="font-normal">
                       <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">User</p>
+                        <p className="text-sm font-medium leading-none">
+                          {data?.user.name || "Guest"}
+                        </p>
                         <p className="text-xs leading-none text-muted-foreground">
-                          user@example.com
+                          {data?.user.email || "Not signed in"}
                         </p>
                       </div>
                     </DropdownMenuLabel>
@@ -204,7 +210,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Cookie className="mr-2 h-4 w-4" />
-                      <span>Privacy Policy</span>
+                      <Link href="/portal/privacy-policy">Privacy Policy</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <CodeXml className="mr-2 h-4 w-4" />
@@ -231,7 +237,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu className="gap-2">
-            {data.navMain.map((item) => (
+            {nav.navMain.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>
                   <span className="font-bold">{item.title}</span>

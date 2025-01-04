@@ -77,3 +77,20 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
+
+.link {
+  @apply text-[#A32B00];
+  @apply hover:underline;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  ::selection {
+    @apply bg-[#A32B00] text-white;
+  }
+  body {
+    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+  }
+}

@@ -18,6 +18,9 @@ export const auth = betterAuth({
     autoSignIn: true,
     minPasswordLength: 8,
     maxPasswordLength: 20,
+    redirects: {
+      afterSignIn: "/portal/painting",
+    },
     requireEmailVerification: true,
     validateEmail: (email: string) => {
       const domain = email.split("@")[1];

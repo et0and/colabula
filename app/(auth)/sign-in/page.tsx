@@ -25,9 +25,16 @@ export default function SignIn() {
   const [rememberMe, setRememberMe] = useState(false);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-neutral-50">
+    <div className="min-h-screen w-full flex items-center justify-center bg-neutral-50 py-8">
       <Card className="z-50 rounded-xl max-w-md w-full mx-4">
         <CardHeader>
+          <div className="flex justify-center items-center">
+            <img
+              src="/tabula-logo.svg"
+              alt="Tabula Logo"
+              className="w-48 h-48"
+            />
+          </div>
           <CardTitle className="text-lg md:text-xl">Welcome back</CardTitle>
           <CardDescription className="text-xs md:text-sm">
             Enter your email below to login to{" "}
@@ -41,7 +48,7 @@ export default function SignIn() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="name@example.com"
                 required
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -85,8 +92,13 @@ export default function SignIn() {
               type="submit"
               className="w-full"
               disabled={loading}
+              // In the onClick handler of the Button component
               onClick={async () => {
-                await signIn.email({ email, password });
+                await signIn.email({
+                  email,
+                  password,
+                  callbackURL: "/portal/painting",
+                });
               }}
             >
               {loading ? (
@@ -108,7 +120,7 @@ export default function SignIn() {
           <div className="flex justify-center w-full border-t py-4">
             <p className="text-center text-xs text-neutral-500">
               No account?{" "}
-              <Link href="/sign-up" className="text-orange-400">
+              <Link href="/sign-up" className="link">
                 Create one.
               </Link>
             </p>
