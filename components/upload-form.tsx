@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -22,6 +21,7 @@ import {
 import { ArtCategory } from "@prisma/client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Textarea } from "./ui/textarea";
 
 export function UploadForm() {
   const [open, setOpen] = useState(false);
@@ -75,10 +75,6 @@ export function UploadForm() {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Upload portfolio</DialogTitle>
-          <DialogDescription>
-            Add an image (JPG, PNG or WEBP up to 50MiB) of a portfolio you wish
-            to share.
-          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
@@ -86,8 +82,29 @@ export function UploadForm() {
             <Input
               id="file"
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/png,image/webp"
               name="file"
+              required
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file && file.size > 50 * 1024 * 1024) {
+                  e.target.value = "";
+                  alert("File size must be less than 50MiB");
+                }
+              }}
+            />
+            <p className="text-xs text-muted-foreground">
+              Add an image (JPG, PNG or WEBP up to 50MiB)
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="title">Title</Label>
+            <Input
+              id="title"
+              name="title"
+              pattern=".*"
+              placeholder="Enter a name for this portfolio"
               required
             />
           </div>
@@ -109,8 +126,13 @@ export function UploadForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="title">Title</Label>
-            <Input id="title" name="title" required />
+            <Label htmlFor="content">Description</Label>
+            <Textarea
+              id="content"
+              name="content"
+              placeholder="Describe this portfolio..."
+              required
+            />
           </div>
 
           <div className="space-y-2">
@@ -141,13 +163,14 @@ export function UploadForm() {
             <Input
               id="tags"
               name="tags"
-              placeholder="landscape, oil paint, nature"
+              pattern=".*"
+              placeholder="landscape,oil paint,nature"
               required
             />
           </div>
 
           <Button type="submit" className="w-full" disabled={isUploading}>
-            {isUploading ? "Uploading..." : "Upload Artwork"}
+            {isUploading ? "Uploading..." : "Upload portfolio"}
           </Button>
         </form>
       </DialogContent>

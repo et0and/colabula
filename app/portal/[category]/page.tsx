@@ -1,6 +1,48 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { ArtCategory } from "@prisma/client";
+import { ArtCategory, Artwork, User, Comment } from "@prisma/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { AppSidebar } from "@/components/app-sidebar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+
+type ArtworkWithRelations = Artwork & {
+  user: User;
+  comments: (Comment & {
+    user: User;
+    replies: (Comment & {
+      user: User;
+    })[];
+  })[];
+};
 
 interface PageProps {
   params: Promise<{
@@ -17,26 +59,112 @@ export default async function CategoryPage({ params }: PageProps) {
     notFound();
   }
 
-  const artworks = await prisma.artwork.findMany({
+  const artworks = (await prisma.artwork.findMany({
     where: {
       category: categoryUpper,
+    },
+    include: {
+      user: true,
+      comments: {
+        include: {
+          user: true,
+          replies: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
     },
-  });
+  })) as ArtworkWithRelations[];
 
   return (
-    <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-      {artworks.map((artwork) => (
-        <div key={artwork.id} className="aspect-video rounded-xl">
-          <img
-            src={artwork.imageUrl}
-            alt={artwork.title}
-            className="object-cover w-full h-full rounded-xl"
-          />
+    <SidebarProvider
+      style={
+        {
+          "--sidebar-width": "19rem",
+        } as React.CSSProperties
+      }
+    >
+      <AppSidebar />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink>Browse</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbPage>
+                {category.charAt(0).toUpperCase() +
+                  category.slice(1).toLowerCase()}
+              </BreadcrumbPage>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          {artworks.map((artwork) => (
+            <Card key={artwork.id} className="mb-6">
+              <CardHeader className="flex flex-row items-center space-x-4 pb-4">
+                <Avatar>
+                  <AvatarImage
+                    src={artwork.user.image || ""}
+                    alt={artwork.user.name}
+                  />
+                  <AvatarFallback>{artwork.user.name[0]}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <h3 className="text-lg font-semibold">{artwork.user.name}</h3>
+                  <p className="text-sm text-gray-500">
+                    {new Date(artwork.createdAt).toLocaleString()}
+                  </p>
+                </div>
+              </CardHeader>
+
+              <CardContent>
+                <p className="mb-4">{artwork.content}</p>
+                <Carousel className="w-full max-w-xl mx-auto">
+                  <CarouselContent>
+                    <CarouselItem>
+                      <div className="p-1">
+                        <Image
+                          src={artwork.imageUrl}
+                          alt={artwork.title}
+                          width={800}
+                          height={600}
+                          className="w-full h-auto rounded-lg"
+                        />
+                      </div>
+                    </CarouselItem>
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+              </CardContent>
+
+              <CardFooter className="flex justify-between">
+                <Button variant="ghost" size="sm">
+                  <Heart className="w-4 h-4 mr-2" />
+                  {artwork.likes} Likes
+                </Button>
+                <Button variant="ghost" size="sm">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  {artwork.comments.length} Comments
+                </Button>
+                <Button variant="ghost" size="sm">
+                  <Share2 className="w-4 h-4 mr-2" />
+                  Share
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
         </div>
-      ))}
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

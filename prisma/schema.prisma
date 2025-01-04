@@ -20,22 +20,34 @@ enum ArtCategory {
   PHOTOGRAPHY
 }
 
-model School {
-  id   String @id
-  name String
-  city String
+model Artwork {
+  id          String      @id @default(cuid())
+  title       String
+  school      String
+  category    ArtCategory
+  imageUrl    String
+  tags        String[]
+  content     String      @db.Text
+  likes       Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  comments    Comment[]   // Relation to comments
 }
 
-model Artwork {
-  id        String      @id @default(cuid())
-  title     String
-  school    String
-  category  ArtCategory
-  imageUrl  String
-  tags      String[]
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  artworkId String
+  artwork   Artwork   @relation(fields: [artworkId], references: [id], onDelete: Cascade)
   userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  parentId  String?   // For nested comments
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies   Comment[] @relation("CommentReplies")
 }
 
 model User {
@@ -48,6 +60,8 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  artworks      Artwork[] // Added relation
+  comments      Comment[] // Added relation
 
   @@unique([email])
   @@map("user")
