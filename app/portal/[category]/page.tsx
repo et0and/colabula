@@ -123,6 +123,7 @@ export default async function CategoryPage({ params }: PageProps) {
                   <p className="text-sm text-gray-500">
                     {new Date(artwork.createdAt).toLocaleString()}
                   </p>
+                  <p className="text-sm text-gray-500">{artwork.school}</p>
                 </div>
               </CardHeader>
 
