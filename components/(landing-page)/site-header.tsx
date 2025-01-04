@@ -31,7 +31,7 @@ export function SiteHeader() {
           <Button variant="ghost" className="hidden md:flex">
             Request a demo
           </Button>
-          <Button variant="secondary" className="hidden md:flex" asChild>
+          <Button variant="secondary" className="flex" asChild>
             <Link href="/sign-in">Log in</Link>
           </Button>
           <Button

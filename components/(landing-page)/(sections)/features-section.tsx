@@ -2,7 +2,7 @@ import { Brain, GitBranch, Zap } from "lucide-react";
 
 export function FeaturesSection() {
   return (
-    <section className="container px-4 md:px-6 py-12 border-b">
+    <section className="container px-4 md:px-6 py-12">
       <div className="max-w-[1200px] mx-auto">
         <div className="space-y-6 mb-12">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
