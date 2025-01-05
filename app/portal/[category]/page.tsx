@@ -127,9 +127,9 @@ export default async function CategoryPage({ params }: PageProps) {
             </div>
           ) : (
             artworks.map((artwork) => (
-              <Card key={artwork.id} className="mb-6">
+              <Card key={artwork.id} className="mb-6 bg-neutral-50">
                 <CardHeader className="flex flex-row items-center space-x-4 pb-4">
-                  <Avatar>
+                  <Avatar className="border">
                     <AvatarImage
                       src={artwork.user.image || ""}
                       alt={artwork.user.name}

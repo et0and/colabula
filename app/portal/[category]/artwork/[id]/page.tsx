@@ -47,6 +47,7 @@ interface PageProps {
     category: string;
     id: string;
   };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({
