@@ -33,6 +33,8 @@ import {
 } from "@/components/ui/sidebar";
 import { ArtworkComments } from "@/components/ArtworkComments";
 import { Metadata } from "next";
+import { ShareCard } from "@/components/share-card";
+import { headers } from "next/headers";
 
 type ArtworkWithRelations = Artwork & {
   user: User;
@@ -60,6 +62,10 @@ export const metadata: Metadata = {
 
 export default async function CategoryPage({ params }: PageProps) {
   const { category } = await params;
+  const headersList = headers();
+  const host = (await headersList).get("host") || "";
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
 
   const categoryUpper = category.toUpperCase() as ArtCategory;
   if (!Object.values(ArtCategory).includes(categoryUpper)) {
@@ -150,10 +156,20 @@ export default async function CategoryPage({ params }: PageProps) {
                         {artwork.school}
                       </a>
                     </p>
+                    <p className="text-xs text-gray-500">
+                      Tags: {artwork.tags.join(" + ")}
+                    </p>
+                    <div className="flex items-center my-2 gap-2">
+                      <ShareCard
+                        baseUrl={baseUrl}
+                        category={category}
+                        artworkId={artwork.id}
+                      />
+                    </div>
                   </div>
                 </CardHeader>
-
                 <CardContent>
+                  <p className="mb-4 text-xl font-medium">{artwork.title}</p>
                   <p className="mb-4">{artwork.content}</p>
                   <Carousel className="w-full max-w-xl mx-auto">
                     <CarouselContent>
@@ -174,6 +190,7 @@ export default async function CategoryPage({ params }: PageProps) {
                     <CarouselPrevious />
                     <CarouselNext />
                   </Carousel>
+                  <Separator className="mt-4" />
                 </CardContent>
 
                 <CardFooter className="flex justify-between">
