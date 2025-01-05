@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description: "An all-in-one workspace for art teachers",
     images: [
       {
-        url: "/og.png",
+        url: "https://tabula-sand.vercel.app/og.png",
         width: 1200,
         height: 630,
         alt: "Tabula - An all-in-one workspace for art teachers",
@@ -43,7 +43,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tabula",
     description: "An all-in-one workspace for art teachers",
-    images: ["/og.png"],
+    images: [
+      {
+        url: "https://tabula-sand.vercel.app/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Tabula - An all-in-one workspace for art teachers",
+      },
+    ],
   },
 };
 
