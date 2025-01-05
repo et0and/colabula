@@ -15,9 +15,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Tabula",
-  description: "An open platform for art teachers in Aotearoa.",
+  openGraph: {
+    title: "Tabula",
+    description: "An all-in-one workspace for art teachers",
+    images: [
+      {
+        url: "/og.png",
+      },
+    ],
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{

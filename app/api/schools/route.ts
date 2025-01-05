@@ -1,13 +1,10 @@
 import { SchoolApiResponse } from "@/types/schools";
+import { compress } from "@/lib/compression";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const page = parseInt(searchParams.get("page") || "1");
-  const limit = 50;
-  const offset = (page - 1) * limit;
-
+export async function GET() {
+  // Fetch all schools in one request
   const response = await fetch(
-    `https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT * FROM "4b292323-9fcc-41f8-814b-3c7b19cf14b3" LIMIT ${limit} OFFSET ${offset}`
+    `https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT * FROM "4b292323-9fcc-41f8-814b-3c7b19cf14b3"`
   );
   const data: SchoolApiResponse = await response.json();
 
@@ -15,10 +12,15 @@ export async function GET(request: Request) {
     .map((record) => record.Org_Name)
     .sort((a, b) => a.localeCompare(b));
 
-  return new Response(JSON.stringify(schools), {
+  // Compress the JSON response
+  const compressed = await compress(JSON.stringify(schools));
+
+  return new Response(compressed, {
     headers: {
       "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=2592000, stale-while-revalidate=86400",
+      "Content-Encoding": "gzip",
+      "Cache-Control": "public, max-age=604800, stale-while-revalidate=86400", // Cache for 7 days
+      Vary: "Accept-Encoding",
     },
   });
 }
