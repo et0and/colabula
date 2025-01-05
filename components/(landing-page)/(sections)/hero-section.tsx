@@ -44,28 +44,28 @@ export function HeroSection() {
             </p>
             <div className="flex flex-wrap gap-6 items-center">
               <Image
-                src="/tgs.svg"
+                src="/tgs_layerstyle.svg"
                 alt="Takapuna Grammar School"
                 className="md:h-8 h-7 w-auto"
                 width={100}
                 height={32}
               />
               <Image
-                src="/liston.svg"
+                src="/liston_layerstyle.svg"
                 alt="Liston College"
                 className="md:h-8 h-7 w-auto"
                 width={100}
                 height={32}
               />
               <Image
-                src="/westlake.svg"
+                src="/westlake_layerstyle.svg"
                 alt="Westlake Boys High School"
                 className="md:h-8 h-7 w-auto"
                 width={100}
                 height={32}
               />
               <Image
-                src="/lynfield.svg"
+                src="/lynfield_layerstyle.svg"
                 alt="Lynfield College"
                 className="md:h-8 h-7 w-auto"
                 width={100}

@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { ArtCategory, Artwork, User, Comment } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import {
   Card,
@@ -17,7 +16,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -33,6 +31,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { ArtworkComments } from "@/components/ArtworkComments";
 
 type ArtworkWithRelations = Artwork & {
   user: User;
@@ -123,7 +122,19 @@ export default async function CategoryPage({ params }: PageProps) {
                   <p className="text-sm text-gray-500">
                     {new Date(artwork.createdAt).toLocaleString()}
                   </p>
-                  <p className="text-sm text-gray-500">{artwork.school}</p>
+                  <p className="text-sm text-gray-500">
+                    Portfolio from{" "}
+                    <a
+                      href={`https://google.com/search?q=${encodeURIComponent(
+                        artwork.school
+                      )}`}
+                      className="link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {artwork.school}
+                    </a>
+                  </p>
                 </div>
               </CardHeader>
 
@@ -139,7 +150,7 @@ export default async function CategoryPage({ params }: PageProps) {
                             alt={`${artwork.title} - Image ${index + 1}`}
                             width={800}
                             height={600}
-                            className="w-full h-auto rounded-lg"
+                            className="w-full h-auto rounded-lg shadow"
                           />
                         </div>
                       </CarouselItem>
@@ -151,18 +162,16 @@ export default async function CategoryPage({ params }: PageProps) {
               </CardContent>
 
               <CardFooter className="flex justify-between">
-                <Button variant="ghost" size="sm">
+                {/* <Button variant="ghost" size="sm">
                   <Heart className="w-4 h-4 mr-2" />
                   {artwork.likes} Likes
                 </Button>
                 <Button variant="ghost" size="sm">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   {artwork.comments.length} Comments
-                </Button>
-                <Button variant="ghost" size="sm">
-                  <Share2 className="w-4 h-4 mr-2" />
-                  Share
-                </Button>
+                </Button> */}
+
+                <ArtworkComments artwork={artwork} />
               </CardFooter>
             </Card>
           ))}
