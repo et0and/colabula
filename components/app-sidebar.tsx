@@ -60,19 +60,18 @@ const nav = {
           url: "/portal/painting",
           isActive: true,
         },
-        /* {
+        {
           title: "Sculpture",
-          url: "#",
-          disabled: true,
+          url: "/portal/sculpture",
         },
         {
           title: "Design",
-          url: "#",
+          url: "/portal/design",
         },
         {
           title: "Photography",
-          url: "#",
-        }, */
+          url: "/portal/photography",
+        },
       ],
     },
     {

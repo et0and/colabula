@@ -11,6 +11,16 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Participating schools",
+  description: "Learn about the schools participating in the Tabula platform",
+  openGraph: {
+    title: "Participating schools",
+    description: "Learn about the schools participating in the Tabula platform",
+  },
+};
 
 export default function ParticipatingSchoolsPage() {
   return (

@@ -3,25 +3,27 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { CommentForm } from "./CommentForm";
-import type { Comment, User } from "@prisma/client";
+import { type CommentWithUser } from "./ArtworkComments";
 
-type CommentWithUser = Comment & {
-  user: User;
-  replies: (Comment & { user: User })[];
-};
+interface CommentComponentProps {
+  comment: CommentWithUser;
+  userId: string;
+  onReplyAdded: (content: string, parentId: string) => Promise<void>;
+  setComments: React.Dispatch<React.SetStateAction<CommentWithUser[]>>;
+  artworkId: string;
+}
+
 export function CommentComponent({
   comment,
   userId,
   onReplyAdded,
-}: {
-  comment: CommentWithUser;
-  userId: string;
-  onReplyAdded: (content: string) => void;
-}) {
+  setComments,
+  artworkId,
+}: CommentComponentProps) {
   const [showReplyForm, setShowReplyForm] = useState(false);
 
   const handleReplySubmitted = (content: string) => {
-    onReplyAdded(content);
+    onReplyAdded(content, comment.id);
     setShowReplyForm(false);
   };
 
@@ -69,6 +71,8 @@ export function CommentComponent({
               comment={reply}
               userId={userId}
               onReplyAdded={onReplyAdded}
+              setComments={setComments}
+              artworkId={artworkId}
             />
           ))}
         </div>

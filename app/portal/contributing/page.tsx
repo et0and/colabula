@@ -22,6 +22,16 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Handshake } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contributing",
+  description: "Learn how to contribute to the Tabula platform",
+  openGraph: {
+    title: "Contributing",
+    description: "Learn how to contribute to the Tabula platform",
+  },
+};
 
 export default function Page() {
   return (

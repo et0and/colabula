@@ -11,6 +11,16 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy policy",
+  description: "Learn about our privacy policy",
+  openGraph: {
+    title: "Privacy policy",
+    description: "Learn about our privacy policy",
+  },
+};
 
 export default function PrivacyPolicyPage() {
   return (

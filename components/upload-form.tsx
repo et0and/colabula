@@ -140,7 +140,7 @@ export function UploadForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="school">School</Label>
+            <Label htmlFor="school">From what school?</Label>
             <Select
               name="school"
               required

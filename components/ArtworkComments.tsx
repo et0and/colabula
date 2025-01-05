@@ -5,7 +5,7 @@ import { CommentForm } from "./CommentForm";
 import type { Artwork, Comment } from "@prisma/client";
 import { useState } from "react";
 
-type CommentWithUser = Comment & {
+export type CommentWithUser = Comment & {
   user: { id: string; name: string; image: string | null };
   replies: CommentWithUser[];
 };
@@ -83,8 +83,8 @@ export function ArtworkComments({
   }
 
   return (
-    <div className="mt-4 space-y-4">
-      <h3 className="font-semibold">Comments</h3>
+    <div className="mt-4 space-y-4 w-full">
+      <p className="font-semibold">Comments</p>
       {comments.map((comment) => (
         <CommentComponent
           key={comment.id}
