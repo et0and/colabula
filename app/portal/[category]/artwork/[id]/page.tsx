@@ -43,18 +43,18 @@ type ArtworkWithRelations = Artwork & {
 };
 
 interface PageProps {
-  params: {
+  params: Promise<{
     category: string;
     id: string;
-  };
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+  }>;
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const artwork = await prisma.artwork.findUnique({
-    where: { id: params.id },
+    where: { id: (await params).id },
     include: { user: true },
   });
 
@@ -72,7 +72,8 @@ export async function generateMetadata({
 }
 
 export default async function ArtworkPage({ params }: PageProps) {
-  const { category, id } = params;
+  const resolvedParams = await params;
+  const { category, id } = resolvedParams;
 
   const categoryUpper = category.toUpperCase() as ArtCategory;
   if (!Object.values(ArtCategory).includes(categoryUpper)) {
