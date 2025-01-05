@@ -47,14 +47,16 @@ interface PageProps {
     category: string;
     id: string;
   }>;
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+
   const artwork = await prisma.artwork.findUnique({
-    where: { id: (await params).id },
+    where: { id },
     include: { user: true },
   });
 
@@ -72,8 +74,7 @@ export async function generateMetadata({
 }
 
 export default async function ArtworkPage({ params }: PageProps) {
-  const resolvedParams = await params;
-  const { category, id } = resolvedParams;
+  const { category, id } = await params;
 
   const categoryUpper = category.toUpperCase() as ArtCategory;
   if (!Object.values(ArtCategory).includes(categoryUpper)) {
