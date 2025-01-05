@@ -18,16 +18,6 @@ import { Loader2, X } from "lucide-react";
 import { signUp } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { whitelistEmails } from "@/lib/constants";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Sign up",
-  description: "Create a new account",
-  openGraph: {
-    title: "Sign up",
-    description: "Create a new account",
-  },
-};
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");

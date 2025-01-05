@@ -17,16 +17,6 @@ import { Loader2 } from "lucide-react";
 import { signIn } from "@/lib/auth-client";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Sign in",
-  description: "Sign in to your account",
-  openGraph: {
-    title: "Sign in",
-    description: "Sign in to your account",
-  },
-};
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
