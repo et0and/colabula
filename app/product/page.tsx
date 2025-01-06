@@ -8,8 +8,9 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-1 py-4">
         <div className="container mx-auto p-6 max-w-3xl">
-          <h1 className="font-bold flex items-center text-5xl mb-8">
-            Aratuku <Brain className="mx-2" size={48} /> product features
+          <h1 className="font-bold flex items-center md:text-5xl text-3xl mb-8">
+            Aratuku <Brain className="mx-2 hidden md:inline-block" size={48} />{" "}
+            product features
           </h1>
 
           <div className="space-y-6 text-lg leading-relaxed">
@@ -18,6 +19,23 @@ export default function Home() {
               feedback among art teachers across New Zealand. Here are its key
               features:
             </p>
+            {/* <div className="relative group">
+              <video
+                className="w-full h-auto rounded"
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                onMouseEnter={(e) => e.currentTarget.play()}
+                onMouseLeave={(e) => e.currentTarget.pause()}
+                autoPlay={
+                  typeof window !== "undefined" && window.innerWidth <= 768
+                }
+              >
+                <source src="/progress.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>{" "} */}
             <h2 className="text-lg font-semibold">
               Progress tracking and sharing
             </h2>

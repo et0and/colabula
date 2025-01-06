@@ -48,7 +48,7 @@ const schoolItems = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background">
+    <header className="sticky top-2 z-50 m-2 rounded-xl border shadow-[0_10px_100px_-15px_rgba(0,0,0,0.1)] bg-background">
       <div className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center space-x-2">
@@ -97,15 +97,15 @@ export function SiteHeader() {
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              <NavigationMenuItem>
+              {/* <NavigationMenuItem>
                 <Link href="/pricing" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     Pricing
                   </NavigationMenuLink>
                 </Link>
-              </NavigationMenuItem>
+              </NavigationMenuItem> */}
               <NavigationMenuItem>
-                <Link href="/demo" legacyBehavior passHref>
+                <Link href="mailto:info@aratuku.com" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     Request a demo
                   </NavigationMenuLink>

@@ -184,7 +184,7 @@ export default function SharingPage() {
           <p className="mb-4">
             For any questions regarding sharing permissions or to report
             unauthorised use of student work, please contact Aratuku&apos;s
-            support team immediately at support@tabula.org.nz.
+            support team immediately at support@aratuku.com.
           </p>
         </div>
       </SidebarInset>
