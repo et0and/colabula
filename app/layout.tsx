@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tabula",
-    template: "%s | Tabula",
+    default: "Aratuku",
+    template: "%s | Aratuku",
   },
   description: "An all-in-one workspace for art teachers",
   metadataBase: new URL("https://tabula.your-domain.com"),
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     url: "https://tabula-sand.vercel.app",
-    siteName: "Tabula",
+    siteName: "Aratuku",
     title: {
-      default: "Tabula",
-      template: "%s | Tabula",
+      default: "Aratuku",
+      template: "%s | Aratuku",
     },
     description: "An all-in-one workspace for art teachers",
     images: [
@@ -35,20 +35,20 @@ export const metadata: Metadata = {
         url: "https://tabula-sand.vercel.app/og.png",
         width: 1200,
         height: 630,
-        alt: "Tabula - An all-in-one workspace for art teachers",
+        alt: "Aratuku - An all-in-one workspace for art teachers",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tabula",
+    title: "Aratuku",
     description: "An all-in-one workspace for art teachers",
     images: [
       {
         url: "https://tabula-sand.vercel.app/og.png",
         width: 1200,
         height: 630,
-        alt: "Tabula - An all-in-one workspace for art teachers",
+        alt: "Aratuku - An all-in-one workspace for art teachers",
       },
     ],
   },

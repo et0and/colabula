@@ -33,7 +33,7 @@ export const auth = betterAuth({
     },
     sendResetPassword: async ({ user, url }) => {
       await resend.emails.send({
-        from: "Tabula <mail@messages.tom.so>",
+        from: "Aratuku <mail@messages.tom.so>",
         to: user.email,
         subject: "Reset your password",
         text: `Click the link to reset your password: ${url}`,
@@ -45,10 +45,10 @@ export const auth = betterAuth({
     autoSignInAfterVerification: true, // Automatically signIn the user after verification
     sendVerificationEmail: async ({ user, url }) => {
       await resend.emails.send({
-        from: "Tabula <mail@messages.tom.so>",
+        from: "Aratuku <mail@messages.tom.so>",
         to: user.email, // email of the user to want to end
-        subject: "Tabula email verification", // Main subject of the email
-        html: `Hi! Click the link to verify your email for Tabula: <a href="${url}">verify email address.</a>`, // Content of the email
+        subject: "Aratuku email verification", // Main subject of the email
+        html: `Hi! Click the link to verify your email for Aratuku: <a href="${url}">verify email address.</a>`, // Content of the email
       });
     },
   },

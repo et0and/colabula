@@ -9,7 +9,7 @@ export function SiteHeader() {
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="ml-6 font-bold">Tabula</span>
+            <span className="ml-6 font-bold">Aratuku</span>
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
             <Button variant="ghost" className="flex items-center gap-2">
@@ -38,7 +38,7 @@ export function SiteHeader() {
             asChild
             className="bg-orange-600 hover:bg-orange-800 font-medium"
           >
-            <Link href="sign-up">Get Tabula</Link>
+            <Link href="sign-up">Get Aratuku</Link>
           </Button>
         </div>
       </div>

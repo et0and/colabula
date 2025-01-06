@@ -29,16 +29,12 @@ export default function SignIn() {
       <Card className="z-50 rounded-xl max-w-md w-full mx-4">
         <CardHeader>
           <div className="flex justify-center items-center">
-            <img
-              src="/tabula-logo.svg"
-              alt="Tabula Logo"
-              className="w-48 h-48"
-            />
+            <img src="/logo.svg" alt="Aratuku Logo" className="w-48 h-48" />
           </div>
           <CardTitle className="text-lg md:text-xl">Welcome back</CardTitle>
           <CardDescription className="text-xs md:text-sm">
             Enter your email below to login to{" "}
-            <span className="font-semibold">Tabula</span>.
+            <span className="font-semibold">Aratuku</span>.
           </CardDescription>
         </CardHeader>
         <CardContent>

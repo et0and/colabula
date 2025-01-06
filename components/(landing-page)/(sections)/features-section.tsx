@@ -9,7 +9,7 @@ export function FeaturesSection() {
             Get feedback from a community of educators.
           </h2>
           <p className="text-gray-500 md:text-xl">
-            Connected to all secondary schools across Aotearoa, Tabula has a
+            Connected to all secondary schools across Aotearoa, Aratuku has a
             national network of teachers and educators.
           </p>
           <button className="text-blue-500 font-medium hover:underline">
