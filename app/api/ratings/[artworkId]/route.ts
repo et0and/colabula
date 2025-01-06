@@ -1,12 +1,12 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { artworkId: string } }
+  req: NextRequest,
+  { params }: { params: Promise<{ artworkId: string }> }
 ) {
   try {
-    const { artworkId } = params;
+    const { artworkId } = await params;
     const userId = req.headers.get("x-user-id");
 
     if (!userId) {
