@@ -35,6 +35,7 @@ model Artwork {
   userId      String
   user        User        @relation(fields: [userId], references: [id])
   comments    Comment[]   // Relation to comments
+  ratings     Rating[]    // Relation to rating
 }
 
 model Comment {
@@ -51,6 +52,19 @@ model Comment {
   replies   Comment[] @relation("CommentReplies")
 }
 
+model Rating {
+  id        String   @id @default(cuid())
+  value     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  artworkId String
+  artwork   Artwork  @relation(fields: [artworkId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, artworkId]) // Ensure one rating per user per artwork
+}
+
 model User {
   id            String    @id
   name          String
@@ -61,8 +75,9 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-  artworks      Artwork[] // Added relation
-  comments      Comment[] // Added relation
+  artworks      Artwork[] 
+  comments      Comment[]
+  ratings       Rating[]
 
   @@unique([email])
   @@map("user")
