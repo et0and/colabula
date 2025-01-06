@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { ArtCategory, Artwork, User, Comment } from "@prisma/client";
+import { ArtCategory, Artwork, User, Comment, Rating } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import {
@@ -35,12 +35,16 @@ import { ArtworkComments } from "@/components/ArtworkComments";
 import { Metadata } from "next";
 import { ShareCard } from "@/components/share-card";
 import { headers } from "next/headers";
+import { PostRating } from "@/components/grading-scale";
 
 type ArtworkWithRelations = Artwork & {
   user: User;
   comments: (Comment & {
     user: User;
     replies: (Comment & { user: User })[];
+  })[];
+  ratings: (Rating & {
+    user: User;
   })[];
 };
 
@@ -59,6 +63,24 @@ export const metadata: Metadata = {
     description: "Access portfolios from schools across Aotearoa",
   },
 };
+
+function calculateAverageRating(ratings: Rating[]): string {
+  if (!ratings.length) return "No grades yet";
+
+  const average =
+    ratings.reduce((acc, rating) => acc + rating.value, 0) / ratings.length;
+
+  // Convert numerical average to grade label
+  if (average === 0) return "NØ";
+  if (average <= 1) return "N1";
+  if (average <= 2) return "N2";
+  if (average <= 3) return "A3";
+  if (average <= 4) return "A4";
+  if (average <= 5) return "M5";
+  if (average <= 6) return "M6";
+  if (average <= 7) return "E7";
+  return "E8";
+}
 
 export default async function CategoryPage({ params }: PageProps) {
   const { category } = await params;
@@ -86,6 +108,11 @@ export default async function CategoryPage({ params }: PageProps) {
               user: true,
             },
           },
+        },
+      },
+      ratings: {
+        include: {
+          user: true,
         },
       },
     },
@@ -159,6 +186,17 @@ export default async function CategoryPage({ params }: PageProps) {
                     <p className="text-xs text-gray-500">
                       Tags: {artwork.tags.join(" + ")}
                     </p>
+                    <div className="flex items-center">
+                      <span className="text-xs text-gray-500">
+                        Average grade: {calculateAverageRating(artwork.ratings)}
+                        {artwork.ratings.length > 0 && (
+                          <span className="text-xs ml-1">
+                            ({artwork.ratings.length}{" "}
+                            {artwork.ratings.length === 1 ? "grade" : "grades"})
+                          </span>
+                        )}
+                      </span>
+                    </div>
                     <div className="flex items-center my-2 gap-2">
                       <ShareCard
                         baseUrl={baseUrl}
@@ -191,6 +229,17 @@ export default async function CategoryPage({ params }: PageProps) {
                     <CarouselNext />
                   </Carousel>
                   <Separator className="mt-4" />
+                  <PostRating
+                    artworkId={artwork.id}
+                    initialRating={artwork.ratings.map((rating) => ({
+                      rating: rating.value,
+                      user: {
+                        id: rating.user.id,
+                        name: rating.user.name,
+                        image: rating.user.image,
+                      },
+                    }))}
+                  />
                 </CardContent>
 
                 <CardFooter className="flex justify-between">
