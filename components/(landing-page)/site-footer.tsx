@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export function SiteFooter() {
   return (
@@ -35,17 +34,7 @@ export function SiteFooter() {
             <p className="text-sm text-gray-500">
               © {new Date().getFullYear()} Cold Sundays, Ltd.
             </p>
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm">
-                English
-              </Button>
-              <Link
-                href="#"
-                className="text-sm text-gray-500 hover:text-gray-900"
-              >
-                Cookie settings
-              </Link>
-            </div>
+            <div className="flex items-center gap-4"></div>
           </div>
         </div>
       </div>
@@ -61,9 +50,5 @@ const footerLinks = [
   {
     title: "Resources",
     links: ["Help center", "Pricing", "Blog"],
-  },
-  {
-    title: "Aratuku for",
-    links: ["Schools", "Teachers", "Researchers", "Explore more →"],
   },
 ];
