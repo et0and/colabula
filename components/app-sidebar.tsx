@@ -1,5 +1,6 @@
 "use client";
 
+import { formatDistanceToNow } from "date-fns";
 import { signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useSession } from "@/lib/auth-client";
@@ -47,8 +48,19 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { UploadForm } from "./upload-form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
+import { Artwork } from "@prisma/client";
+import { getArtworks } from "@/lib/data";
 
-// This is sample data.
+type ArtworkWithUser = Artwork & {
+  user: {
+    id: string;
+    name: string | null;
+    image: string | null;
+  };
+};
+
 const nav = {
   navMain: [
     {
@@ -109,6 +121,35 @@ const nav = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data } = useSession();
+  const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState<ArtworkWithUser[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      const results = await getArtworks(searchTerm);
+      setSearchResults(results);
+    };
+
+    const timeoutId = setTimeout(fetchSearchResults, 300);
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm]);
+
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSuggestionClick = (artwork: ArtworkWithUser) => {
+    setSearchTerm("");
+    setSearchResults([]);
+    router.push(
+      `/portal/${artwork.category.toLowerCase()}/artwork/${artwork.id}`
+    );
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
+  };
 
   return (
     <Sidebar variant="floating" {...props}>
@@ -166,10 +207,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     >
                       <Avatar className="h-8 w-8">
                         <AvatarImage
-                          src="/placeholder.svg?height=32&width=32"
-                          alt="@user"
+                          src={
+                            data?.user.image ||
+                            "/placeholder.svg?height=32&width=32"
+                          }
+                          alt={data?.user.name || "@user"}
                         />
-                        <AvatarFallback className="bg-orange-900" />
+                        <AvatarFallback className="bg-orange-900">
+                          {data?.user.name?.slice(0, 2).toUpperCase() || "U"}
+                        </AvatarFallback>
                       </Avatar>
                     </Button>
                   </DropdownMenuTrigger>
@@ -185,30 +231,42 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <User className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
+                    <DropdownMenuItem asChild>
+                      <Link href="/portal/profile">
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Profile</span>
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Settings className="mr-2 h-4 w-4" />
-                      <span>Settings</span>
+                    <DropdownMenuItem asChild>
+                      <Link href="/portal/settings">
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Settings</span>
+                      </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <Info className="mr-2 h-4 w-4" />
-                      <span>About</span>
+                    <DropdownMenuItem asChild>
+                      <Link href="/portal/about">
+                        <Info className="mr-2 h-4 w-4" />
+                        <span>About</span>
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <ReceiptText className="mr-2 h-4 w-4" />
-                      <span>Terms of Service</span>
+                    <DropdownMenuItem asChild>
+                      <Link href="/portal/terms">
+                        <ReceiptText className="mr-2 h-4 w-4" />
+                        <span>Terms of Service</span>
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Cookie className="mr-2 h-4 w-4" />
-                      <Link href="/portal/privacy-policy">Privacy Policy</Link>
+                    <DropdownMenuItem asChild>
+                      <Link href="/portal/privacy-policy">
+                        <Cookie className="mr-2 h-4 w-4" />
+                        <span>Privacy Policy</span>
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <CodeXml className="mr-2 h-4 w-4" />
-                      <span>Open Source</span>
+                    <DropdownMenuItem asChild>
+                      <Link href="/portal/open-source">
+                        <CodeXml className="mr-2 h-4 w-4" />
+                        <span>Open Source</span>
+                      </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
@@ -231,7 +289,35 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="p-2">
           <div className="relative">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search..." className="pl-8" />
+            <Input
+              ref={inputRef} // Attach ref to the input
+              placeholder="Search (⌘K)"
+              className="pl-8"
+              value={searchTerm}
+              onChange={handleSearchInputChange}
+            />
+
+            {searchResults.length > 0 && searchTerm !== "" && (
+              <ul className="absolute top-12 left-0 w-full bg-white rounded-md shadow-md z-10 border">
+                {searchResults.map((artwork) => (
+                  <li
+                    key={artwork.id}
+                    className="px-3 py-2 cursor-pointer hover:bg-gray-100 flex items-center gap-2"
+                    onClick={() => handleSuggestionClick(artwork)}
+                  >
+                    <div>
+                      <div className="font-semibold">{artwork.title}</div>
+                      <div className="text-sm text-muted-foreground">
+                        posted by {artwork.user?.name || "Unknown"}{" "}
+                        {formatDistanceToNow(artwork.createdAt, {
+                          addSuffix: true,
+                        })}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </SidebarHeader>
