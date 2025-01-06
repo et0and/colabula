@@ -26,10 +26,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contributing",
-  description: "Learn how to contribute to the Tabula platform",
+  description: "Learn how to contribute to the Aratuku platform",
   openGraph: {
     title: "Contributing",
-    description: "Learn how to contribute to the Tabula platform",
+    description: "Learn how to contribute to the Aratuku platform",
   },
 };
 
@@ -62,11 +62,11 @@ export default function Page() {
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-6 flex flex-row gap-2">
             <Handshake className="w-8 h-8 align-middle inline-block hidden md:block" />
-            <span className="align-middle">Contributing on Tabula</span>
+            <span className="align-middle">Contributing on Aratuku</span>
           </h1>
 
           <p className="mb-6">
-            Tabula is a shared collaborative platform. For getting the most out
+            Aratuku is a shared collaborative platform. For getting the most out
             of your time here, we have a few small house-keeping rules.
           </p>
 
@@ -110,13 +110,13 @@ export default function Page() {
                 <CardHeader>
                   <CardTitle>Sharing</CardTitle>
                   <CardDescription>
-                    Seeking permissions for sharing content outside of Tabula
+                    Seeking permissions for sharing content outside of Aratuku
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p>
                     Follow our process for obtaining proper permissions before
-                    sharing any student work outside of the Tabula platform.
+                    sharing any student work outside of the Aratuku platform.
                   </p>
                 </CardContent>
               </CardLink>

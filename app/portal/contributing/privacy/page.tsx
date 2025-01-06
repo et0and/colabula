@@ -55,7 +55,7 @@ export default function PrivacyPage() {
           <p className="mb-4">
             Before uploading any student artwork, ensure you have their consent.
             This consent should specifically cover sharing work within the
-            Tabula platform for educational, non-commercial purposes.
+            Aratuku platform for educational, non-commercial purposes.
           </p>
 
           <p className="mb-4">
@@ -73,8 +73,8 @@ export default function PrivacyPage() {
 
           <p className="mb-4">
             Restrict portfolio sharing to verified art educators within the
-            Tabula network. Never share direct links to student work outside the
-            platform without explicit permission.{" "}
+            Aratuku network. Never share direct links to student work outside
+            the platform without explicit permission.{" "}
             <a
               href="/portal/contributing/sharing"
               className="link"

@@ -8,13 +8,9 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center space-x-2 mb-4">
-              <img
-                src="/tabula-logo.svg"
-                alt="Tabula Logo"
-                className="h-36 w-36"
-              />
+              <img src="/logo.svg" alt="Aratuku Logo" className="h-36 w-36" />
             </Link>
-            <p className="text-gray-500">Tabula, a product by Cold Sundays</p>
+            <p className="text-gray-500">Aratuku, a product by Cold Sundays</p>
           </div>
           {footerLinks.map((section) => (
             <div key={section.title} className="space-y-4">
@@ -67,7 +63,7 @@ const footerLinks = [
     links: ["Help center", "Pricing", "Blog"],
   },
   {
-    title: "Tabula for",
+    title: "Aratuku for",
     links: ["Schools", "Teachers", "Researchers", "Explore more →"],
   },
 ];

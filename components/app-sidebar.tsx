@@ -115,22 +115,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="flex items-center justify-between w-full">
-              <SidebarMenuButton isActive={false} size="lg" asChild>
-                <div className="flex items-center gap-2">
-                  <img
-                    src="/tabula-logo.svg"
-                    alt="Tabula Logo"
-                    className="h-28 w-28"
-                  />
-                  {/* <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-semibold">Tabula</span>
-                    <span className="bg-gradient-to-r from-blue-400 via-blue-350 to-blue-700 text-white text-xs px-1 rounded">
-                      Alpha v0.0.1
-                    </span>
-                  </div> */}
+            <div className="flex items-center justify-between w-full p-2">
+              <div className="flex items-center gap-2">
+                <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-semibold">Aratuku</span>
+                  <span className="bg-gradient-to-r from-black via-orange-350 to-orange-700 text-white text-xs px-1 rounded">
+                    Beta v0.1
+                  </span>
                 </div>
-              </SidebarMenuButton>
+              </div>
               <div className="flex items-center gap-2">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -264,6 +257,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
+          <img src="/logo.svg" alt="Aratuku Logo" className="h-28 w-28" />
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>

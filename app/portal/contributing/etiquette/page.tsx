@@ -63,7 +63,7 @@ export default function EtiquettePage() {
           <h2 className="font-semibold text-xl">Constructive communication</h2>
           <p className="mb-4">
             Personal attacks or negative comments about individuals have no
-            place on Tabula. Keep discussions professional and centered on
+            place on Aratuku. Keep discussions professional and centered on
             artistic development.
           </p>
 

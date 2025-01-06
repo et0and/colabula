@@ -55,13 +55,13 @@ export default function SharingPage() {
             General Consent and Permissions
           </h2>
           <p className="mb-4">
-            All sharing of student work outside of the Tabula platform requires
+            All sharing of student work outside of the Aratuku platform requires
             explicit written permission from the student and their
             parent/guardian if the student is under 18 years of age. The
-            original consent given for uploading work to Tabula does not extend
+            original consent given for uploading work to Aratuku does not extend
             to any external platforms, websites, or physical reproduction.
             Teachers must obtain separate documented approval before sharing
-            student work in any format outside of Tabula.
+            student work in any format outside of Aratuku.
           </p>
           <h2 className="text-xl font-semibold mb-3">
             Social Media and External Platforms
@@ -129,7 +129,7 @@ export default function SharingPage() {
             </li>{" "}
             <li>Their teacher has approved the portfolio for public viewing</li>{" "}
             <li>
-              They link directly to their Tabula portfolio rather than creating
+              They link directly to their Aratuku portfolio rather than creating
               external copies
             </li>{" "}
             <li>
@@ -160,30 +160,30 @@ export default function SharingPage() {
             Copyright and Ownership
           </h2>{" "}
           <p className="mb-4">
-            Students retain full intellectual copyright of their work. Tabula
+            Students retain full intellectual copyright of their work. Aratuku
             and Cold Sundays Ltd serve solely as platform providers and content
             custodians.
           </p>
           <p className="mb-4">
-            The open-source nature of the Tabula platform does not extend to any
-            user-generated content. Teachers and schools may not claim ownership
-            of student work uploaded to the platform.
+            The open-source nature of the Aratuku platform does not extend to
+            any user-generated content. Teachers and schools may not claim
+            ownership of student work uploaded to the platform.
           </p>
           <h2 className="text-xl font-semibold mb-3">
             Enforcement and Liability
           </h2>
           <p className="mb-4">
-            Tabula monitors for potential misuse but cannot guarantee prevention
-            of unauthorised sharing. Users found violating these sharing
-            guidelines may have their platform access restricted or terminated.
-            While Tabula will assist in addressing violations, ultimate
-            responsibility for proper sharing lies with the user. Users who
-            share content in violation of these guidelines may be held legally
-            responsible for any resulting damages.
+            Aratuku monitors for potential misuse but cannot guarantee
+            prevention of unauthorised sharing. Users found violating these
+            sharing guidelines may have their platform access restricted or
+            terminated. While Aratuku will assist in addressing violations,
+            ultimate responsibility for proper sharing lies with the user. Users
+            who share content in violation of these guidelines may be held
+            legally responsible for any resulting damages.
           </p>
           <p className="mb-4">
             For any questions regarding sharing permissions or to report
-            unauthorised use of student work, please contact Tabula&apos;s
+            unauthorised use of student work, please contact Aratuku&apos;s
             support team immediately at support@tabula.org.nz.
           </p>
         </div>

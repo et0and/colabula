@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
 
           <h2 className="font-semibold text-xl">Introduction</h2>
           <p className="mb-4 ">
-            This Privacy Policy explains how Tabula, operated by{" "}
+            This Privacy Policy explains how Aratuku, operated by{" "}
             <a href="https://cold-sundays.com" className="link" target="_blank">
               Cold Sundays Ltd
             </a>{" "}
@@ -81,7 +81,7 @@ export default function PrivacyPolicyPage() {
             Content Ownership and Rights
           </h2>
           <p className="mb-4 ">
-            Tabula, Cold Sundays Ltd, and Yufugumi Holdings do not claim
+            Aratuku, Cold Sundays Ltd, and Yufugumi Holdings do not claim
             ownership of any content uploaded to the platform. All rights remain
             with the respective copyright holders and authors.
           </p>
@@ -92,7 +92,7 @@ export default function PrivacyPolicyPage() {
           <p className="mb-4 ">
             Teachers must obtain explicit consent and permission from students
             (and their guardians where applicable) before uploading any student
-            work to Tabula. This includes:
+            work to Aratuku. This includes:
           </p>
           <ul className="list-disc pl-6 space-y-2 mb-4">
             <li>Written consent for sharing student artwork</li>
@@ -117,7 +117,7 @@ export default function PrivacyPolicyPage() {
 
           <h2 className="font-semibold text-xl">Open Source Commitment</h2>
           <p className="mb-4 ">
-            Tabula is an open-source platform licensed under{" "}
+            Aratuku is an open-source platform licensed under{" "}
             <a
               href="https://www.gnu.org/licenses/agpl-3.0.en.html#license-text"
               className="link"

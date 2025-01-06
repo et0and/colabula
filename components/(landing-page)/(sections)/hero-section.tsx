@@ -12,7 +12,7 @@ export function HeroSection() {
               <div className="relative w-full h-[400px]">
                 <Image
                   src="/hero.svg"
-                  alt="Illustration of a person using Tabula"
+                  alt="Illustration of a person using Aratuku"
                   className="object-contain"
                   fill
                   priority
@@ -32,7 +32,7 @@ export function HeroSection() {
               className="bg-orange-600 hover:bg-orange-800"
               asChild
             >
-              <Link href="/sign-up">Get Tabula free</Link>
+              <Link href="/sign-up">Get Aratuku free</Link>
             </Button>
             <Button size="lg" variant="outline">
               Request a demo
@@ -78,7 +78,7 @@ export function HeroSection() {
           <div className="relative w-full h-[600px]">
             <Image
               src="/hero.svg"
-              alt="Illustration of a person using Tabula"
+              alt="Illustration of a person using Aratuku"
               className="object-contain"
               fill
               priority
