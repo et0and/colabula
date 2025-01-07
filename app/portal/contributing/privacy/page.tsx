@@ -93,8 +93,8 @@ export default function PrivacyPage() {
 
           <p className="mb-4">
             Should a student wish to have their work removed from the platform,
-            they can email removal@tabula.org.nz. We will then remove the work
-            and destroy it from our database permanently.
+            they can email removal@aratuku.com. We will then remove the work and
+            destroy it from our database permanently.
           </p>
         </div>
       </SidebarInset>

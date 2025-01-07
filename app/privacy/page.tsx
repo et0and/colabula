@@ -1,53 +1,13 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Privacy policy",
-  description: "Learn about our privacy policy",
-  openGraph: {
-    title: "Privacy policy",
-    description: "Learn about our privacy policy",
-  },
-};
+import { SiteHeader } from "@/components/(landing-page)/site-header";
+import { SiteFooter } from "@/components/(landing-page)/site-footer";
 
 export default function PrivacyPolicyPage() {
   return (
-    <SidebarProvider
-      style={
-        {
-          "--sidebar-width": "19rem",
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink>Privacy Policy</BreadcrumbLink>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </header>
-        <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-6 flex flex-row gap-2">
-            <span className="align-middle">Privacy Policy</span>
-          </h1>
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
+      <main className="flex-1 py-4">
+        <div className="container mx-auto p-6 max-w-3xl">
+          <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
 
           <h2 className="font-semibold text-xl">Introduction</h2>
           <p className="mb-4 ">
@@ -141,7 +101,8 @@ export default function PrivacyPolicyPage() {
             privacy@aratuku.com.
           </p>
         </div>
-      </SidebarInset>
-    </SidebarProvider>
+      </main>
+      <SiteFooter />
+    </div>
   );
 }

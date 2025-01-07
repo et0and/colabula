@@ -29,13 +29,13 @@ export function HeroSection() {
           <div className="flex flex-col gap-3 min-[400px]:flex-row">
             <Button
               size="lg"
-              className="bg-orange-600 hover:bg-orange-800"
+              className="relative overflow-hidden px-6 py-2.5 font-medium text-white bg-gradient-to-b from-orange-500 to-orange-600 shadow-xl transition-all duration-200 ease-in-out hover:from-orange-600 hover:to-orange-700 hover:shadow-orange-500/25 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 active:scale-[0.98] animate-glow"
               asChild
             >
-              <Link href="/sign-up">Get Aratuku free</Link>
-            </Button>
-            <Button size="lg" variant="outline">
-              Request a demo
+              <Link href="/sign-up">
+                Get Aratuku free{" "}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+              </Link>
             </Button>
           </div>
           <div className="space-y-4">
