@@ -51,7 +51,7 @@ export function SiteHeader() {
     <header className="sticky top-2 z-50 m-2 rounded-xl border shadow-[0_10px_100px_-15px_rgba(0,0,0,0.1)] backdrop-blur-lg bg-white/30">
       <div className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" prefetch className="flex items-center space-x-2">
             <span className="hidden sm:inline-flex sm:ml-6 font-bold text-xl hover:text-orange-600 transition-colors duration-800 items-center gap-2">
               Aratuku
               <span className="bg-orange-600 px-2 rounded-full text-white text-xs">
@@ -99,7 +99,7 @@ export function SiteHeader() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/open-source" legacyBehavior passHref>
+                <Link href="/open-source" prefetch legacyBehavior passHref>
                   <NavigationMenuLink
                     className={`${navigationMenuTriggerStyle()} bg-transparent`}
                   >
@@ -177,23 +177,23 @@ export function SiteHeader() {
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+>(({ className, title, children, ...props }) => {
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a
-          ref={ref}
+        <Link
+          prefetch
+          href={props.href || ""}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
-          {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );
