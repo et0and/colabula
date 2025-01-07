@@ -77,7 +77,11 @@ export const MacbookScroll = ({
         }}
         className="dark:text-white text-neutral-800 text-3xl font-bold mb-20 text-center"
       >
-        {title || <span>Built on open technologies from the ground up.</span>}
+        {title || (
+          <span>
+            This Macbook is built with Tailwindcss. <br /> No kidding.
+          </span>
+        )}
       </motion.h2>
       {/* Lid */}
       <Lid
@@ -158,14 +162,14 @@ export const Lid = ({
           transformStyle: "preserve-3d",
           transformOrigin: "top",
         }}
-        className="h-96 w-full absolute inset-0 bg-[#ffffff] rounded-2xl p-2"
+        className="h-96 w-[32rem] absolute inset-0 bg-[#010101] rounded-2xl p-2"
       >
-        <div className="absolute inset-0 bg-[#ffffff] rounded-lg" />
+        <div className="absolute inset-0 bg-[#272729] rounded-lg" />
         <Image
           src={src as string}
-          alt="aceternity logo"
+          alt="Aratuku screenshot"
           fill
-          className="object-contain rounded-lg inset-0 h-full w-full"
+          className="object-cover object-left-top absolute rounded-lg inset-0 h-full w-full"
         />
       </motion.div>
     </div>

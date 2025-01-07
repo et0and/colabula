@@ -8,9 +8,9 @@ import { SiteFooter } from "@/components/(landing-page)/site-footer";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col mx-auto">
+    <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="flex-1">
+      <main className="flex-1 mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <HeroSection />
         <FeaturesSection />
         {/*         <TemplatesSection />

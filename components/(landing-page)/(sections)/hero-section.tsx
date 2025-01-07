@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import ShimmerButton from "@/components/ui/shimmer-button";
 import HeroVideoDialog from "@/components/ui/hero-video-dialog";
-import { MacbookScroll } from "@/components/ui/macbook-scroll";
-
+/* import { MacbookScroll } from "@/components/ui/macbook-scroll";
+ */
 export function HeroSection() {
   return (
     <section className="container px-4 md:px-6 py-6 md:py-12">
@@ -98,7 +98,9 @@ export function HeroSection() {
           thumbnailAlt="Hero Video"
         />
       </div>
-      <MacbookScroll src="/portal2.png" />
+      {/* <div className="hidden sm:block">
+        <MacbookScroll src="/portal2.png" />
+      </div> */}
     </section>
   );
 }
