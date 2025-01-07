@@ -48,7 +48,7 @@ const schoolItems = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-2 z-50 m-2 rounded-xl border shadow-[0_10px_100px_-15px_rgba(0,0,0,0.1)] bg-background">
+    <header className="sticky top-2 z-50 m-2 rounded-xl border shadow-[0_10px_100px_-15px_rgba(0,0,0,0.1)] backdrop-blur-lg bg-white/30">
       <div className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center space-x-2">
@@ -59,7 +59,9 @@ export function SiteHeader() {
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Product</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent">
+                  Product
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
                     {productItems.map((item) => (
@@ -75,7 +77,9 @@ export function SiteHeader() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Schools</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent">
+                  Schools
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
                     {schoolItems.map((item) => (
@@ -92,7 +96,9 @@ export function SiteHeader() {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href="/open-source" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} bg-transparent`}
+                  >
                     Open source
                   </NavigationMenuLink>
                 </Link>
@@ -106,7 +112,9 @@ export function SiteHeader() {
               </NavigationMenuItem> */}
               <NavigationMenuItem>
                 <Link href="mailto:info@aratuku.com" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} bg-transparent`}
+                  >
                     Request a demo
                   </NavigationMenuLink>
                 </Link>
@@ -116,7 +124,7 @@ export function SiteHeader() {
           <NavigationMenu className="md:hidden">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-xl font-bold">
+                <NavigationMenuTrigger className="text-xl font-bold bg-transparent">
                   Aratuku
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
