@@ -1,6 +1,8 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import ShimmerButton from "@/components/ui/shimmer-button";
+import HeroVideoDialog from "@/components/ui/hero-video-dialog";
+import { MacbookScroll } from "@/components/ui/macbook-scroll";
 
 export function HeroSection() {
   return (
@@ -27,22 +29,24 @@ export function HeroSection() {
             </p>
           </div>
           <div className="flex flex-col gap-3 min-[400px]:flex-row">
-            <Button
-              size="lg"
+            <ShimmerButton
+              shimmerSize="0.1em"
+              borderRadius="0.5rem"
+              shimmerDuration="8s"
+              shimmerColor="#f97316"
               className="relative overflow-hidden px-6 py-2.5 font-medium text-white bg-gradient-to-b from-orange-500 to-orange-600 shadow-xl transition-all duration-200 ease-in-out hover:from-orange-600 hover:to-orange-700 hover:shadow-orange-500/25 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 active:scale-[0.98] animate-glow"
-              asChild
             >
               <Link href="/sign-up">
                 Get Aratuku free{" "}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
               </Link>
-            </Button>
+            </ShimmerButton>
           </div>
           <div className="space-y-4">
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Trusted by teachers at
             </p>
-            <div className="flex flex-wrap gap-6 items-center">
+            {/* <div className="flex flex-wrap gap-6 items-center">
               <Image
                 src="/tgs_layerstyle.svg"
                 alt="Takapuna Grammar School"
@@ -71,7 +75,7 @@ export function HeroSection() {
                 width={100}
                 height={32}
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="hidden lg:flex items-center justify-center">
@@ -86,6 +90,15 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+      <div className="flex items-center justify-center w-full mt-12 hidden md:block">
+        <HeroVideoDialog
+          animationStyle="from-center"
+          videoSrc="/ara.mp4"
+          thumbnailSrc="/portal.png"
+          thumbnailAlt="Hero Video"
+        />
+      </div>
+      <MacbookScroll src="/portal2.png" />
     </section>
   );
 }

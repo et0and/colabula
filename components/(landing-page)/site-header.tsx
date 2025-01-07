@@ -52,10 +52,14 @@ export function SiteHeader() {
       <div className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="hidden sm:inline-block sm:ml-6 font-bold text-xl hover:text-orange-600 transition-colors duration-800">
+            <span className="hidden sm:inline-flex sm:ml-6 font-bold text-xl hover:text-orange-600 transition-colors duration-800 items-center gap-2">
               Aratuku
+              <span className="bg-orange-600 px-2 rounded-full text-white text-xs">
+                Beta
+              </span>
             </span>
           </Link>
+
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
               <NavigationMenuItem>

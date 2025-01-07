@@ -6,6 +6,8 @@ import { getArtworks } from "@/lib/data";
 import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Artwork } from "@prisma/client";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { DialogTitle } from "./ui/dialog";
 
 type ArtworkWithUser = Artwork & {
   user: {
@@ -58,16 +60,20 @@ const CommandMenu = () => {
     <>
       {open && (
         <div
-          className="fixed inset-0 bg-black/50 transition-opacity animate-in fade-in"
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm transition-all animate-in fade-in"
           onClick={() => setOpen(false)}
         />
       )}
+
       <Command.Dialog
         open={open}
         onOpenChange={setOpen}
         label="Global Command Menu"
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[640px] w-full bg-white rounded-lg shadow-lg border"
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[640px] w-full bg-white rounded-lg shadow-lg border [&_[cmdk-input]]:rounded-full"
       >
+        <VisuallyHidden>
+          <DialogTitle>Search command menu</DialogTitle>
+        </VisuallyHidden>
         <Command.Input
           value={searchTerm}
           onValueChange={setSearchTerm}

@@ -16,8 +16,11 @@ export function SiteFooter() {
               <Link href="https://status.aratuku.com" className="link text-sm">
                 Status
               </Link>
-              <Link href="/open-source" className="link text-sm">
-                Open source
+              <Link
+                href="https://github.com/et0and/aratuku"
+                className="link text-sm"
+              >
+                Source code
               </Link>{" "}
               <Link href="/privacy" className="link text-sm">
                 Privacy Policy

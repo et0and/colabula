@@ -18,9 +18,7 @@ import {
   LogOut,
   ReceiptText,
   Search,
-  Settings,
   Upload,
-  User,
 } from "lucide-react";
 
 import {
@@ -232,38 +230,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                      <Link href="/portal/profile">
-                        <User className="mr-2 h-4 w-4" />
-                        <span>Profile</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/portal/settings">
-                        <Settings className="mr-2 h-4 w-4" />
-                        <span>Settings</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                      <Link href="/portal/about">
+                      <Link href="/about">
                         <Info className="mr-2 h-4 w-4" />
                         <span>About</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/portal/terms">
+                      <Link href="/tos">
                         <ReceiptText className="mr-2 h-4 w-4" />
                         <span>Terms of Service</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/portal/privacy-policy">
+                      <Link href="/privacy">
                         <Cookie className="mr-2 h-4 w-4" />
                         <span>Privacy Policy</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/portal/open-source">
+                      <Link href="/open-source">
                         <CodeXml className="mr-2 h-4 w-4" />
                         <span>Open Source</span>
                       </Link>
