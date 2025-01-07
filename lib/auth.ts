@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "@prisma/client";
 import { resend } from "./email";
+import { ResetPasswordEmail, VerificationEmail } from "@/emails/templates";
 import { whitelistEmails } from "./constants";
 
 const prisma = new PrismaClient();
@@ -36,7 +37,7 @@ export const auth = betterAuth({
         from: "Aratuku <mail@messages.tom.so>",
         to: user.email,
         subject: "Reset your password",
-        text: `Click the link to reset your password: ${url}`,
+        react: ResetPasswordEmail({ url }),
       });
     },
   },
@@ -48,7 +49,7 @@ export const auth = betterAuth({
         from: "Aratuku <mail@messages.tom.so>",
         to: user.email, // email of the user to want to end
         subject: "Aratuku email verification", // Main subject of the email
-        html: `Hi! Click the link to verify your email for Aratuku: <a href="${url}">verify email address.</a>`, // Content of the email
+        react: VerificationEmail({ url }),
       });
     },
   },
