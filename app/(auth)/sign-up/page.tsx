@@ -57,146 +57,184 @@ export default function SignUp() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="first-name">First name</Label>
-                <Input
-                  id="first-name"
-                  placeholder="Max"
-                  required
-                  onChange={(e) => {
-                    setFirstName(e.target.value);
-                  }}
-                  value={firstName}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="last-name">Last name</Label>
-                <Input
-                  id="last-name"
-                  placeholder="Robinson"
-                  required
-                  onChange={(e) => {
-                    setLastName(e.target.value);
-                  }}
-                  value={lastName}
-                />
-              </div>
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                value={email}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="new-password"
-                placeholder="Password"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Confirm Password</Label>
-              <Input
-                id="password_confirmation"
-                type="password"
-                value={passwordConfirmation}
-                onChange={(e) => setPasswordConfirmation(e.target.value)}
-                autoComplete="new-password"
-                placeholder="Confirm Password"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="image">Profile Image (optional)</Label>
-              <div className="flex items-end gap-4">
-                {imagePreview && (
-                  <div className="relative w-16 h-16 rounded-sm overflow-hidden">
-                    <Image
-                      src={imagePreview}
-                      alt="Profile preview"
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                )}
-                <div className="flex items-center gap-2 w-full">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              if (form.checkValidity()) {
+                // Existing signup logic
+              } else {
+                form.reportValidity();
+              }
+            }}
+          >
+            <div className="grid gap-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="first-name">First name</Label>
                   <Input
-                    id="image"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="w-full"
+                    id="first-name"
+                    placeholder="Miki"
+                    required
+                    autoComplete="given-name"
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                    }}
+                    value={firstName}
                   />
-                  {imagePreview && (
-                    <X
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setImage(null);
-                        setImagePreview(null);
-                      }}
-                    />
-                  )}
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="last-name">Last name</Label>
+                  <Input
+                    id="last-name"
+                    placeholder="Yufu"
+                    required
+                    autoComplete="family-name"
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                    }}
+                    value={lastName}
+                  />
                 </div>
               </div>
-            </div>
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={loading}
-              onClick={async () => {
-                const domain = email.split("@")[1];
-                if (!whitelistEmails.includes(domain)) {
-                  toast.error(
-                    "Only authorised schools are allowed to register"
-                  );
-                  return;
-                }
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="name@example.com"
+                  required
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  value={email}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="new-password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="password">Confirm Password</Label>
+                <Input
+                  id="password_confirmation"
+                  type="password"
+                  value={passwordConfirmation}
+                  onChange={(e) => setPasswordConfirmation(e.target.value)}
+                  autoComplete="new-password"
+                  placeholder="Confirm Password"
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="image">Profile image (optional)</Label>
+                <div className="flex items-end gap-4">
+                  {imagePreview && (
+                    <div className="relative w-16 h-16 rounded-sm overflow-hidden">
+                      <Image
+                        src={imagePreview}
+                        alt="Profile preview"
+                        layout="fill"
+                        objectFit="cover"
+                      />
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2 w-full">
+                    <Input
+                      id="image"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="w-full"
+                    />
+                    {imagePreview && (
+                      <X
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setImage(null);
+                          setImagePreview(null);
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={loading}
+                onClick={async () => {
+                  if (
+                    !email ||
+                    !password ||
+                    !firstName ||
+                    !lastName ||
+                    !passwordConfirmation
+                  ) {
+                    toast.error("Please fill in all required fields");
+                    return;
+                  }
 
-                await signUp.email({
-                  email,
-                  password,
-                  name: `${firstName} ${lastName}`,
-                  image: image ? await convertImageToBase64(image) : "",
-                  callbackURL: "/portal",
-                  fetchOptions: {
-                    onResponse: () => {
-                      setLoading(false);
-                    },
-                    onRequest: () => {
-                      setLoading(true);
-                    },
-                    onError: (ctx) => {
-                      toast.error(ctx.error.message);
-                    },
-                    onSuccess: async () => {
-                      toast.success(
-                        "A verification link has been sent to your email"
-                      );
-                    },
-                  },
-                });
-              }}
-            >
-              {loading ? (
-                <Loader2 size={16} className="animate-spin" />
-              ) : (
-                "Create an account"
-              )}
-            </Button>
-          </div>
+                  if (password !== passwordConfirmation) {
+                    toast.error("Passwords do not match");
+                    return;
+                  }
+
+                  const domain = email.split("@")[1];
+                  if (!whitelistEmails.includes(domain)) {
+                    toast.error(
+                      "Only authorised schools are allowed to register"
+                    );
+                    return;
+                  }
+
+                  setLoading(true);
+                  try {
+                    await signUp.email({
+                      email,
+                      password,
+                      name: `${firstName} ${lastName}`,
+                      image: image ? await convertImageToBase64(image) : "",
+                      callbackURL: "/portal/painting",
+                      fetchOptions: {
+                        onResponse: () => {
+                          setLoading(false);
+                        },
+                        onRequest: () => {
+                          setLoading(true);
+                        },
+                        onError: (ctx) => {
+                          toast.error(ctx.error.message);
+                        },
+                        onSuccess: async () => {
+                          toast.success(
+                            "A verification link has been sent to your email"
+                          );
+                        },
+                      },
+                    });
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+              >
+                {loading ? (
+                  <Loader2 size={16} className="animate-spin" />
+                ) : (
+                  "Create an account"
+                )}
+              </Button>
+            </div>
+          </form>
         </CardContent>
         <CardFooter>
           <div className="flex justify-center w-full border-t py-4">

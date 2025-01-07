@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,8 +22,8 @@ import { cn } from "@/lib/utils";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-neutral-50 py-8">
@@ -38,79 +39,102 @@ export default function SignIn() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="name@example.com"
-                required
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                value={email}
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link
-                  href="#"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Forgot your password?
-                </Link>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              if (form.checkValidity()) {
+                // Existing sign in logic
+              } else {
+                form.reportValidity();
+              }
+            }}
+          >
+            <div className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  required
+                  autoComplete="email"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  value={email}
+                />
               </div>
 
-              <Input
-                id="password"
-                type="password"
-                placeholder="password"
-                autoComplete="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+              <div className="grid gap-2">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Password</Label>
+                  <Link
+                    href="/forgot-password"
+                    className="ml-auto inline-block text-sm underline"
+                  >
+                    Forgot your password?
+                  </Link>
+                </div>
 
-            <div className="flex items-center gap-2">
-              <Checkbox
-                id="remember"
-                onClick={() => {
-                  setRememberMe(!rememberMe);
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="password"
+                  autoComplete="password"
+                  value={password}
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  id="remember"
+                  onClick={() => {
+                    setRememberMe(!rememberMe);
+                  }}
+                />
+                <Label htmlFor="remember">Remember me</Label>
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={loading}
+                onClick={async () => {
+                  if (!email || !password) {
+                    toast.error("Please enter both email and password");
+                    return;
+                  }
+
+                  setLoading(true);
+                  try {
+                    await signIn.email({
+                      email,
+                      password,
+                      callbackURL: "/portal/painting",
+                    });
+                  } finally {
+                    setLoading(false);
+                  }
                 }}
-              />
-              <Label htmlFor="remember">Remember me</Label>
+              >
+                {loading ? (
+                  <Loader2 size={16} className="animate-spin" />
+                ) : (
+                  "Login"
+                )}
+              </Button>
+
+              <div
+                className={cn(
+                  "w-full gap-2 flex items-center",
+                  "justify-between flex-col"
+                )}
+              ></div>
             </div>
-
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={loading}
-              // In the onClick handler of the Button component
-              onClick={async () => {
-                await signIn.email({
-                  email,
-                  password,
-                  callbackURL: "/portal/painting",
-                });
-              }}
-            >
-              {loading ? (
-                <Loader2 size={16} className="animate-spin" />
-              ) : (
-                "Login"
-              )}
-            </Button>
-
-            <div
-              className={cn(
-                "w-full gap-2 flex items-center",
-                "justify-between flex-col"
-              )}
-            ></div>
-          </div>
+          </form>
         </CardContent>
         <CardFooter>
           <div className="flex justify-center w-full border-t py-4">
