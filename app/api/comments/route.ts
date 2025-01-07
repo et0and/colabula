@@ -1,7 +1,15 @@
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+  const sessionData = await auth.api.getSession({
+    headers: req.headers,
+  });
+
+  if (!sessionData?.user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     const { content, artworkId, userId, parentId } = await req.json();
 
