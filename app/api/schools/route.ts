@@ -2,6 +2,7 @@ import { SchoolApiResponse } from "@/types/schools";
 import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { compress } from "@/lib/compression";
+import { auth } from "@/lib/auth";
 
 // Initialize Redis client
 const redis = new Redis({
@@ -12,7 +13,14 @@ const redis = new Redis({
 // Cache key for Upstash
 const CACHE_KEY = "schools_list";
 
-export async function GET() {
+export async function GET(req: Request) {
+  const sessionData = await auth.api.getSession({
+    headers: req.headers,
+  });
+
+  if (!sessionData?.user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     // Try to get cached data first
     const cachedSchools = await redis.get<string[]>(CACHE_KEY);

@@ -23,5 +23,12 @@ export default async function authMiddleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/portal/:path*"],
+  matcher: [
+    "/portal/:path*",
+    "/api/ratings/:path*",
+    "/api/comments/:path*",
+    "/api/upload/:path*",
+    "/api/search/:path*",
+    "/api/schools/:path*",
+  ],
 };
