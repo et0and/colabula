@@ -28,6 +28,8 @@ export function UploadForm() {
   const [schools, setSchools] = useState<string[]>([]);
   const [loadingSchools, setLoadingSchools] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
+  const [generatedTags, setGeneratedTags] = useState<string>("");
+  const [isGeneratingTags, setIsGeneratingTags] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -64,6 +66,30 @@ export function UploadForm() {
     }
   }
 
+  const analyzeImage = async (file: File) => {
+    setIsGeneratingTags(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/llama", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to analyze image");
+      }
+
+      const data = await response.json();
+      setGeneratedTags(data.tags || "");
+    } catch (error) {
+      console.error("Error analyzing image:", error);
+    } finally {
+      setIsGeneratingTags(false);
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -95,6 +121,10 @@ export function UploadForm() {
                 if (totalSize > 50 * 1024 * 1024) {
                   e.target.value = "";
                   alert("Total file size must be less than 50MiB");
+                }
+                // Analyze the first image
+                if (files.length > 0) {
+                  analyzeImage(files[0]);
                 }
               }}
             />
@@ -182,7 +212,15 @@ export function UploadForm() {
               name="tags"
               placeholder="landscape,oil paint,nature"
               required
+              value={generatedTags}
+              onChange={(e) => setGeneratedTags(e.target.value)}
             />
+            {isGeneratingTags && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Generating tags...
+              </div>
+            )}
           </div>
 
           <Button type="submit" className="w-full" disabled={isUploading}>
