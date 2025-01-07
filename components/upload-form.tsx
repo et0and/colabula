@@ -22,6 +22,7 @@ import { ArtCategory } from "@prisma/client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Textarea } from "./ui/textarea";
+import { toast } from "sonner";
 
 export function UploadForm() {
   const [open, setOpen] = useState(false);
@@ -78,7 +79,7 @@ export function UploadForm() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to analyze image");
+        toast.error("Sorry, I couldn't analyse this portfolio");
       }
 
       const data = await response.json();
@@ -129,7 +130,8 @@ export function UploadForm() {
               }}
             />
             <p className="text-xs text-muted-foreground">
-              Add an image (JPG, PNG or WEBP up to 50MiB)
+              Add one or more images (JPG, PNG or WEBP up to 50MiB). We will
+              scan the first image for tags.
             </p>
           </div>
 
