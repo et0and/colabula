@@ -33,6 +33,10 @@ import {
 } from "@/components/ui/sidebar";
 import { ArtworkComments } from "@/components/ArtworkComments";
 import { Metadata } from "next";
+import { Rating } from "@prisma/client";
+import { ShareCard } from "@/components/share-card";
+import { PostRating } from "@/components/grading-scale";
+import { headers } from "next/headers";
 
 type ArtworkWithRelations = Artwork & {
   user: User;
@@ -40,7 +44,28 @@ type ArtworkWithRelations = Artwork & {
     user: User;
     replies: (Comment & { user: User })[];
   })[];
+  ratings: (Rating & {
+    user: User;
+  })[];
 };
+
+function calculateAverageRating(ratings: Rating[]): string {
+  if (!ratings.length) return "No grades yet";
+
+  const average =
+    ratings.reduce((acc, rating) => acc + rating.value, 0) / ratings.length;
+
+  // Convert numerical average to grade label
+  if (average === 0) return "NØ";
+  if (average <= 1) return "N1";
+  if (average <= 2) return "N2";
+  if (average <= 3) return "A3";
+  if (average <= 4) return "A4";
+  if (average <= 5) return "M5";
+  if (average <= 6) return "M6";
+  if (average <= 7) return "E7";
+  return "E8";
+}
 
 interface PageProps {
   params: Promise<{
@@ -75,6 +100,10 @@ export async function generateMetadata({
 
 export default async function ArtworkPage({ params }: PageProps) {
   const { category, id } = await params;
+  const headersList = headers();
+  const host = (await headersList).get("host") || "";
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
 
   const categoryUpper = category.toUpperCase() as ArtCategory;
   if (!Object.values(ArtCategory).includes(categoryUpper)) {
@@ -96,6 +125,11 @@ export default async function ArtworkPage({ params }: PageProps) {
               user: true,
             },
           },
+        },
+      },
+      ratings: {
+        include: {
+          user: true,
         },
       },
     },
@@ -166,6 +200,24 @@ export default async function ArtworkPage({ params }: PageProps) {
                 <p className="text-xs text-gray-500">
                   Tags: {artwork.tags.join(" + ")}
                 </p>
+                <div className="flex items-center">
+                  <span className="text-xs text-gray-500">
+                    Average grade: {calculateAverageRating(artwork.ratings)}
+                    {artwork.ratings.length > 0 && (
+                      <span className="text-xs ml-1">
+                        ({artwork.ratings.length}{" "}
+                        {artwork.ratings.length === 1 ? "grade" : "grades"})
+                      </span>
+                    )}
+                  </span>
+                </div>
+                <div className="flex items-center my-2 gap-2">
+                  <ShareCard
+                    baseUrl={baseUrl}
+                    category={category}
+                    artworkId={artwork.id}
+                  />
+                </div>
               </div>
             </CardHeader>
 
@@ -190,8 +242,19 @@ export default async function ArtworkPage({ params }: PageProps) {
                 <CarouselPrevious />
                 <CarouselNext />
               </Carousel>
+              <Separator className="mt-4" />
+              <PostRating
+                artworkId={artwork.id}
+                initialRating={artwork.ratings.map((rating) => ({
+                  rating: rating.value,
+                  user: {
+                    id: rating.user.id,
+                    name: rating.user.name,
+                    image: rating.user.image,
+                  },
+                }))}
+              />
             </CardContent>
-
             <CardFooter>
               <ArtworkComments
                 artwork={{
