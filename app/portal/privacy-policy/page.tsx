@@ -68,8 +68,12 @@ export default function PrivacyPolicyPage() {
           </h2>
           <p className="mb-4 ">
             We use{" "}
-            <a href="https://posthog.com" className="link" target="_blank">
-              Posthog
+            <a
+              href="https://vercel.com/docs/analytics"
+              className="link"
+              target="_blank"
+            >
+              Vercel Analytics
             </a>{" "}
             as our analytics provider to collect non-identifiable information
             about platform usage. This helps us improve our services and user
