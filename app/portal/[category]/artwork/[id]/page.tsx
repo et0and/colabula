@@ -37,6 +37,12 @@ import { Rating } from "@prisma/client";
 import { ShareCard } from "@/components/share-card";
 import { PostRating } from "@/components/grading-scale";
 import { headers } from "next/headers";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+} from "@radix-ui/react-dialog";
 
 type ArtworkWithRelations = Artwork & {
   user: User;
@@ -228,13 +234,39 @@ export default async function ArtworkPage({ params }: PageProps) {
                   {artwork.imageUrls.map((imageUrl, index) => (
                     <CarouselItem key={index}>
                       <div className="p-1">
-                        <Image
-                          src={imageUrl}
-                          alt={`${artwork.title} - Image ${index + 1}`}
-                          width={800}
-                          height={600}
-                          className="w-full h-auto rounded-lg shadow"
-                        />
+                        <div className="block md:hidden">
+                          <Image
+                            src={imageUrl}
+                            alt={`${artwork.title} - Image ${index + 1}`}
+                            width={800}
+                            height={600}
+                            className="w-full h-auto rounded-lg shadow"
+                          />
+                        </div>
+
+                        <Dialog>
+                          <DialogTrigger className="hidden md:block w-full">
+                            <Image
+                              src={imageUrl}
+                              alt={`${artwork.title} - Image ${index + 1}`}
+                              width={800}
+                              height={600}
+                              className="w-full h-auto rounded-lg shadow cursor-zoom-in transition-transform hover:scale-[1.02]"
+                            />
+                          </DialogTrigger>
+                          <DialogContent className="max-w-screen-xl w-fit">
+                            <DialogTitle className="sr-only">
+                              {`${artwork.title} - Image ${index + 1}`}
+                            </DialogTitle>
+                            <Image
+                              src={imageUrl}
+                              alt={`${artwork.title} - Image ${index + 1}`}
+                              width={1920}
+                              height={1080}
+                              className="w-auto max-h-[80vh] h-auto object-contain"
+                            />
+                          </DialogContent>
+                        </Dialog>
                       </div>
                     </CarouselItem>
                   ))}
