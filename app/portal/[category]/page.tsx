@@ -1,5 +1,11 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import {
+  assessmentLevelDescriptions,
+  assessmentLevelUrls,
+} from "@/lib/constants";
+import { Info } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { ArtCategory, Artwork, User, Comment, Rating } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
@@ -176,22 +182,65 @@ export default async function CategoryPage({ params }: PageProps) {
                     <p className="text-sm text-gray-500">
                       {new Date(artwork.createdAt).toLocaleString()}
                     </p>
-                    <p className="text-sm text-gray-500">
-                      Portfolio from{" "}
-                      <a
-                        href={`https://google.com/search?q=${encodeURIComponent(
-                          artwork.school
-                        )}`}
-                        className="link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {artwork.school}
-                      </a>
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm text-gray-500 text-left">
+                        Portfolio from{" "}
+                        <a
+                          href={`https://google.com/search?q=${encodeURIComponent(artwork.school)}`}
+                          className="link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {artwork.school}
+                        </a>
+                        , {artwork.assessmentLevel} standard
+                      </p>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-4 w-4"
+                          >
+                            <Info
+                              className="h-3 w-3"
+                              color="white"
+                              fill="blue"
+                            />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-md max-w-xs rounded">
+                          <DialogTitle>About this standard</DialogTitle>
+                          <p className="text-sm text-muted-foreground">
+                            {
+                              assessmentLevelDescriptions[
+                                artwork.assessmentLevel as keyof typeof assessmentLevelDescriptions
+                              ]
+                            }
+                          </p>
+                          <p className="text-sm mt-4">
+                            <a
+                              href={
+                                assessmentLevelUrls[
+                                  artwork
+                                    .assessmentLevel[0] as keyof typeof assessmentLevelUrls
+                                ]
+                              }
+                              className="link"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              View NZQA source material{" "}
+                            </a>
+                          </p>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+
                     <p className="text-xs text-gray-500">
                       Tags: {artwork.tags.join(" + ")}
                     </p>
+
                     <div className="flex items-center">
                       <span className="text-xs text-gray-500">
                         Average grade: {calculateAverageRating(artwork.ratings)}

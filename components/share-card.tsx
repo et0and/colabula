@@ -27,11 +27,11 @@ export function ShareCard({ baseUrl, category, artworkId }: ShareCardProps) {
           Share
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-w-xs rounded">
         <DialogHeader>
           <DialogTitle>Share link</DialogTitle>
           <DialogDescription>
-            Copy the link below to share this artwork with others.
+            Copy the link below to share this artwork with other Aratuku members
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">

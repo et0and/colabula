@@ -59,6 +59,7 @@ export async function POST(req: Request) {
   const category = formData.get("category") as ArtCategory;
   const title = formData.get("title") as string;
   const school = formData.get("school") as string;
+  const assessmentLevel = formData.get("assessmentLevel") as string;
   const tags = (formData.get("tags") as string)
     .split(",")
     .map((tag) => tag.trim());
@@ -70,6 +71,7 @@ export async function POST(req: Request) {
       school,
       category,
       imageUrls,
+      assessmentLevel,
       tags,
       content,
       userId: sessionData.user.id,
