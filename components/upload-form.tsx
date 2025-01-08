@@ -99,7 +99,7 @@ export function UploadForm() {
           From computer
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Upload portfolio</DialogTitle>
         </DialogHeader>
@@ -155,6 +155,36 @@ export function UploadForm() {
                 {Object.values(ArtCategory).map((category) => (
                   <SelectItem key={category} value={category}>
                     {category.charAt(0) + category.slice(1).toLowerCase()}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="assessmentLevel">Assessment level</Label>
+            <Select name="assessmentLevel" required>
+              <SelectTrigger>
+                <SelectValue placeholder="Select level" />
+              </SelectTrigger>
+              <SelectContent>
+                {[
+                  "1.1",
+                  "1.2",
+                  "1.3",
+                  "1.4",
+                  "2.1",
+                  "2.2",
+                  "2.3",
+                  "2.4",
+                  "3.1",
+                  "3.2",
+                  "3.3",
+                  "3.4",
+                  "3.5",
+                ].map((level) => (
+                  <SelectItem key={level} value={level}>
+                    {level}
                   </SelectItem>
                 ))}
               </SelectContent>

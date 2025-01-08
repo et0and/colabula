@@ -26,6 +26,7 @@ model Artwork {
   title       String      @db.Text
   school      String
   category    ArtCategory
+  assessmentLevel String      
   imageUrls   String[]    
   tags        String[]    @db.Text
   content     String      @db.Text
