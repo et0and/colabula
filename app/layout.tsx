@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Aratuku",
   },
   description: "An all-in-one workspace for art teachers",
-  metadataBase: new URL("https://tabula.your-domain.com"),
+  metadataBase: new URL("https://tabula-sand.vercel.app"),
   openGraph: {
     type: "website",
     locale: "en_GB",
