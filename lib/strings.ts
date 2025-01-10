@@ -112,10 +112,6 @@ export const siteFooterContent = {
       title: "Terms of Service",
       href: "/tos",
     },
-    {
-      title: "Roadmap",
-      href: "https://lindie.app/share/e7e2aa1f4c23f3dd5d3895da22714ef85c0aa03a",
-    },
   ],
 };
 
