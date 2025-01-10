@@ -1,5 +1,10 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import {
+  assessmentLevelDescriptions,
+  assessmentLevelUrls,
+} from "@/lib/strings";
+
 import { ArtCategory, Artwork, User, Comment } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
@@ -31,6 +36,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { Info } from "lucide-react";
 import { ArtworkComments } from "@/components/ArtworkComments";
 import { Metadata } from "next";
 import { Rating } from "@prisma/client";
@@ -42,10 +48,12 @@ import {
   DialogTrigger,
   DialogContent,
   DialogTitle,
-} from "@radix-ui/react-dialog";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 type ArtworkWithRelations = Artwork & {
   user: User;
+  assessmentLevel: string;
   comments: (Comment & {
     user: User;
     replies: (Comment & { user: User })[];
@@ -194,7 +202,7 @@ export default async function ArtworkPage({ params }: PageProps) {
                   Portfolio from{" "}
                   <a
                     href={`https://google.com/search?q=${encodeURIComponent(
-                      artwork.school,
+                      artwork.school
                     )}`}
                     className="link"
                     target="_blank"
@@ -203,6 +211,44 @@ export default async function ArtworkPage({ params }: PageProps) {
                     {artwork.school}
                   </a>
                 </p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm text-gray-500 text-left">
+                    {artwork.assessmentLevel} standard
+                  </p>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="ghost" size="icon" className="h-4 w-4">
+                        <Info className="h-3 w-3" color="white" fill="blue" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md max-w-xs rounded">
+                      <DialogTitle>About this standard</DialogTitle>
+                      <p className="text-sm text-muted-foreground">
+                        {
+                          assessmentLevelDescriptions[
+                            artwork.assessmentLevel as keyof typeof assessmentLevelDescriptions
+                          ]
+                        }
+                      </p>
+                      <p className="text-sm mt-4">
+                        <a
+                          href={
+                            assessmentLevelUrls[
+                              artwork
+                                .assessmentLevel[0] as keyof typeof assessmentLevelUrls
+                            ]
+                          }
+                          className="link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View NZQA source material{" "}
+                        </a>
+                      </p>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+
                 <p className="text-xs text-gray-500">
                   Tags: {artwork.tags.join(" + ")}
                 </p>

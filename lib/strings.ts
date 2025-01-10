@@ -1,4 +1,13 @@
 import { stripIndents } from "common-tags";
+
+// Emails
+
+export const aratukuEmails = {
+  main: "info@aratuku.com",
+  support: "support@aratuku.com",
+  privacy: "privacy@aratuku.com",
+};
+
 // Main site labels
 
 export const siteHeaderContent = {
@@ -242,6 +251,84 @@ export const privacyPageContent = {
   ],
 };
 
+export const termsOfServiceContent = {
+  title: "Terms of Service",
+  sections: [
+    {
+      heading: "1. Acceptance of Terms",
+      content: stripIndents`
+        By accessing and using Aratuku, you agree to be bound by these Terms
+        of Service. If you do not agree to these terms, you may not use the
+        platform.
+      `,
+    },
+    {
+      heading: "2. Use of the Platform",
+      content: stripIndents`
+        Aratuku is provided for educational purposes. You agree to use the
+        platform responsibly and in compliance with all applicable laws and
+        regulations. You are responsible for all activity that occurs under
+        your account.
+      `,
+    },
+    {
+      heading: "3. Content Ownership",
+      content: stripIndents`
+        Students retain full ownership of any content that their teachers
+        upload to Aratuku. Teachers and other parties may not use content
+        published on Aratuku for purposes outside of the platform without
+        their explicit consent, or permission from their legal guardian(s).
+      `,
+    },
+    {
+      heading: "4. Prohibited Conduct",
+      content: stripIndents`
+        You agree not to use Aratuku to:
+
+        * Violate any applicable laws or regulations.
+        * Infringe upon the intellectual property rights of others.
+        * Upload or share any harmful, offensive, or inappropriate content.
+        * Interfere with the operation of the platform.
+      `,
+    },
+    {
+      heading: "5. Disclaimer of Warranties",
+      content: stripIndents`
+        Aratuku is provided "as is" without any warranties,
+        express or implied. We do not guarantee the availability,
+        reliability, or accuracy of the platform.
+      `,
+    },
+    {
+      heading: "6. Limitation of Liability",
+      content: stripIndents`
+        To the maximum extent permitted by law, Aratuku shall not be liable
+        for any damages arising from the use of the platform.
+      `,
+    },
+    {
+      heading: "7. Governing Law",
+      content: stripIndents`
+        These Terms of Service shall be governed by and construed in
+        accordance with the laws of New Zealand.
+      `,
+    },
+    {
+      heading: "8. Changes to Terms",
+      content: stripIndents`
+        We reserve the right to update these Terms of Service at any time.
+        You will be notified of any material changes.
+      `,
+    },
+    {
+      heading: "9. Contact Us",
+      content: stripIndents`
+        If you have any questions about these Terms of Service, please
+        contact us at info@aratuku.com.
+      `,
+    },
+  ],
+};
 
 export const aboutPageContent = {
   title: "About Aratuku",
@@ -306,7 +393,6 @@ export const openSourcePageContent = {
   ],
 };
 
-
 export const schoolsPageContent = {
   title: "Aratuku is for schools",
   sections: [
@@ -331,4 +417,102 @@ export const schoolsPageContent = {
   ],
 };
 
+export const productPageContent = {
+  title: "Aratuku is constantly evolving",
+  sections: [
+    {
+      content: stripIndents`
+        The Aratuku platform is designed to facilitate collaboration and
+        feedback among art teachers across New Zealand.
+      `,
+    },
+    {
+      heading: "Progress tracking and sharing",
+      content: stripIndents`
+        Teachers can upload student artwork at various stages, from
+        initial concepts to final portfolios. The platform supports
+        various image formats with a file size limit of up to 50MiB per
+        image, allowing for the sharing of high-resolution work. This
+        feature enables colleagues to provide early guidance and iterative
+        feedback, ensuring students are on track with assessment criteria.
+      `,
+    },
+    {
+      heading: "Collaborative feedback and discussion",
+      content: stripIndents`
+        Aratuku fosters a national network of art educators, promoting
+        ongoing professional development and the sharing of best
+        practices. Teachers can engage in discussions, offer constructive
+        critiques, and provide indicative grades using structured
+        assessment tools, helping to maintain consistency in assessment
+        across different schools and regions.
+      `,
+    },
+    {
+      heading: "Privacy and consent",
+      content: stripIndents`
+        The platform emphasizes the importance of student privacy.
+        Teachers are required to obtain explicit consent from students and
+        their guardians before uploading any artwork. Personal
+        identifiable information is to be removed or obscured, and sharing
+        is restricted to verified art educators within the network.
+        Students retain the right to request the removal of their work,
+        and the platform ensures the protection of their intellectual
+        property.
+      `,
+    },
+    {
+      heading: "Technical features",
+      list: [
+        "Built using Next.js 15 and React 19 with App Router and TypeScript.",
+        "Frontend design built using Tailwind CSS and Shadcn UI.",
+        "PostgreSQL with Prisma ORM and Supabase for database management.",
+        "Cloudflare R2 for secure cloud data storage.",
+        "Licensed AGPL-3.0.",
+      ],
+    },
+    {
+      content: stripIndents`
+        These features collectively aim to create a supportive and
+        connected art education community, ultimately benefiting both
+        teachers and students in New Zealand.
+      `,
+    },
+  ],
+};
 // Portal content
+
+// Assessment levels information
+
+export const assessmentLevelUrls = {
+  "1": "https://www.nzqa.govt.nz/ncea/assessment/search.do?query=visual+arts&view=all&level=01",
+  "2": "https://www.nzqa.govt.nz/ncea/assessment/search.do?query=visual+arts&view=all&level=02",
+  "3": "https://www.nzqa.govt.nz/ncea/assessment/search.do?query=visual+arts&view=all&level=03",
+};
+
+export const assessmentLevelDescriptions = {
+  "1.1":
+    "This standard focuses on developing ideas in art making through understanding art works and cultural contexts",
+  "1.2":
+    "This standard focuses on using drawing methods and skills for recording information using wet and dry media",
+  "1.3":
+    "This standard focuses on producing a body of work informed by established practice",
+  "1.4":
+    "This standard focuses on producing a resolved work that demonstrates control of skills appropriate to cultural conventions",
+  "2.1":
+    "This standard focuses on examining and investigating art-making methods and ideas through practical inquiry within identified conventions",
+  "2.2":
+    "This standard focuses on using drawing methods to apply knowledge of conventions",
+  "2.3":
+    "This standard focuses on systematically clarifying ideas using drawing informed by established practice",
+  "2.4":
+    "This standard focuses on producing a systematic body of work that integrates conventions and regenerates ideas",
+  "3.1":
+    "This standard focuses on critically analysing methods and ideas from established practice",
+  "3.2":
+    "This standard focuses on extending ideas using drawing methods independently",
+  "3.3":
+    "This standard focuses on systematically clarifying ideas using drawing informed by established practice",
+  "3.4":
+    "This standard focuses on producing a systematic body of work that integrates conventions and regenerates ideas",
+};

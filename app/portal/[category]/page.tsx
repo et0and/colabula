@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import {
   assessmentLevelDescriptions,
   assessmentLevelUrls,
-} from "@/lib/constants";
+} from "@/lib/strings";
 import { Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ArtCategory, Artwork, User, Comment, Rating } from "@prisma/client";
@@ -67,14 +67,22 @@ interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export const metadata: Metadata = {
-  title: "Portal",
-  description: "Access portfolios from schools across Aotearoa",
-  openGraph: {
-    title: "Portal",
-    description: "Access portfolios from schools across Aotearoa",
-  },
-};
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { category } = await params;
+  const categoryName =
+    category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+
+  return {
+    title: categoryName,
+    description: `Access ${categoryName} portfolios from schools across Aotearoa`,
+    openGraph: {
+      title: categoryName,
+      description: `Access ${categoryName} portfolios from schools across Aotearoa`,
+    },
+  };
+}
 
 function calculateAverageRating(ratings: Rating[]): string {
   if (!ratings.length) return "No grades yet";
@@ -324,15 +332,6 @@ export default async function CategoryPage({ params }: PageProps) {
                 </CardContent>
 
                 <CardFooter className="flex justify-between">
-                  {/* <Button variant="ghost" size="sm">
-                  <Heart className="w-4 h-4 mr-2" />
-                  {artwork.likes} Likes
-                </Button>
-                <Button variant="ghost" size="sm">
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  {artwork.comments.length} Comments
-                </Button> */}
-
                   <ArtworkComments
                     artwork={{
                       ...artwork,

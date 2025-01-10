@@ -36,7 +36,7 @@ export function ProductShowcase() {
 
   return (
     <>
-      <div className="container mx-auto px-4 sm:px-12 gap4">
+      <div className="container mx-auto px-4 sm:px-16 gap4">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
           {productShowcaseContent.title}
         </h2>

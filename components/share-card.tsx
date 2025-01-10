@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 interface ShareCardProps {
   baseUrl: string;
@@ -42,6 +43,7 @@ export function ShareCard({ baseUrl, category, artworkId }: ShareCardProps) {
             className="px-3"
             onClick={() => {
               navigator.clipboard.writeText(shareUrl);
+              toast.success("Link copied to clipboard");
             }}
           >
             Copy

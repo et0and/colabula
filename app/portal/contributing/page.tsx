@@ -89,7 +89,7 @@ export default function Page() {
             </Card>
 
             <Card className="hover:bg-muted">
-              <CardLink href="/portal/contributing/privacy">
+              <CardLink href="/privacy">
                 <CardHeader>
                   <CardTitle>Privacy</CardTitle>
                   <CardDescription>
