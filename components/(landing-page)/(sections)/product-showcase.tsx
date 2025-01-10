@@ -53,7 +53,7 @@ export function ProductShowcase() {
               poster="/thumbs/ncea-standards.webp"
               className="w-full h-full object-cover"
             >
-              <source src="/videos/ncea-standards.webm" type="video/mp4" />
+              <source src="/videos/ncea-standards.mp4" type="video/mp4" />
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
@@ -73,7 +73,7 @@ export function ProductShowcase() {
               poster="/thumbs/submit-grades.webp"
               className="w-full h-full object-cover"
             >
-              <source src="/videos/submit-grades.webm" type="video/mp4" />
+              <source src="/videos/submit-grades.mp4" type="video/mp4" />
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
@@ -93,7 +93,7 @@ export function ProductShowcase() {
               poster="/thumbs/global-search.webp"
               className="w-full h-full object-cover"
             >
-              <source src="/videos/global-search.webm" type="video/mp4" />
+              <source src="/videos/global-search.mp4" type="video/mp4" />
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
@@ -113,7 +113,7 @@ export function ProductShowcase() {
               poster="/thumbs/auto-tags.webp"
               className="w-full h-full object-cover"
             >
-              <source src="/videos/auto-tags.webm" type="video/mp4" />
+              <source src="/videos/auto-tags.mp4" type="video/mp4" />
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
@@ -133,7 +133,7 @@ export function ProductShowcase() {
               poster="/thumbs/share-link.webp"
               className="w-full h-full object-cover"
             >
-              <source src="/videos/share-link.webm" type="video/mp4" />
+              <source src="/videos/share-link.mp4" type="video/mp4" />
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
@@ -153,7 +153,7 @@ export function ProductShowcase() {
               poster="/thumbs/threaded-comments.webp"
               className="w-full h-full object-cover"
             >
-              <source src="/videos/threaded-comments.webm" type="video/mp4" />
+              <source src="/videos/threaded-comments.mp4" type="video/mp4" />
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
