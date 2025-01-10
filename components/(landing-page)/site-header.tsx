@@ -99,7 +99,7 @@ export function SiteHeader() {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="text-xl font-bold bg-transparent">
-                  {siteHeaderContent.productMenu.trigger}
+                  {siteHeaderContent.logo.text}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[300px] gap-3 p-4">
