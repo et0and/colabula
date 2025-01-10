@@ -13,7 +13,7 @@ export default async function authMiddleware(request: NextRequest) {
         //get the cookie from the request
         cookie: request.headers.get("cookie") || "",
       },
-    }
+    },
   );
 
   if (!session) {

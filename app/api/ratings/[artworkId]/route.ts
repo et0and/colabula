@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ artworkId: string }> }
+  { params }: { params: Promise<{ artworkId: string }> },
 ) {
   const sessionData = await auth.api.getSession({
     headers: req.headers,
@@ -20,7 +20,7 @@ export async function GET(
     if (!userId) {
       return NextResponse.json(
         { error: "User ID not provided" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -38,7 +38,7 @@ export async function GET(
     console.error("Error fetching rating:", error);
     return NextResponse.json(
       { error: "Failed to fetch rating" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

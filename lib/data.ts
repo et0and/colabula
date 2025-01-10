@@ -10,7 +10,7 @@ type ArtworkWithUser = Artwork & {
 };
 
 export const getArtworks = async (
-  searchTerm: string
+  searchTerm: string,
 ): Promise<ArtworkWithUser[]> => {
   if (searchTerm.length < 3) {
     return [];
@@ -18,7 +18,7 @@ export const getArtworks = async (
 
   try {
     const response = await fetch(
-      `/api/search?q=${encodeURIComponent(searchTerm)}`
+      `/api/search?q=${encodeURIComponent(searchTerm)}`,
     );
     if (!response.ok) {
       throw new Error("Failed to fetch");

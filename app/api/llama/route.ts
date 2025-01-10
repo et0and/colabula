@@ -54,7 +54,7 @@ export async function POST(req: Request) {
     console.error("Error analyzing image:", error);
     return NextResponse.json(
       { error: "Failed to analyze image" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

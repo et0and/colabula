@@ -192,7 +192,7 @@ export default function SignUp() {
                   const domain = email.split("@")[1];
                   if (!whitelistEmails.includes(domain)) {
                     toast.error(
-                      "Only authorised schools are allowed to register"
+                      "Only authorised schools are allowed to register",
                     );
                     return;
                   }
@@ -217,7 +217,7 @@ export default function SignUp() {
                         },
                         onSuccess: async () => {
                           toast.success(
-                            "A verification link has been sent to your email"
+                            "A verification link has been sent to your email",
                           );
                         },
                       },

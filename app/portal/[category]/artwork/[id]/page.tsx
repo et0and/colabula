@@ -194,7 +194,7 @@ export default async function ArtworkPage({ params }: PageProps) {
                   Portfolio from{" "}
                   <a
                     href={`https://google.com/search?q=${encodeURIComponent(
-                      artwork.school
+                      artwork.school,
                     )}`}
                     className="link"
                     target="_blank"

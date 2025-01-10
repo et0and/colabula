@@ -21,7 +21,7 @@ const CommandMenu = () => {
   const [open, setOpen] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState<ArtworkWithUser[]>(
-    []
+    [],
   );
   const router = useRouter();
 
@@ -50,7 +50,7 @@ const CommandMenu = () => {
 
   const handleSelect = (artwork: ArtworkWithUser) => {
     router.push(
-      `/portal/${artwork.category.toLowerCase()}/artwork/${artwork.id}`
+      `/portal/${artwork.category.toLowerCase()}/artwork/${artwork.id}`,
     );
     setOpen(false);
     setSearchTerm("");

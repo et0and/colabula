@@ -69,14 +69,14 @@ const HoverRevealSlip = ({ show }: { show: React.ReactNode }) => {
       {/* Back cover - static */}
       <div
         className={cn(
-          "absolute inset-0 h-full w-48 rounded-lg bg-gray-50 shadow-md"
+          "absolute inset-0 h-full w-48 rounded-lg bg-gray-50 shadow-md",
         )}
       ></div>
 
       {/* Card container with slight book opening effect on hover */}
       <div
         className={cn(
-          "relative z-50 h-full w-48 origin-left transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(-30deg)]"
+          "relative z-50 h-full w-48 origin-left transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(-30deg)]",
         )}
       >
         {/* Front side of the card */}
@@ -90,7 +90,7 @@ const HoverRevealSlip = ({ show }: { show: React.ReactNode }) => {
       {/* Sliding link/tab coming out from behind */}
       <div
         className={cn(
-          "z-1 absolute bottom-0 right-0 flex h-48 w-14 -translate-x-10 transform items-start justify-start rounded-r-lg bg-green-600 pl-2 pt-2 text-xs font-bold text-white transition-transform duration-300 ease-in-out [backface-visibility:hidden] group-hover:translate-x-0 group-hover:rotate-[5deg]"
+          "z-1 absolute bottom-0 right-0 flex h-48 w-14 -translate-x-10 transform items-start justify-start rounded-r-lg bg-green-600 pl-2 pt-2 text-xs font-bold text-white transition-transform duration-300 ease-in-out [backface-visibility:hidden] group-hover:translate-x-0 group-hover:rotate-[5deg]",
         )}
       >
         <div className="-rotate-90 whitespace-nowrap pb-16 pr-9">

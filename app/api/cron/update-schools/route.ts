@@ -20,7 +20,7 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      `https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT * FROM "4b292323-9fcc-41f8-814b-3c7b19cf14b3"`
+      `https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT * FROM "4b292323-9fcc-41f8-814b-3c7b19cf14b3"`,
     );
 
     if (!response.ok) {
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
     console.error("Error updating schools:", error);
     return NextResponse.json(
       { error: "Failed to update schools" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

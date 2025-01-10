@@ -32,14 +32,14 @@ export async function POST(req: Request) {
     if (!ALLOWED_TYPES.includes(file.type)) {
       return Response.json(
         { error: "Only JPG, PNG and WEBP files are allowed" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (file.size > MAX_FILE_SIZE) {
       return Response.json(
         { error: "Individual file size must be less than 50MiB" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 

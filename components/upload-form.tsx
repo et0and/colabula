@@ -117,7 +117,7 @@ export function UploadForm() {
                 const files = Array.from(e.target.files || []);
                 const totalSize = files.reduce(
                   (sum, file) => sum + file.size,
-                  0
+                  0,
                 );
                 if (totalSize > 50 * 1024 * 1024) {
                   e.target.value = "";

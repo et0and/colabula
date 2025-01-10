@@ -21,7 +21,7 @@ export function ProductShowcase() {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     videoRefs.current.forEach((video) => {

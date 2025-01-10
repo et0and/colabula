@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     if (!content?.trim() || !artworkId || !userId) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     console.error("Error creating comment:", error);
     return NextResponse.json(
       { error: "Failed to create comment" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

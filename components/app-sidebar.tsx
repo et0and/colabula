@@ -142,7 +142,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     setSearchTerm("");
     setSearchResults([]);
     router.push(
-      `/portal/${artwork.category.toLowerCase()}/artwork/${artwork.id}`
+      `/portal/${artwork.category.toLowerCase()}/artwork/${artwork.id}`,
     );
     if (inputRef.current) {
       inputRef.current.blur();

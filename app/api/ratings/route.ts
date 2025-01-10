@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     if (!artworkId || rating === undefined || !userId) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     console.error("Error creating rating:", error);
     return NextResponse.json(
       { error: "Failed to create rating" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -48,7 +48,7 @@ export async function PUT(req: Request) {
     if (!artworkId || rating === undefined || !userId) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -72,7 +72,7 @@ export async function PUT(req: Request) {
     console.error("Error updating rating:", error);
     return NextResponse.json(
       { error: "Failed to update rating" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

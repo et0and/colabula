@@ -130,7 +130,7 @@ export default function SignIn() {
               <div
                 className={cn(
                   "w-full gap-2 flex items-center",
-                  "justify-between flex-col"
+                  "justify-between flex-col",
                 )}
               ></div>
             </div>

@@ -32,7 +32,7 @@ export const PostRating: React.FC<PostRatingProps> = ({
     // Update to use initialRating prop instead of fetching
     if (session?.user?.id && initialRating?.length) {
       const userRating = initialRating.find(
-        (r) => r.user.id === session.user.id
+        (r) => r.user.id === session.user.id,
       );
       if (userRating) {
         setRating(userRating.rating);
@@ -91,20 +91,20 @@ export const PostRating: React.FC<PostRatingProps> = ({
           {rating === 0
             ? "NØ"
             : rating === 1
-            ? "N1"
-            : rating === 2
-            ? "N2"
-            : rating === 3
-            ? "A3"
-            : rating === 4
-            ? "A4"
-            : rating === 5
-            ? "M5"
-            : rating === 6
-            ? "M6"
-            : rating === 7
-            ? "E7"
-            : "E8"}
+              ? "N1"
+              : rating === 2
+                ? "N2"
+                : rating === 3
+                  ? "A3"
+                  : rating === 4
+                    ? "A4"
+                    : rating === 5
+                      ? "M5"
+                      : rating === 6
+                        ? "M6"
+                        : rating === 7
+                          ? "E7"
+                          : "E8"}
         </span>
       </div>
       <Slider
@@ -130,8 +130,8 @@ export const PostRating: React.FC<PostRatingProps> = ({
         {isSubmitting
           ? "Submitting..."
           : existingRating
-          ? "Update grade"
-          : "Submit grade"}
+            ? "Update grade"
+            : "Submit grade"}
       </Button>
     </div>
   );

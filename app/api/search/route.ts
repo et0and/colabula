@@ -47,7 +47,7 @@ export async function GET(req: Request) {
     console.error("Error fetching search results:", error);
     return NextResponse.json(
       { error: "Failed to fetch results" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
