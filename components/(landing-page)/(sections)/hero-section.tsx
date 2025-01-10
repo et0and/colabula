@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ShimmerButton from "@/components/ui/shimmer-button";
+import { heroContent } from "@/lib/strings";
 /* import HeroVideoDialog from "@/components/ui/hero-video-dialog";
  *//* import { MacbookScroll } from "@/components/ui/macbook-scroll";
  */
@@ -22,10 +23,10 @@ export function HeroSection() {
               </div>
             </div>
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-              All-in-one workspace for art teachers
+              {heroContent.title}
             </h1>
             <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-              Share. Grade. Collaborate.
+              {heroContent.subtitle}
             </p>
           </div>
           <div className="flex flex-col gap-3 min-[400px]:flex-row">
@@ -37,14 +38,14 @@ export function HeroSection() {
               className="relative overflow-hidden px-6 py-2.5 font-medium text-white bg-gradient-to-b from-orange-500 to-orange-600 shadow-xl transition-all duration-200 ease-in-out hover:from-orange-600 hover:to-orange-700 hover:shadow-orange-500/25 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 active:scale-[0.98] animate-glow"
             >
               <Link href="/sign-up">
-                Get Aratuku free{" "}
+                {heroContent.ctaButton}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
               </Link>
             </ShimmerButton>
           </div>
           <div className="space-y-4">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Trusted by teachers at
+              {heroContent.trustedByText}
             </p>
             {/* <div className="flex flex-wrap gap-6 items-center">
               <Image

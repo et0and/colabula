@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { productShowcaseContent } from "@/lib/strings";
 
 export function ProductShowcase() {
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
@@ -21,7 +22,7 @@ export function ProductShowcase() {
           }
         });
       },
-      { threshold: 0.5 },
+      { threshold: 0.5 }
     );
 
     videoRefs.current.forEach((video) => {
@@ -35,9 +36,9 @@ export function ProductShowcase() {
 
   return (
     <>
-      <div className="container mx-auto px-4 sm:px-12 gap4">
+      <div className="container mx-auto px-4 sm:px-16 gap4">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-          Built with teachers in mind.
+          {productShowcaseContent.title}
         </h2>
 
         {/* Video 0: NCEA Standards */}
@@ -56,7 +57,7 @@ export function ProductShowcase() {
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
-            Refer to the appropriate Achievement Standard, whenever you need it
+            {productShowcaseContent.nceaFeatureCaption}
           </p>
         </div>
 
@@ -76,7 +77,7 @@ export function ProductShowcase() {
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
-            Give feedback through indicative grades tied to the NCEA system
+            {productShowcaseContent.gradesFeatureCaption}
           </p>
         </div>
 
@@ -96,7 +97,7 @@ export function ProductShowcase() {
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
-            Search for anything, anywhere
+            {productShowcaseContent.globalSearchFeatureCaption}
           </p>
         </div>
 
@@ -116,7 +117,7 @@ export function ProductShowcase() {
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
-            Let Llama Vision handle auto-tagging of uploaded work
+            {productShowcaseContent.autoTaggingFeatureCaption}
           </p>
         </div>
 
@@ -136,7 +137,7 @@ export function ProductShowcase() {
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
-            Share specific entries with others, or bookmark them for later
+            {productShowcaseContent.shareLinkFeatureCaption}
           </p>
         </div>
 
@@ -156,7 +157,7 @@ export function ProductShowcase() {
             </video>
           </div>
           <p className="text-sm mt-4 text-gray-600 md:text-base text-center">
-            Threaded comments for better conversations with colleagues
+            {productShowcaseContent.commentsFeatureCaption}
           </p>
         </div>
       </div>
