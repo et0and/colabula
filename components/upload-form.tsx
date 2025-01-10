@@ -19,30 +19,28 @@ import {
   SelectValue,
 } from "./ui/select";
 import { ArtCategory } from "@prisma/client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
 
 export function UploadForm() {
   const [open, setOpen] = useState(false);
-  const [schools, setSchools] = useState<string[]>([]);
-  const [loadingSchools, setLoadingSchools] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [generatedTags, setGeneratedTags] = useState<string>("");
   const [isGeneratingTags, setIsGeneratingTags] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    async function fetchSchools() {
-      setLoadingSchools(true);
+  const { data: schools = [], isLoading: loadingSchools } = useQuery<string[]>({
+    queryKey: ["schools"],
+    queryFn: async () => {
       const response = await fetch("/api/schools");
-      const schoolNames = await response.json();
-      setSchools(schoolNames);
-      setLoadingSchools(false);
-    }
-    fetchSchools();
-  }, []);
+      return response.json();
+    },
+    staleTime: 1000 * 60 * 60, // Cache for 1 hour
+    gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours (formerly cacheTime)
+  });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -117,7 +115,7 @@ export function UploadForm() {
                 const files = Array.from(e.target.files || []);
                 const totalSize = files.reduce(
                   (sum, file) => sum + file.size,
-                  0,
+                  0
                 );
                 if (totalSize > 50 * 1024 * 1024) {
                   e.target.value = "";
@@ -203,21 +201,7 @@ export function UploadForm() {
 
           <div className="space-y-2">
             <Label htmlFor="school">From what school?</Label>
-            <Select
-              name="school"
-              required
-              onOpenChange={(open) => {
-                if (open && schools.length === 0) {
-                  setLoadingSchools(true);
-                  fetch("/api/schools")
-                    .then((response) => response.json())
-                    .then((schoolNames) => {
-                      setSchools(schoolNames);
-                      setLoadingSchools(false);
-                    });
-                }
-              }}
-            >
+            <Select name="school" required>
               <SelectTrigger>
                 <SelectValue placeholder="Select school" />
               </SelectTrigger>
