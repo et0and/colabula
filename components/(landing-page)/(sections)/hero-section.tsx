@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import ShimmerButton from "@/components/ui/shimmer-button";
-import HeroVideoDialog from "@/components/ui/hero-video-dialog";
-/* import { MacbookScroll } from "@/components/ui/macbook-scroll";
+/* import HeroVideoDialog from "@/components/ui/hero-video-dialog";
+ *//* import { MacbookScroll } from "@/components/ui/macbook-scroll";
  */
 export function HeroSection() {
   return (
@@ -90,14 +90,14 @@ export function HeroSection() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center w-full mt-12 hidden md:block">
+      {/* <div className="flex items-center justify-center w-full mt-12 hidden md:block">
         <HeroVideoDialog
           animationStyle="from-center"
           videoSrc="/ara.mp4"
           thumbnailSrc="/portal.png"
           thumbnailAlt="Hero Video"
         />
-      </div>
+      </div> */}
       {/* <div className="hidden sm:block">
         <MacbookScroll src="/portal2.png" />
       </div> */}
