@@ -1,5 +1,6 @@
 "use client";
 
+import { portalNavigation } from "@/lib/strings";
 import { formatDistanceToNow } from "date-fns";
 import { signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
@@ -19,6 +20,8 @@ import {
   ReceiptText,
   Search,
   Upload,
+  Settings,
+  Key,
 } from "lucide-react";
 
 import {
@@ -61,64 +64,6 @@ type ArtworkWithUser = Artwork & {
     name: string | null;
     image: string | null;
   };
-};
-
-const nav = {
-  navMain: [
-    {
-      title: "Browse",
-      url: "#",
-      items: [
-        {
-          title: "Painting",
-          url: "/portal/painting",
-          isActive: true,
-        },
-        {
-          title: "Sculpture",
-          url: "/portal/sculpture",
-        },
-        {
-          title: "Design",
-          url: "/portal/design",
-        },
-        {
-          title: "Photography",
-          url: "/portal/photography",
-        },
-      ],
-    },
-    {
-      title: "Community",
-      url: "#",
-      items: [
-        {
-          title: "Recently added",
-          url: "#",
-        },
-        {
-          title: "Top rated",
-          url: "#",
-        },
-        {
-          title: "Recent discussion",
-          url: "#",
-        },
-        {
-          title: "Achievement standards",
-          url: "https://www.nzqa.govt.nz/ncea/assessment/search.do?query=visual+arts&view=all&level=all",
-        },
-        {
-          title: "Contribution guide",
-          url: "/portal/contributing",
-        },
-        {
-          title: "Participating schools",
-          url: "/portal/participating-schools",
-        },
-      ],
-    },
-  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -234,6 +179,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
+                      <Link href="/portal/settings">
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Settings</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/reset-password">
+                        <Key className="mr-2 h-4 w-4" />
+                        <span>Change password</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
                       <Link href="/about">
                         <Info className="mr-2 h-4 w-4" />
                         <span>About</span>
@@ -279,7 +237,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <div className="relative">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              ref={inputRef} // Attach ref to the input
+              ref={inputRef}
               placeholder="Search (⌘K)"
               className="pl-8"
               value={searchTerm}
@@ -313,7 +271,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu className="gap-2">
-            {nav.navMain.map((item) => (
+            {portalNavigation.navMain.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>
                   <span className="font-bold">{item.title}</span>

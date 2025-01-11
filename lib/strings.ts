@@ -478,6 +478,60 @@ export const productPageContent = {
 };
 // Portal content
 
+export const portalNavigation = {
+  navMain: [
+    {
+      title: "Browse",
+      url: "#",
+      items: [
+        {
+          title: "Painting",
+          url: "/portal/painting",
+          isActive: true,
+        },
+        {
+          title: "Sculpture",
+          url: "/portal/sculpture",
+        },
+        {
+          title: "Design",
+          url: "/portal/design",
+        },
+        {
+          title: "Photography",
+          url: "/portal/photography",
+        },
+      ],
+    },
+    {
+      title: "Community",
+      url: "#",
+      items: [
+        {
+          title: "Recently added",
+          url: "#",
+        },
+        {
+          title: "Top rated",
+          url: "#",
+        },
+        {
+          title: "Recent discussion",
+          url: "#",
+        },
+        {
+          title: "Achievement standards",
+          url: "https://www.nzqa.govt.nz/ncea/assessment/search.do?query=visual+arts&view=all&level=all",
+        },
+        {
+          title: "Contribution guide",
+          url: "/portal/contributing",
+        },
+      ],
+    },
+  ],
+};
+
 // Assessment levels information
 
 export const assessmentLevelUrls = {
