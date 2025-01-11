@@ -26,7 +26,8 @@ import { toast } from "sonner";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 // Prefetch function that can be used at the page level
-export async function prefetchSchools(queryClient: any) {
+import type { QueryClient } from '@tanstack/react-query';
+export async function prefetchSchools(queryClient: QueryClient) {
   await queryClient.prefetchQuery({
     queryKey: ["schools"],
     queryFn: async () => {
