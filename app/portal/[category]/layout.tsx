@@ -1,4 +1,5 @@
 import CommandMenu from "@/components/command-menu";
+import Providers from "@/components/providers";
 
 export default function PortalLayout({
   children,
@@ -7,7 +8,7 @@ export default function PortalLayout({
 }) {
   return (
     <>
-      {children}
+      <Providers>{children}</Providers>
       <CommandMenu />
     </>
   );
