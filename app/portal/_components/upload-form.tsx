@@ -23,7 +23,25 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Textarea } from "../../../components/ui/textarea";
 import { toast } from "sonner";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+// Prefetch function that can be used at the page level
+export async function prefetchSchools(queryClient: any) {
+  await queryClient.prefetchQuery({
+    queryKey: ["schools"],
+    queryFn: async () => {
+      const response = await fetch("/api/schools", {
+        headers: {
+          'Accept-Encoding': 'gzip',
+        },
+      });
+      if (!response.ok) throw new Error('Failed to fetch schools');
+      return response.json();
+    },
+    staleTime: 1000 * 60 * 60, // 1 hour
+    gcTime: 1000 * 60 * 60 * 24, // 24 hours
+  });
+}
 
 export function UploadForm() {
   const [open, setOpen] = useState(false);
@@ -31,16 +49,49 @@ export function UploadForm() {
   const [generatedTags, setGeneratedTags] = useState<string>("");
   const [isGeneratingTags, setIsGeneratingTags] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { data: schools = [], isLoading: loadingSchools } = useQuery<string[]>({
     queryKey: ["schools"],
     queryFn: async () => {
-      const response = await fetch("/api/schools");
+      const response = await fetch("/api/schools", {
+        headers: {
+          'Accept-Encoding': 'gzip',
+        },
+        // Use cache: 'force-cache' for static data that rarely changes
+        cache: 'force-cache',
+      });
+      if (!response.ok) throw new Error('Failed to fetch schools');
       return response.json();
     },
-    staleTime: 1000 * 60 * 60, // Cache for 1 hour
-    gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours (formerly cacheTime)
+    staleTime: 1000 * 60 * 60, // 1 hour
+    gcTime: 1000 * 60 * 60 * 24, // 24 hours
+    // Initialize with existing cached data if available
+    initialData: () => queryClient.getQueryData(["schools"]),
+    // Retry failed requests
+    retry: 3,
+    // Show stale data while revalidating
+    keepPreviousData: true,
   });
+
+  // Prefetch schools data when dialog opens
+  const handleOpenChange = (newOpen: boolean) => {
+    if (newOpen && !schools.length && !loadingSchools) {
+      queryClient.prefetchQuery({
+        queryKey: ["schools"],
+        queryFn: async () => {
+          const response = await fetch("/api/schools", {
+            headers: {
+              'Accept-Encoding': 'gzip',
+            },
+            cache: 'force-cache',
+          });
+          return response.json();
+        },
+      });
+    }
+    setOpen(newOpen);
+  };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
