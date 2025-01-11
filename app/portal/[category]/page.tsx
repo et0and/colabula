@@ -22,7 +22,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/app/portal/_components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -37,17 +37,18 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { ArtworkComments } from "@/components/ArtworkComments";
+import { ArtworkComments } from "@/app/portal/_components/ArtworkComments";
 import { Metadata } from "next";
-import { ShareCard } from "@/components/share-card";
+import { ShareCard } from "@/app/portal/_components/share-card";
 import { headers } from "next/headers";
-import { PostRating } from "@/components/grading-scale";
+import { PostRating } from "@/app/portal/_components/grading-scale";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { calculateAverageRating } from "@/lib/utils";
 
 type ArtworkWithRelations = Artwork & {
   user: User;
@@ -82,24 +83,6 @@ export async function generateMetadata({
       description: `Access ${categoryName} portfolios from schools across Aotearoa`,
     },
   };
-}
-
-function calculateAverageRating(ratings: Rating[]): string {
-  if (!ratings.length) return "No grades yet";
-
-  const average =
-    ratings.reduce((acc, rating) => acc + rating.value, 0) / ratings.length;
-
-  // Convert numerical average to grade label
-  if (average === 0) return "NØ";
-  if (average <= 1) return "N1";
-  if (average <= 2) return "N2";
-  if (average <= 3) return "A3";
-  if (average <= 4) return "A4";
-  if (average <= 5) return "M5";
-  if (average <= 6) return "M6";
-  if (average <= 7) return "E7";
-  return "E8";
 }
 
 export default async function CategoryPage({ params }: PageProps) {

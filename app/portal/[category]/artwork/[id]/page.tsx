@@ -21,7 +21,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/app/portal/_components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -37,11 +37,11 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Info } from "lucide-react";
-import { ArtworkComments } from "@/components/ArtworkComments";
+import { ArtworkComments } from "@/app/portal/_components/ArtworkComments";
 import { Metadata } from "next";
 import { Rating } from "@prisma/client";
-import { ShareCard } from "@/components/share-card";
-import { PostRating } from "@/components/grading-scale";
+import { ShareCard } from "@/app/portal/_components/share-card";
+import { PostRating } from "@/app/portal/_components/grading-scale";
 import { headers } from "next/headers";
 import {
   Dialog,

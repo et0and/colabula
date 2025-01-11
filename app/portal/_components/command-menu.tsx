@@ -7,7 +7,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Artwork } from "@prisma/client";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { DialogTitle } from "./ui/dialog";
+import { DialogTitle } from "../../../components/ui/dialog";
 
 type ArtworkWithUser = Artwork & {
   user: {
@@ -21,7 +21,7 @@ const CommandMenu = () => {
   const [open, setOpen] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState<ArtworkWithUser[]>(
-    [],
+    []
   );
   const router = useRouter();
 
@@ -50,7 +50,7 @@ const CommandMenu = () => {
 
   const handleSelect = (artwork: ArtworkWithUser) => {
     router.push(
-      `/portal/${artwork.category.toLowerCase()}/artwork/${artwork.id}`,
+      `/portal/${artwork.category.toLowerCase()}/artwork/${artwork.id}`
     );
     setOpen(false);
     setSearchTerm("");
