@@ -1,5 +1,5 @@
-import CommandMenu from "@/components/command-menu";
-import Providers from "@/components/providers";
+import CommandMenu from "@/app/portal/_components/command-menu";
+import Providers from "@/app/portal/_components/providers";
 
 export default function PortalLayout({
   children,

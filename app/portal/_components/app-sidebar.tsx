@@ -33,7 +33,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { Input } from "./ui/input";
+import { Input } from "../../../components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,9 +41,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
+} from "../../../components/ui/dropdown-menu";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "../../../components/ui/avatar";
+import { Button } from "../../../components/ui/button";
 import { UploadForm } from "./upload-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -142,7 +146,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     setSearchTerm("");
     setSearchResults([]);
     router.push(
-      `/portal/${artwork.category.toLowerCase()}/artwork/${artwork.id}`,
+      `/portal/${artwork.category.toLowerCase()}/artwork/${artwork.id}`
     );
     if (inputRef.current) {
       inputRef.current.blur();

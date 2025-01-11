@@ -17,11 +17,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "../../../components/ui/select";
 import { ArtCategory } from "@prisma/client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Textarea } from "./ui/textarea";
+import { Textarea } from "../../../components/ui/textarea";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
 
