@@ -7,7 +7,7 @@ import { ProductShowcase } from "@/components/(landing-page)/(sections)/product-
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#F2F6F9]">
+    <div className="flex min-h-screen flex-col bg-[#F2F6F9] mx-auto">
       <SiteHeader />
       <main className="flex-1 mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <HeroSection />
