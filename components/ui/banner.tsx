@@ -71,7 +71,10 @@ export function Banner({
   if (!show) return null;
 
   return (
-    <div className="relative isolate flex flex-col text-center justify-center gap-3 overflow-hidden rounded-lg border border-green-600/15 bg-gradient-to-r from-lime-100/80 to-emerald-100/80 py-3 pl-4 pr-12 sm:flex-row sm:items-center sm:py-2">
+    <div 
+      role="alert"
+      aria-live="polite"
+      className="relative isolate flex flex-col text-center justify-center gap-3 overflow-hidden rounded-lg border border-green-600/15 bg-gradient-to-r from-lime-100/80 to-emerald-100/80 py-3 pl-4 pr-12 sm:flex-row sm:items-center sm:py-2">
       <Grid
         cellSize={13}
         patternOffset={[0, -1]}
@@ -115,6 +118,7 @@ export function Banner({
 
       <button
         type="button"
+        aria-label="Close banner"
         className="absolute inset-y-0 right-2.5 p-1 text-sm text-green-700 underline transition-colors hover:text-green-900"
         onClick={onHide}
       >
