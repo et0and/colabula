@@ -134,9 +134,9 @@ export const featuresContent = {
     "Let AI generate tags and identify key subject matter.",
   featureTwoTitle: "Open Source",
   featureTwoDescription: "Build upon an open source platform, licensed A-GPL.",
-  featureThreeTitle: "Cloud storage connections beta",
+  featureThreeTitle: "Cloud import (upcoming)",
   featureThreeDescription:
-    "Microsoft OneDrive, Google Drive, Dropbox and more - connect your work accounts",
+    "Microsoft OneDrive, Google Drive, Dropbox and more - import directly from your work accounts",
 };
 
 export const getStartedContent = {
