@@ -5,9 +5,9 @@ export function FeaturesSection() {
   return (
     <section className="container px-4 md:px-6 py-12">
       <div className="max-w-[1200px] mx-auto">
-        <div className="flex gap-8 mb-12">
+        <div className="flex gap-8 mb-12" role="presentation">
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl" id="features-title">
               {featuresContent.title}{" "}
             </h2>
             <p className="text-gray-500 md:text-xl">
