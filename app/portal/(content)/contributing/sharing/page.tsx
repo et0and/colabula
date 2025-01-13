@@ -184,7 +184,7 @@ export default function SharingPage() {
           <p className="mb-4">
             For any questions regarding sharing permissions or to report
             unauthorised use of student work, please contact Colabula&apos;s
-            support team immediately at support@Colabula.com.
+            support team immediately at support@colabula.com.
           </p>
         </div>
       </SidebarInset>

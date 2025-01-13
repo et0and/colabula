@@ -23,7 +23,7 @@ export const ResetPasswordEmail = ({ url }: ResetPasswordEmailProps) => {
       <Body style={main}>
         <Container style={container}>
           <Section style={logo}>
-            <Img width={200} src="https://colabula.com/logo-black.svg" />
+            <Img width={200} src="https://colabula.com/logo-dark.svg" />
           </Section>
           <Section style={section}>
             <Text style={heading}>Reset your password</Text>

@@ -31,7 +31,7 @@ export default function SignIn() {
         <CardHeader>
           <div className="flex justify-center items-center">
             <img
-              src="/logo-black.svg"
+              src="/logo-dark.svg"
               alt="Colabula Logo"
               className="w-48 h-48"
             />
