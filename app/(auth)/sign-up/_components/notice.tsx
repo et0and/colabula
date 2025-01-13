@@ -19,7 +19,7 @@ export function NoticeBanner() {
           us.
         </>
       }
-      learnMoreUrl="https://dub.co/help/article/free-dot-link-domain"
+      learnMoreUrl="mailto:info@colabula.com"
     />
   );
 }
