@@ -49,7 +49,11 @@ export default function SignUp() {
         <Card className="z-50 rounded-xl max-w-md w-full mx-4">
           <CardHeader>
             <div className="flex justify-center items-center">
-              <img src="/logo.svg" alt="Aratuku Logo" className="w-48 h-48" />
+              <img
+                src="/logo-dark.svg"
+                alt="Aratuku Logo"
+                className="w-48 h-48"
+              />
             </div>
             <CardTitle className="text-lg md:text-xl">
               Create an account
@@ -216,24 +220,24 @@ export default function SignUp() {
                           onError: (ctx) => {
                             toast.error(ctx.error.message);
                           },
-                        onSuccess: async () => {
-                          toast.success(
-                            "A verification link has been sent to your email"
-                          );
+                          onSuccess: async () => {
+                            toast.success(
+                              "A verification link has been sent to your email"
+                            );
+                          },
                         },
-                      },
-                    });
-                  } finally {
-                    setLoading(false);
-                  }
-                }}
-              >
-                {loading ? (
-                  <Loader2 size={16} className="animate-spin" />
-                ) : (
-                  "Create an account"
-                )}
-              </Button>
+                      });
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                >
+                  {loading ? (
+                    <Loader2 size={16} className="animate-spin" />
+                  ) : (
+                    "Create an account"
+                  )}
+                </Button>
               </div>
             </form>
           </CardContent>
