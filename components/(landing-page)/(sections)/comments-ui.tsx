@@ -16,7 +16,11 @@ export function CommentsUi() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div 
+      className="space-y-8"
+      aria-label="User comments"
+      role="region"
+    >
       <TiltedScroll items={customItems} className="mt-8" />
     </div>
   );
