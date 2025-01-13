@@ -142,7 +142,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="font-semibold text-xl">Contact Information</h2>
           <p className="mb-4 ">
             For privacy-related inquiries, please contact us at
-            privacy@Colabula.com.
+            privacy@colabula.com.
           </p>
         </div>
       </SidebarInset>
