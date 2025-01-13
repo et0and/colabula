@@ -55,13 +55,13 @@ export default function SharingPage() {
             General Consent and Permissions
           </h2>
           <p className="mb-4">
-            All sharing of student work outside of the Aratuku platform requires
-            explicit written permission from the student and their
+            All sharing of student work outside of the Colabula platform
+            requires explicit written permission from the student and their
             parent/guardian if the student is under 18 years of age. The
-            original consent given for uploading work to Aratuku does not extend
-            to any external platforms, websites, or physical reproduction.
-            Teachers must obtain separate documented approval before sharing
-            student work in any format outside of Aratuku.
+            original consent given for uploading work to Colabula does not
+            extend to any external platforms, websites, or physical
+            reproduction. Teachers must obtain separate documented approval
+            before sharing student work in any format outside of Colabula.
           </p>
           <h2 className="text-xl font-semibold mb-3">
             Social Media and External Platforms
@@ -129,8 +129,8 @@ export default function SharingPage() {
             </li>{" "}
             <li>Their teacher has approved the portfolio for public viewing</li>{" "}
             <li>
-              They link directly to their Aratuku portfolio rather than creating
-              external copies
+              They link directly to their Colabula portfolio rather than
+              creating external copies
             </li>{" "}
             <li>
               Students have the right to request removal or restriction of their
@@ -160,12 +160,12 @@ export default function SharingPage() {
             Copyright and Ownership
           </h2>{" "}
           <p className="mb-4">
-            Students retain full intellectual copyright of their work. Aratuku
+            Students retain full intellectual copyright of their work. Colabula
             and Cold Sundays Ltd serve solely as platform providers and content
             custodians.
           </p>
           <p className="mb-4">
-            The open-source nature of the Aratuku platform does not extend to
+            The open-source nature of the Colabula platform does not extend to
             any user-generated content. Teachers and schools may not claim
             ownership of student work uploaded to the platform.
           </p>
@@ -173,18 +173,18 @@ export default function SharingPage() {
             Enforcement and Liability
           </h2>
           <p className="mb-4">
-            Aratuku monitors for potential misuse but cannot guarantee
+            Colabula monitors for potential misuse but cannot guarantee
             prevention of unauthorised sharing. Users found violating these
             sharing guidelines may have their platform access restricted or
-            terminated. While Aratuku will assist in addressing violations,
+            terminated. While Colabula will assist in addressing violations,
             ultimate responsibility for proper sharing lies with the user. Users
             who share content in violation of these guidelines may be held
             legally responsible for any resulting damages.
           </p>
           <p className="mb-4">
             For any questions regarding sharing permissions or to report
-            unauthorised use of student work, please contact Aratuku&apos;s
-            support team immediately at support@aratuku.com.
+            unauthorised use of student work, please contact Colabula&apos;s
+            support team immediately at support@Colabula.com.
           </p>
         </div>
       </SidebarInset>

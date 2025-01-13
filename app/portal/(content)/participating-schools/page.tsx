@@ -15,11 +15,11 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Participating schools",
-  description: "Learn about the schools participating in the Aratuku platform",
+  description: "Learn about the schools participating in the Colabula platform",
   openGraph: {
     title: "Participating schools",
     description:
-      "Learn about the schools participating in the Aratuku platform",
+      "Learn about the schools participating in the Colabula platform",
   },
 };
 
@@ -47,7 +47,7 @@ export default function ParticipatingSchoolsPage() {
         </header>
         <div className="container mx-auto px-4 py-8">
           <p className="mb-4">
-            Currently, Aratuku is conducting a pilot program with the following
+            Currently, Colabula is conducting a pilot program with the following
             schools:
           </p>
           <ul className="list-disc pl-6 space-y-2 mb-4">

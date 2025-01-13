@@ -12,7 +12,7 @@ export function HeroSection() {
               <div className="relative w-full h-[400px]">
                 <Image
                   src="/hero.svg"
-                  alt="Illustration of a person using Aratuku"
+                  alt="Illustration of a person using Colabula"
                   className="object-contain"
                   fill
                   priority
@@ -69,7 +69,7 @@ export function HeroSection() {
           <div className="relative w-full h-[600px]">
             <Image
               src="/hero.svg"
-              alt="Illustration of a person using Aratuku"
+              alt="Illustration of a person using Colabula"
               className="object-contain"
               fill
               priority

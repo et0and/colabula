@@ -46,14 +46,18 @@ export default function SignUp() {
       <Card className="z-50 rounded-xl max-w-md w-full mx-4">
         <CardHeader>
           <div className="flex justify-center items-center">
-            <img src="/logo.svg" alt="Aratuku Logo" className="w-48 h-48" />
+            <img
+              src="/logo-black.svg"
+              alt="Colabula Logo"
+              className="w-48 h-48"
+            />
           </div>
           <CardTitle className="text-lg md:text-xl">
             Create an account
           </CardTitle>
           <CardDescription className="text-xs md:text-sm">
             Enter your information to create a{" "}
-            <span className="font-semibold">Aratuku</span> account
+            <span className="font-semibold">Colabula</span> account
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -192,7 +196,7 @@ export default function SignUp() {
                   const domain = email.split("@")[1];
                   if (!whitelistEmails.includes(domain)) {
                     toast.error(
-                      "Only authorised schools are allowed to register",
+                      "Only authorised schools are allowed to register"
                     );
                     return;
                   }
@@ -217,7 +221,7 @@ export default function SignUp() {
                         },
                         onSuccess: async () => {
                           toast.success(
-                            "A verification link has been sent to your email",
+                            "A verification link has been sent to your email"
                           );
                         },
                       },

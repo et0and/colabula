@@ -54,8 +54,8 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Lint Aratuku
+      - name: Lint Colabula
         run: bun run lint
 
-      - name: Build Aratuku
+      - name: Build Colabula
         run: bun run build

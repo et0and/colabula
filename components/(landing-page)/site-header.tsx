@@ -85,7 +85,7 @@ export function SiteHeader() {
                 </Link>
               </NavigationMenuItem> */}
               <NavigationMenuItem>
-                <Link href="mailto:info@aratuku.com" legacyBehavior passHref>
+                <Link href="mailto:info@colabula.com" legacyBehavior passHref>
                   <NavigationMenuLink
                     className={`${navigationMenuTriggerStyle()} bg-transparent`}
                   >

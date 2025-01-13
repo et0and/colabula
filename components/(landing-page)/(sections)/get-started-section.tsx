@@ -9,8 +9,8 @@ export function GetStartedSection() {
             {getStartedContent.title}{" "}
           </h2>
           <img
-            src="/logo.svg"
-            alt="Aratuku Logo"
+            src="/logo-dark.svg"
+            alt="Colabula Logo"
             className="w-96 hidden md:block"
           />
         </div>

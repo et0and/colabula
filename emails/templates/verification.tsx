@@ -19,16 +19,16 @@ export const VerificationEmail = ({ url }: VerificationEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Verify your Aratuku account</Preview>
+      <Preview>Verify your Colabula account</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={logo}>
-            <Img width={200} src="https://tabula-sand.vercel.app/logo.svg" />
+            <Img width={200} src="https://colabula.com/logo-black.svg" />
           </Section>
           <Section style={section}>
             <Text style={heading}>Verify your account</Text>
             <Text style={paragraph}>
-              Click the button below to verify your Aratuku account
+              Click the button below to verify your Colabula account
             </Text>
             <Link style={link} href={url}>
               Confirm

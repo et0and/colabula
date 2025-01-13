@@ -34,7 +34,7 @@ export const auth = betterAuth({
     },
     sendResetPassword: async ({ user, url }) => {
       await resend.emails.send({
-        from: "Aratuku <mail@messages.tom.so>",
+        from: "Colabula <mail@messages.tom.so>",
         to: user.email,
         subject: "Reset your password",
         react: ResetPasswordEmail({ url }),
@@ -46,9 +46,9 @@ export const auth = betterAuth({
     autoSignInAfterVerification: true, // Automatically signIn the user after verification
     sendVerificationEmail: async ({ user, url }) => {
       await resend.emails.send({
-        from: "Aratuku <mail@messages.tom.so>",
+        from: "Colabula <mail@messages.tom.so>",
         to: user.email, // email of the user to want to end
-        subject: "Aratuku email verification", // Main subject of the email
+        subject: "Colabula email verification", // Main subject of the email
         react: VerificationEmail({ url }),
       });
     },

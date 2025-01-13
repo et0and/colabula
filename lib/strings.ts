@@ -2,17 +2,17 @@ import { stripIndents } from "common-tags";
 
 // Emails
 
-export const aratukuEmails = {
-  main: "info@aratuku.com",
-  support: "support@aratuku.com",
-  privacy: "privacy@aratuku.com",
+export const colabulaEmails = {
+  main: "info@colabula.com",
+  support: "support@colabula.com",
+  privacy: "privacy@colabula.com",
 };
 
 // Main site labels
 
 export const siteHeaderContent = {
   logo: {
-    text: "Aratuku",
+    text: "Colabula",
     badge: "Beta",
   },
   productMenu: {
@@ -21,7 +21,7 @@ export const siteHeaderContent = {
       {
         title: "For students",
         href: "/product#students",
-        description: "Learn how Aratuku can help students excel",
+        description: "Learn how Colabula can help students excel",
       },
       {
         title: "For teachers",
@@ -31,7 +31,7 @@ export const siteHeaderContent = {
       {
         title: "Features",
         href: "/product",
-        description: "Explore all the features Aratuku has to offer",
+        description: "Explore all the features Colabula has to offer",
       },
     ],
   },
@@ -46,7 +46,7 @@ export const siteHeaderContent = {
       {
         title: "Case studies",
         href: "/schools#case-studies",
-        description: "See how other institutions use Aratuku",
+        description: "See how other institutions use Colabula",
       },
     ],
   },
@@ -55,12 +55,12 @@ export const siteHeaderContent = {
       {
         title: "Product",
         href: "/product",
-        description: "Learn how Aratuku can help students excel",
+        description: "Learn how Colabula can help students excel",
       },
       {
         title: "Schools",
         href: "/schools",
-        description: "Educational institutions using Aratuku",
+        description: "Educational institutions using Colabula",
       },
       {
         title: "Open Source",
@@ -75,7 +75,7 @@ export const siteHeaderContent = {
       {
         title: "Request a Demo",
         href: "/demo",
-        description: "See Aratuku in action",
+        description: "See Colabula in action",
       },
     ],
   },
@@ -98,11 +98,11 @@ export const siteFooterContent = {
     },
     {
       title: "Status",
-      href: "https://status.aratuku.com",
+      href: "https://status.colabula.com",
     },
     {
       title: "Source code",
-      href: "https://github.com/et0and/aratuku",
+      href: "https://github.com/et0and/colabula",
     },
     {
       title: "Privacy Policy",
@@ -120,15 +120,15 @@ export const siteFooterContent = {
 export const heroContent = {
   title: "The all-in-one workspace for art teachers",
   subtitle: "Share. Grade. Collaborate.",
-  ctaButton: "Get Aratuku free",
+  ctaButton: "Get Colabula free",
   trustedByText: "Trusted by teachers at",
-  imageAlt: "Illustration of a person using Aratuku",
+  imageAlt: "Illustration of a person using Colabula",
 };
 
 export const featuresContent = {
   title: "Get feedback from a community of educators.",
   description:
-    "Connected to all secondary schools across Aotearoa, Aratuku has a national network of teachers and educators.",
+    "Connected to all secondary schools across Aotearoa, Colabula has a national network of teachers and educators.",
   featureOneTitle: "Instant tagging",
   featureOneDescription:
     "Let AI generate tags and identify key subject matter.",
@@ -177,7 +177,7 @@ export const privacyPageContent = {
     {
       heading: "Introduction",
       content: stripIndents`
-        This Privacy Policy explains how Aratuku, operated by ${companyInfo.coldSundays.name} 
+        This Privacy Policy explains how Colabula, operated by ${companyInfo.coldSundays.name} 
         (a subsidiary of ${companyInfo.yufugumi.name}), collects, uses, and protects your 
         information when you use our platform.
       `,
@@ -193,7 +193,7 @@ export const privacyPageContent = {
     {
       heading: "Content Ownership and Rights",
       content: stripIndents`
-        Aratuku, ${companyInfo.coldSundays.name}, and ${companyInfo.yufugumi.name} do not claim ownership of any 
+        Colabula, ${companyInfo.coldSundays.name}, and ${companyInfo.yufugumi.name} do not claim ownership of any 
         content uploaded to the platform. All rights remain with the respective copyright 
         holders and authors.
       `,
@@ -203,7 +203,7 @@ export const privacyPageContent = {
       content: stripIndents`
         Teachers must obtain explicit consent and permission from students
         (and their guardians where applicable) before uploading any student
-        work to Aratuku. This includes written consent for sharing student artwork,
+        work to Colabula. This includes written consent for sharing student artwork,
         permission to use work for educational purposes, and clear communication about
         how the work will be used.
       `,
@@ -226,7 +226,7 @@ export const privacyPageContent = {
     {
       heading: "Open Source Commitment",
       content: stripIndents`
-        Aratuku is an open-source platform licensed under AGPL-3.0. Our commitment 
+        Colabula is an open-source platform licensed under AGPL-3.0. Our commitment 
         to transparency extends to our privacy practices, and our source code is 
         publicly available for review.
       `,
@@ -241,7 +241,7 @@ export const privacyPageContent = {
     {
       heading: "Contact Information",
       content: stripIndents`
-        For privacy-related inquiries, please contact us at privacy@aratuku.com.
+        For privacy-related inquiries, please contact us at privacy@colabula.com.
       `,
     },
   ],
@@ -253,7 +253,7 @@ export const termsOfServiceContent = {
     {
       heading: "1. Acceptance of Terms",
       content: stripIndents`
-        By accessing and using Aratuku, you agree to be bound by these Terms
+        By accessing and using Colabula, you agree to be bound by these Terms
         of Service. If you do not agree to these terms, you may not use the
         platform.
       `,
@@ -261,7 +261,7 @@ export const termsOfServiceContent = {
     {
       heading: "2. Use of the Platform",
       content: stripIndents`
-        Aratuku is provided for educational purposes. You agree to use the
+        Colabula is provided for educational purposes. You agree to use the
         platform responsibly and in compliance with all applicable laws and
         regulations. You are responsible for all activity that occurs under
         your account.
@@ -271,15 +271,15 @@ export const termsOfServiceContent = {
       heading: "3. Content Ownership",
       content: stripIndents`
         Students retain full ownership of any content that their teachers
-        upload to Aratuku. Teachers and other parties may not use content
-        published on Aratuku for purposes outside of the platform without
+        upload to Colabula. Teachers and other parties may not use content
+        published on Colabula for purposes outside of the platform without
         their explicit consent, or permission from their legal guardian(s).
       `,
     },
     {
       heading: "4. Prohibited Conduct",
       content: stripIndents`
-        You agree not to use Aratuku to:
+        You agree not to use Colabula to:
 
         * Violate any applicable laws or regulations.
         * Infringe upon the intellectual property rights of others.
@@ -290,7 +290,7 @@ export const termsOfServiceContent = {
     {
       heading: "5. Disclaimer of Warranties",
       content: stripIndents`
-        Aratuku is provided "as is" without any warranties,
+        Colabula is provided "as is" without any warranties,
         express or implied. We do not guarantee the availability,
         reliability, or accuracy of the platform.
       `,
@@ -298,7 +298,7 @@ export const termsOfServiceContent = {
     {
       heading: "6. Limitation of Liability",
       content: stripIndents`
-        To the maximum extent permitted by law, Aratuku shall not be liable
+        To the maximum extent permitted by law, Colabula shall not be liable
         for any damages arising from the use of the platform.
       `,
     },
@@ -320,19 +320,19 @@ export const termsOfServiceContent = {
       heading: "9. Contact Us",
       content: stripIndents`
         If you have any questions about these Terms of Service, please
-        contact us at info@aratuku.com.
+        contact us at info@colabula.com.
       `,
     },
   ],
 };
 
 export const aboutPageContent = {
-  title: "About Aratuku",
+  title: "About Colabula",
   mainContent: stripIndents`
-    Aratuku is an open-source platform designed to empower teachers and
+    Colabula is an open-source platform designed to empower teachers and
     facilitate the sharing of educational resources, specifically
     catering to visual arts education. Developed by Cold Sundays Ltd
-    (a subsidiary of Yufugumi Holdings), Aratuku aims to provide a secure and transparent environment for
+    (a subsidiary of Yufugumi Holdings), Colabula aims to provide a secure and transparent environment for
     educators to collaborate, discover, and share inspiring artwork and
     teaching materials.
   `,
@@ -348,9 +348,9 @@ export const aboutPageContent = {
       `,
     },
     promise: {
-      title: "The Aratuku Promise",
+      title: "The Colabula Promise",
       content: stripIndents`
-        We are committed to the long-term sustainability of Aratuku and the
+        We are committed to the long-term sustainability of Colabula and the
         valuable content shared within our community. We promise to provide
         full data exports to our users should the platform ever cease
         operations, ensuring the preservation of your valuable resources.
@@ -360,7 +360,7 @@ export const aboutPageContent = {
 };
 
 export const openSourcePageContent = {
-  title: "Aratuku is an open platform",
+  title: "Colabula is an open platform",
   sections: [
     stripIndents`
       Many educational technology companies have created products that seemed promising at first but eventually disappeared, leaving schools and students without the tools they depended on.
@@ -372,28 +372,28 @@ export const openSourcePageContent = {
       While platforms such as Facebook and Instagram are convenient, free and easy to use, their privacy policies and terms of service means that any content submitted to these platforms is granted use by Meta for AI training, 3rd party advertising, and can be used for any purpose. This is not acceptable for a platform that is used to share educational resources.
     `,
     stripIndents`
-      Open-source software like Aratuku, which uses the AGPL 3.0 license, helps solve this problem by making its code freely available to everyone. Since the code is open for anyone to study, people can find and fix security problems quickly, and schools can trust that their data is being handled properly. Should Aratuku in its current form ever shutdown, anyone has fork the code and host their own instance.
+      Open-source software like Colabula, which uses the AGPL 3.0 license, helps solve this problem by making its code freely available to everyone. Since the code is open for anyone to study, people can find and fix security problems quickly, and schools can trust that their data is being handled properly. Should Colabula in its current form ever shutdown, anyone has fork the code and host their own instance.
     `,
     stripIndents`
-      Schools can also modify Aratuku to work exactly the way they need it to, instead of having to follow what a company like Meta decides is best.
+      Schools can also modify Colabula to work exactly the way they need it to, instead of having to follow what a company like Meta decides is best.
     `,
     stripIndents`
       By sharing our code openly, we intend to help others who want to create better educational software, leading to more innovation and greater outcomes for everyone.
     `,
     stripIndents`
-      For the content and conversations published, we adhere to the "Aratuku Promise" - we will provide full Postgres and storage exports to any parties wishing to host their own instance should Aratuku ever fold.
+      For the content and conversations published, we adhere to the "Colabula Promise" - we will provide full Postgres and storage exports to any parties wishing to host their own instance should Colabula ever fold.
     `,
     stripIndents`
-      Aratuku isn't just making software – we're building a group of people who care about making education better for everyone.
+      Colabula isn't just making software – we're building a group of people who care about making education better for everyone.
     `,
   ],
 };
 
 export const schoolsPageContent = {
-  title: "Aratuku is for schools",
+  title: "Colabula is for schools",
   sections: [
     stripIndents`
-      Aratuku enables art teachers across New Zealand to collaborate and provide feedback on student work throughout the entire creative process, from initial sketches to final portfolios.
+      Colabula enables art teachers across New Zealand to collaborate and provide feedback on student work throughout the entire creative process, from initial sketches to final portfolios.
     `,
     stripIndents`
       Teachers can upload students' initial concepts and sketches, allowing colleagues from other schools to provide early guidance and suggestions. This early feedback can help identify promising directions and potential challenges before significant time is invested.
@@ -402,23 +402,23 @@ export const schoolsPageContent = {
       As students develop their work, teachers can share updates and receive ongoing feedback. This iterative feedback process helps ensure students are on track with assessment criteria and enables them to benefit from diverse perspectives across the New Zealand art education community.
     `,
     stripIndents`
-      Using Aratuku's structured assessment tools, teachers can provide indicative grades and detailed feedback, helping to ensure consistency in assessment across different schools and regions.
+      Using Colabula's structured assessment tools, teachers can provide indicative grades and detailed feedback, helping to ensure consistency in assessment across different schools and regions.
     `,
     stripIndents`
       Through collaborative feedback and discussion, teachers can engage in ongoing professional development, sharing best practices and staying current with assessment standards and artistic trends.
     `,
     stripIndents`
-      By fostering this collaborative environment, Aratuku helps create a more connected and supportive art education community across New Zealand, ultimately benefiting both teachers and students in their artistic journey.
+      By fostering this collaborative environment, Colabula helps create a more connected and supportive art education community across New Zealand, ultimately benefiting both teachers and students in their artistic journey.
     `,
   ],
 };
 
 export const productPageContent = {
-  title: "Aratuku is constantly evolving",
+  title: "Colabula is constantly evolving",
   sections: [
     {
       content: stripIndents`
-        The Aratuku platform is designed to facilitate collaboration and
+        The Colabula platform is designed to facilitate collaboration and
         feedback among art teachers across New Zealand.
       `,
     },
@@ -436,7 +436,7 @@ export const productPageContent = {
     {
       heading: "Collaborative feedback and discussion",
       content: stripIndents`
-        Aratuku fosters a national network of art educators, promoting
+        Colabula fosters a national network of art educators, promoting
         ongoing professional development and the sharing of best
         practices. Teachers can engage in discussions, offer constructive
         critiques, and provide indicative grades using structured
