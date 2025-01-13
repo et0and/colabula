@@ -56,7 +56,7 @@ export default function SignUp() {
             </CardTitle>
             <CardDescription className="text-xs md:text-sm">
               Enter your information to create a{" "}
-              <span className="font-semibold">Aratuku</span> account
+              <span className="font-semibold">Colabula</span> account
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -191,7 +191,6 @@ export default function SignUp() {
                       toast.error("Passwords do not match");
                       return;
                     }
-
                     const domain = email.split("@")[1];
                     if (!whitelistEmails.includes(domain)) {
                       toast.error(
@@ -199,7 +198,6 @@ export default function SignUp() {
                       );
                       return;
                     }
-
                     setLoading(true);
                     try {
                       await signUp.email({
@@ -218,24 +216,24 @@ export default function SignUp() {
                           onError: (ctx) => {
                             toast.error(ctx.error.message);
                           },
-                          onSuccess: async () => {
-                            toast.success(
-                              "A verification link has been sent to your email"
-                            );
-                          },
+                        onSuccess: async () => {
+                          toast.success(
+                            "A verification link has been sent to your email"
+                          );
                         },
-                      });
-                    } finally {
-                      setLoading(false);
-                    }
-                  }}
-                >
-                  {loading ? (
-                    <Loader2 size={16} className="animate-spin" />
-                  ) : (
-                    "Create an account"
-                  )}
-                </Button>
+                      },
+                    });
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+              >
+                {loading ? (
+                  <Loader2 size={16} className="animate-spin" />
+                ) : (
+                  "Create an account"
+                )}
+              </Button>
               </div>
             </form>
           </CardContent>

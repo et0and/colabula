@@ -16,27 +16,27 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Aratuku",
-    template: "%s | Aratuku",
+    default: "Colabula",
+    template: "%s | Colabula",
   },
   description: "An all-in-one workspace for art teachers",
-  metadataBase: new URL("https://tabula-sand.vercel.app"),
+  metadataBase: new URL("https://colabula.com"),
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: "https://tabula-sand.vercel.app",
-    siteName: "Aratuku",
+    url: "https://colabula.com",
+    siteName: "Colabula",
     title: {
-      default: "Aratuku",
-      template: "%s | Aratuku",
+      default: "Colabula",
+      template: "%s | Colabula",
     },
     description: "An all-in-one workspace for art teachers",
     images: [
       {
-        url: "https://tabula-sand.vercel.app/og.png",
+        url: "https://colabula.com/og.png",
         width: 1200,
         height: 630,
-        alt: "Aratuku - An all-in-one workspace for art teachers",
+        alt: "Colabula - An all-in-one workspace for art teachers",
       },
     ],
   },
@@ -53,14 +53,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aratuku",
+    title: "Colabula",
     description: "An all-in-one workspace for art teachers",
     images: [
       {
-        url: "https://tabula-sand.vercel.app/og.png",
+        url: "https://colabula.com/og.png",
         width: 1200,
         height: 630,
-        alt: "Aratuku - An all-in-one workspace for art teachers",
+        alt: "Colabula - An all-in-one workspace for art teachers",
       },
     ],
   },

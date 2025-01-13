@@ -16,7 +16,7 @@ body:
     attributes:
       label: "Reproduction URL"
       description: Please enter the URL where this occurred to provide a reproduction of the issue
-      placeholder: ex. https://aratuku.com/portal/painting
+      placeholder: ex. https://colabula.com/portal/painting
     validations:
       required: true
   - type: textarea

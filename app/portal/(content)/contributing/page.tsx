@@ -26,10 +26,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contributing",
-  description: "Learn how to contribute to the Aratuku platform",
+  description: "Learn how to contribute to the Colabula platform",
   openGraph: {
     title: "Contributing",
-    description: "Learn how to contribute to the Aratuku platform",
+    description: "Learn how to contribute to the Colabula platform",
   },
 };
 
@@ -62,12 +62,12 @@ export default function Page() {
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-6 flex flex-row gap-2">
             <Handshake className="w-8 h-8 align-middle inline-block hidden md:block" />
-            <span className="align-middle">Contributing on Aratuku</span>
+            <span className="align-middle">Contributing on Colabula</span>
           </h1>
 
           <p className="mb-6">
-            Aratuku is a shared collaborative platform. For getting the most out
-            of your time here, we have a few small house-keeping rules.
+            Colabula is a shared collaborative platform. For getting the most
+            out of your time here, we have a few small house-keeping rules.
           </p>
 
           <div className="grid gap-6 md:grid-cols-2">
@@ -110,13 +110,13 @@ export default function Page() {
                 <CardHeader>
                   <CardTitle>Sharing</CardTitle>
                   <CardDescription>
-                    Seeking permissions for sharing content outside of Aratuku
+                    Seeking permissions for sharing content outside of Colabula
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p>
                     Follow our process for obtaining proper permissions before
-                    sharing any student work outside of the Aratuku platform.
+                    sharing any student work outside of the Colabula platform.
                   </p>
                 </CardContent>
               </CardLink>

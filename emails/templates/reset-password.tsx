@@ -19,11 +19,11 @@ export const ResetPasswordEmail = ({ url }: ResetPasswordEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Reset your Aratuku password</Preview>
+      <Preview>Reset your Colabula password</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={logo}>
-            <Img width={200} src="https://tabula-sand.vercel.app/logo.svg" />
+            <Img width={200} src="https://colabula.com/logo-black.svg" />
           </Section>
           <Section style={section}>
             <Text style={heading}>Reset your password</Text>

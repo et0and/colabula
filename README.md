@@ -1,6 +1,6 @@
-# Aratuku
+# Colabula
 
-Aratuku is an open-source platform designed specifically for New Zealand's art education community. It enables art educators from schools to share, review, and collaborate on student portfolio work at every stage of development.
+Colabula is an open-source platform designed specifically for New Zealand's art education community. It enables art educators from schools to share, review, and collaborate on student portfolio work at every stage of development.
 
 ## Features
 
@@ -22,7 +22,7 @@ Aratuku is an open-source platform designed specifically for New Zealand's art e
 
 ## License
 
-Aratuku is licensed under the GNU Affero General Public License v3.0. See the [LICENSE file](/LICENSE) for details.
+Colabula is licensed under the GNU Affero General Public License v3.0. See the [LICENSE file](/LICENSE) for details.
 
 This means:
 

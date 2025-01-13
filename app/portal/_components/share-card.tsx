@@ -32,7 +32,8 @@ export function ShareCard({ baseUrl, category, artworkId }: ShareCardProps) {
         <DialogHeader>
           <DialogTitle>Share link</DialogTitle>
           <DialogDescription>
-            Copy the link below to share this artwork with other Aratuku members
+            Copy the link below to share this artwork with other Colabula
+            members
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
