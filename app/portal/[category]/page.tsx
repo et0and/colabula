@@ -49,6 +49,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { calculateAverageRating } from "@/lib/utils";
+import { ArtworkControls } from "../_components/(artwork-controls)/artwork-controls";
 
 type ArtworkWithRelations = Artwork & {
   user: User;
@@ -84,10 +85,9 @@ export async function generateMetadata({
     },
   };
 }
-
 export default async function CategoryPage({ params }: PageProps) {
   const { category } = await params;
-  const headersList = headers();
+  const headersList = await headers();
   const host = (await headersList).get("host") || "";
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
@@ -244,6 +244,9 @@ export default async function CategoryPage({ params }: PageProps) {
                       </span>
                     </div>
                     <div className="flex items-center my-2 gap-2">
+                      {artwork.userId === artwork.user.id && (
+                        <ArtworkControls artwork={artwork} />
+                      )}
                       <ShareCard
                         baseUrl={baseUrl}
                         category={category}
