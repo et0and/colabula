@@ -290,7 +290,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
-          <img src="/logo-dark.svg" alt="Colabula Logo" className="h-28 w-28" />
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>

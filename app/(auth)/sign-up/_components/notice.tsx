@@ -15,7 +15,7 @@ export function NoticeBanner() {
       title={
         <>
           Only schools participating in the private beta can currently sign up
-          for an account. If you would like to give Aratuku a go, please contact
+          for an account. If you would like to give Colabula a go, please contact
           us.
         </>
       }

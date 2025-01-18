@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { ShareIcon } from "lucide-react";
 import { toast } from "sonner";
 
 interface ShareCardProps {
@@ -24,8 +25,8 @@ export function ShareCard({ baseUrl, category, artworkId }: ShareCardProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          Share
+        <Button variant="outline" size="icon" aria-label="Share artwork">
+          <ShareIcon />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md max-w-xs rounded">
