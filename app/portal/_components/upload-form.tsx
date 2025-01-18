@@ -107,9 +107,8 @@ export function UploadForm() {
             <Input
               id="file"
               type="file"
-              accept="image/jpeg,image/png,image/jpg,image/heic"
+              accept="image/jpeg,image/png,image/webp,image/jpg,image/heic"
               name="file"
-              capture="environment"
               multiple
               required
               onChange={(e) => {
