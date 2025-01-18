@@ -32,8 +32,23 @@ export async function PUT(
   const updatedArtwork = await prisma.artwork.update({
     where: { id },
     data: {
-      title: formData.get("title") as string,
-      content: formData.get("content") as string,
+      const formData = await req.formData();
+
+      const title = formData.get("title");
+      const content = formData.get("content");
+      if (!title || !content) {
+        return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
+      }
+
+      const updatedArtwork = await prisma.artwork.update({
+        where: { id },
+        data: {
+          title: title as string,
+          content: content as string,
+          tags,
+          imageUrls,
+        },
+      });
       tags: JSON.parse(formData.get("tags") as string),
       imageUrls: JSON.parse(formData.get("existingImages") as string),
     },
