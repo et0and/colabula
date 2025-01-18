@@ -25,7 +25,7 @@ export function ShareCard({ baseUrl, category, artworkId }: ShareCardProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" aria-label="Share artwork">
           <ShareIcon />
         </Button>
       </DialogTrigger>
