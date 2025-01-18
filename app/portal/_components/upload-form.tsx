@@ -107,8 +107,9 @@ export function UploadForm() {
             <Input
               id="file"
               type="file"
-              accept="image/jpeg,image/png,image/webp"
+              accept="image/jpeg,image/png,image/jpg,image/heic"
               name="file"
+              capture="environment"
               multiple
               required
               onChange={(e) => {
@@ -120,6 +121,11 @@ export function UploadForm() {
                 if (totalSize > 50 * 1024 * 1024) {
                   e.target.value = "";
                   alert("Total file size must be less than 50MiB");
+                  return;
+                } else {
+                  console.warn(
+                    "File size validation skipped due to zero or undefined file size."
+                  );
                 }
                 // Analyze the first image
                 if (files.length > 0) {

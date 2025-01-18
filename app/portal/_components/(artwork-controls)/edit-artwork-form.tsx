@@ -99,7 +99,7 @@ export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
       <div className="space-y-2">
         <Input
           type="file"
-          accept="image/jpeg,image/png,image/webp"
+          accept="image/jpeg,image/png,image/jpg,image/heic"
           multiple
           onChange={(e) => {
             const files = Array.from(e.target.files || []);
@@ -107,6 +107,11 @@ export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
             if (totalSize > 50 * 1024 * 1024) {
               toast.error("Total file size must be less than 50MiB");
               return;
+            } else {
+              // Optionally inform the user or log the event
+              console.warn(
+                "File size validation skipped due to zero or undefined file size."
+              );
             }
             setNewImages(files);
           }}
