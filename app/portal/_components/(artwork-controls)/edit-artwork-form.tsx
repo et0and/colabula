@@ -99,7 +99,7 @@ export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
       <div className="space-y-2">
         <Input
           type="file"
-          accept="image/jpeg,image/png,image/jpg,image/heic"
+          accept="image/jpeg,image/png,image/jpg,image/heic,image/webp"
           multiple
           onChange={(e) => {
             const files = Array.from(e.target.files || []);
