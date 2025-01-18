@@ -112,6 +112,10 @@ export const siteFooterContent = {
       title: "Terms of Service",
       href: "/tos",
     },
+    {
+      title: "Analytics",
+      href: "https://eu.posthog.com/shared/ISH0sUo8cQvi_8fkSBVwsTF--cfIoQ",
+    },
   ],
 };
 
