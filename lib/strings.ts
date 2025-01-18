@@ -189,9 +189,9 @@ export const privacyPageContent = {
     {
       heading: "Data Collection and Analytics",
       content: stripIndents`
-        We use Vercel Analytics as our analytics provider to collect non-identifiable 
+        We use Posthog as our analytics provider to collect non-identifiable 
         information about platform usage. This helps us improve our services and user
-        experience. The collected data is anonymized and used solely for analytical purposes.
+        experience. The collected data is anonymised and used solely for analytical purposes.
       `,
     },
     {
