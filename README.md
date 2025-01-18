@@ -52,6 +52,22 @@ Resend can be swapped out for any email service that supports sending emails via
 
 If you do self-host your own instance, remember that you will need to provide access to the source code (if you make changes) as according to the license below. You will also need to determine your own usage terms and privacy policy.
 
+### Local development
+
+To get started, clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/colabula/colabula.git
+cd colabula
+bun i
+```
+
+Note that due to a bug between Sentry and Turbopack, you will need to temporarily remove the `--turbopack` flag when running the development server in your `package.json` file. This does not affect the production build.
+
+You will also need to set up a Postgres database and configure the environment variables in a `.env` file. You can use the `.env.example` file as a template.
+
+Running `bun run email` will run a dev server for `react-email` and allow you to preview the email templates. You can use the free Resend test service to send yourself emails and test the functionality of the templates.
+
 ## License
 
 Colabula is licensed under the GNU Affero General Public License v3.0. See the [LICENSE file](/LICENSE) for details.
