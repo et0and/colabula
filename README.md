@@ -34,7 +34,7 @@ In the future we would like to add greater integrations with the NCEA and NZQA c
 
 ### Hosted version (colabula.com)
 
-If your school has been whitelisted for access, you can use the hosted version of Colabula at [colabula.com](https://colabula.com/signup).
+If your school has been whitelisted for access, you can use the hosted version of Colabula at [colabula.com](https://colabula.com/sign-up).
 
 If your school is not part of the pilot, you can request early access by emailing [pilot@colabula.com](mailto:pilot@colabula.com).
 
@@ -42,7 +42,7 @@ If your school is not part of the pilot, you can request early access by emailin
 
 We use Vercel for deployment. To get started, clone the repository and follow the instructions in the [Vercel deployment guide](https://vercel.com/docs/concepts/deployments/overview). You will need to set up a Postgres database and configure the environment variables in the Vercel project settings.
 
-We recommend using a Postgres database hosted on Supabase. You can create a free account and follow the instructions in the [Supabase deployment guide](https://supabase.com/docs/guides/hosting/vercel). Otherwise any Postgres database will work. Better Auth requires your own database to run since it is a fully self-hosted authentication provider, but if this is too much work this could be swapped out for a hosted solution such as [Clerk](https://clerk.com) or [Stack Auth](https://stackauth.com).
+We recommend using a Postgres database hosted on Supabase. You can create a free account and follow the instructions in the [Supabase deployment guide](https://supabase.com/docs/guides/hosting/vercel). Otherwise any Postgres database will work. Better Auth requires your own database to run since it is a fully self-hosted authentication provider, but if this is too much work this could be swapped out for a hosted solution such as [Clerk](https://clerk.com) or [Stack Auth](https://stack-auth.com).
 
 You will also need to set up an OpenRouter API key and an Upstash Redis instance. You can create an account and follow the instructions in the [OpenRouter deployment guide](https://openrouter.ai/docs/quickstart) and [Upstash deployment guide](https://upstash.com/docs/redis/quickstart).
 
