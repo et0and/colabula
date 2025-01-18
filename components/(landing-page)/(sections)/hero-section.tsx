@@ -31,7 +31,8 @@ export function HeroSection() {
           </div>
           <div className="space-y-4">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {heroContent.trustedByText}
+              {/*               {heroContent.trustedByText}
+               */}{" "}
             </p>
             {/* <div className="flex flex-wrap gap-6 items-center">
               <Image
