@@ -34,7 +34,7 @@ In the future we would like to add greater integrations with the NCEA and NZQA c
 
 ### Hosted version (colabula.com)
 
-If your school has been whitelisted for access, you can use the hosted version of Colabula at [colabula.com](https://colabula.com/signup).
+If your school has been whitelisted for access, you can use the hosted version of Colabula at [colabula.com](https://colabula.com/sign-up).
 
 If your school is not part of the pilot, you can request early access by emailing [pilot@colabula.com](mailto:pilot@colabula.com).
 
