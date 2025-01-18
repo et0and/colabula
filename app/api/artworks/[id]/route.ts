@@ -29,18 +29,20 @@ export async function PUT(
 
   const formData = await req.formData();
 
-  const formData = await req.formData();
-
   const title = formData.get("title");
   const content = formData.get("content");
   if (!title || !content) {
-    return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Title and content are required" },
+      { status: 400 }
+    );
   }
 
   let tags, imageUrls;
   try {
     tags = JSON.parse(formData.get("tags") as string);
     imageUrls = JSON.parse(formData.get("existingImages") as string);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({ error: "Invalid JSON format" }, { status: 400 });
   }
