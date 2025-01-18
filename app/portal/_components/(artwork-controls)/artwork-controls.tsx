@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -25,9 +26,10 @@ interface ArtworkControlsProps {
 }
 
 export function ArtworkControls({ artwork }: ArtworkControlsProps) {
+  const [open, setOpen] = useState(false);
   return (
     <div className="flex space-x-2">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" size="icon">
             <PencilIcon />
@@ -35,14 +37,7 @@ export function ArtworkControls({ artwork }: ArtworkControlsProps) {
         </DialogTrigger>
         <DialogContent>
           <DialogTitle>Edit post</DialogTitle>
-          <EditArtworkForm
-            artwork={artwork}
-            onCancel={() =>
-              document
-                .querySelector<HTMLButtonElement>("[data-dialog-close]")
-                ?.click()
-            }
-          />
+          <EditArtworkForm artwork={artwork} onCancel={() => setOpen(false)} />
         </DialogContent>
       </Dialog>
       <DeleteArtworkButton artworkId={artwork.id} />
