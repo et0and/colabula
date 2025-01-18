@@ -50,6 +50,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { ArtworkControls } from "@/app/portal/_components/(artwork-controls)/artwork-controls";
 
 type ArtworkWithRelations = Artwork & {
   user: User;
@@ -114,7 +115,7 @@ export async function generateMetadata({
 
 export default async function ArtworkPage({ params }: PageProps) {
   const { category, id } = await params;
-  const headersList = headers();
+  const headersList = await headers();
   const host = (await headersList).get("host") || "";
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
@@ -264,6 +265,9 @@ export default async function ArtworkPage({ params }: PageProps) {
                   </span>
                 </div>
                 <div className="flex items-center my-2 gap-2">
+                  {artwork.userId === artwork.user.id && (
+                    <ArtworkControls artwork={artwork} />
+                  )}
                   <ShareCard
                     baseUrl={baseUrl}
                     category={category}
