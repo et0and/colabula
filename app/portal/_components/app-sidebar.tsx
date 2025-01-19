@@ -103,11 +103,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     "bg-gradient-to-tr from-orange-500 via-red-500 to-orange-800",
     "bg-gradient-to-r from-orange-300 via-orange-500 to-red-600",
     "bg-gradient-to-bl from-red-400 via-orange-500 to-orange-700",
+    "bg-gradient-to-tl from-orange-600 via-red-400 to-orange-500",
+    "bg-gradient-to-l from-red-500 via-orange-400 to-orange-600",
   ];
 
-  const userSpecificGradient =
-    gradients[data?.user?.id?.charCodeAt(0) || 0 % gradients.length];
-
+  const userSpecificGradient = gradients[
+    (data?.user?.id?.charCodeAt(0) || 0) % gradients.length
+  ];
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
