@@ -5,7 +5,7 @@ import { Icons } from "@/components/ui/icons";
 
 function Footer() {
   return (
-    <footer className=" py-12 px-4 md:px-6 bg-background">
+    <footer className="pt-12 px-4 md:px-6 bg-background">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between">
           <div className="mb-8 md:mb-0">
@@ -101,7 +101,7 @@ function Footer() {
           </div>
         </div>
         <div className="w-full flex mt-8 items-center justify-center">
-          <p className="text-center text-3xl md:text-5xl lg:text-[14rem] font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-700 to-white select-none">
+          <p className="text-center text-3xl md:text-5xl lg:text-[20rem] font-medium bg-clip-text text-transparent bg-gradient-to-t from-neutral-700 via-neutral-400 to-transparent select-none">
             colabula*
           </p>
         </div>
