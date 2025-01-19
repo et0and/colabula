@@ -1,9 +1,10 @@
 import { SiteHeader } from "@/components/(landing-page)/site-header";
 import { HeroSection } from "@/components/(landing-page)/(sections)/hero-section";
 import { FeaturesSection } from "@/components/(landing-page)/(sections)/features-section";
-import { GetStartedSection } from "@/components/(landing-page)/(sections)/get-started-section";
-import { SiteFooter } from "@/components/(landing-page)/site-footer";
-import { ProductShowcase } from "@/components/(landing-page)/(sections)/product-showcase";
+/* import { SiteFooter } from "@/components/(landing-page)/site-footer";
+ */ import { ProductShowcase } from "@/components/(landing-page)/(sections)/product-showcase";
+import { CTA } from "@/components/ui/call-to-action";
+import { Footer } from "@/components/ui/large-name-footer";
 
 export default function Home() {
   return (
@@ -13,9 +14,11 @@ export default function Home() {
         <HeroSection />
         <FeaturesSection />
         <ProductShowcase />
-        <GetStartedSection />
+        <CTA />
       </main>
-      <SiteFooter />
+      <Footer />
+      {/*       <SiteFooter />
+       */}{" "}
     </div>
   );
 }
