@@ -1,8 +1,12 @@
+"use client";
 import { MoveRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 function CTA() {
+  const router = useRouter();
+
   return (
     <div className="w-full py-20 lg:py-40">
       <div className="container mx-auto">
@@ -20,10 +24,7 @@ function CTA() {
             </p>
           </div>
           <div className="flex flex-row gap-4">
-            <Button
-              className="gap-4"
-              onClick={() => (window.location.href = "/sign-up")}
-            >
+            <Button className="gap-4" onClick={() => router.push("/sign-up")}>
               Sign up <MoveRight className="w-4 h-4" />
             </Button>
           </div>
