@@ -22,7 +22,7 @@ export function HeroSection() {
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
               {heroContent.title}
             </h1>
-            <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+            <p className="max-w-[600px] text-gray-500 md:text-xl">
               {heroContent.subtitle}
             </p>
           </div>
@@ -31,7 +31,8 @@ export function HeroSection() {
           </div>
           <div className="space-y-4">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {heroContent.trustedByText}
+              {/*               {heroContent.trustedByText}
+               */}{" "}
             </p>
             {/* <div className="flex flex-wrap gap-6 items-center">
               <Image

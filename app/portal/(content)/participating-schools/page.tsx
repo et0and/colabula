@@ -51,9 +51,9 @@ export default function ParticipatingSchoolsPage() {
             schools:
           </p>
           <ul className="list-disc pl-6 space-y-2 mb-4">
-            <li>Liston College</li>
+            {/*  <li>Liston College</li>
             <li>Takapuna Grammar School</li>
-            <li>Waitakere College</li>
+            <li>Waitakere College</li> */}
           </ul>
         </div>
       </SidebarInset>
