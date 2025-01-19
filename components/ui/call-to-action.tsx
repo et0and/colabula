@@ -20,7 +20,10 @@ function CTA() {
             </p>
           </div>
           <div className="flex flex-row gap-4">
-            <Button className="gap-4">
+            <Button
+              className="gap-4"
+              onClick={() => (window.location.href = "/sign-up")}
+            >
               Sign up <MoveRight className="w-4 h-4" />
             </Button>
           </div>
