@@ -98,6 +98,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }
   };
 
+  const gradients = [
+    "bg-gradient-to-br from-orange-400 via-orange-600 to-orange-900",
+    "bg-gradient-to-tr from-orange-500 via-red-500 to-orange-800",
+    "bg-gradient-to-r from-orange-300 via-orange-500 to-red-600",
+    "bg-gradient-to-bl from-red-400 via-orange-500 to-orange-700",
+  ];
+
+  const userSpecificGradient =
+    gradients[data?.user?.id?.charCodeAt(0) || 0 % gradients.length];
+
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
@@ -160,7 +170,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           }
                           alt={data?.user.name || "@user"}
                         />
-                        <AvatarFallback className="bg-orange-900">
+                        <AvatarFallback
+                          className={`${userSpecificGradient} text-white`}
+                        >
                           {data?.user.name?.slice(0, 2).toUpperCase() || "U"}
                         </AvatarFallback>
                       </Avatar>
