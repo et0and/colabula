@@ -127,12 +127,15 @@ export default async function ArtworkPage({ params }: PageProps) {
 
   const artwork = (await prisma.artwork.findUnique({
     where: {
-      id: id,
+      id,
       category: categoryUpper,
     },
     include: {
       user: true,
       comments: {
+        where: {
+          parentId: null,
+        },
         include: {
           user: true,
           replies: {

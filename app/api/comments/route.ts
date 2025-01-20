@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   });
 
   if (!sessionData?.user) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
     const { content, artworkId, userId, parentId } = await req.json();
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     if (!content?.trim() || !artworkId || !userId) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -29,11 +29,15 @@ export async function POST(req: Request) {
       },
       include: {
         user: true,
-        replies: {
-          include: {
-            user: true,
-          },
-        },
+        ...(parentId
+          ? {}
+          : {
+              replies: {
+                include: {
+                  user: true,
+                },
+              },
+            }),
       },
     });
 
@@ -42,7 +46,7 @@ export async function POST(req: Request) {
     console.error("Error creating comment:", error);
     return NextResponse.json(
       { error: "Failed to create comment" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

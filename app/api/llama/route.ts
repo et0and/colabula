@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     const base64 = buffer.toString("base64");
 
     const completion = await openai.chat.completions.create({
-      model: "meta-llama/llama-3.2-90b-vision-instruct:free",
+      model: "meta-llama/llama-3.2-11b-vision-instruct:free",
       messages: [
         {
           role: "user",
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
     console.error("Error analyzing image:", error);
     return NextResponse.json(
       { error: "Failed to analyze image" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
