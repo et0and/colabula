@@ -4,6 +4,9 @@
 
 Colabula is an open-source platform designed specifically for New Zealand's art education community. It enables art educators from schools to share, review, and collaborate on student portfolio work at every stage of development.
 
+> [!IMPORTANT]  
+> This is pre-production software. It is very early in development and bugs are highly likely. If you spot an error, please fill out an issue and/or pull request. 
+
 ## Features
 
 - Progress tracking: monitor and share both in-progress and completed student work. Supports all popular image formats up to 50MiB per file
