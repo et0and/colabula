@@ -307,7 +307,7 @@ export default async function ArtworkPage({ params }: PageProps) {
                               className="w-full h-auto rounded-lg shadow cursor-zoom-in transition-transform hover:scale-[1.02]"
                             />
                           </DialogTrigger>
-                          <DialogContent className="max-w-screen-xl w-fit">
+                          <DialogContent className="max-w-[95vw] w-full h-[95vh] flex items-center justify-center bg-white/50">
                             <DialogTitle className="sr-only">
                               {`${artwork.title} - Image ${index + 1}`}
                             </DialogTitle>
@@ -316,7 +316,7 @@ export default async function ArtworkPage({ params }: PageProps) {
                               alt={`${artwork.title} - Image ${index + 1}`}
                               width={1920}
                               height={1080}
-                              className="w-auto max-h-[80vh] h-auto object-contain"
+                              className="w-full max-h-[90vh] h-auto object-contain"
                             />
                           </DialogContent>
                         </Dialog>
