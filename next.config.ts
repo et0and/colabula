@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "pub-6d3acd257d7d480e96fc6a429cc2df74.r2.dev",
+        hostname: "aratuku.com", 
         pathname: "**",
       },
     ],
