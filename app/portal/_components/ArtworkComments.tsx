@@ -58,21 +58,16 @@ export function ArtworkComments({
         }),
       }).then((res) => res.json());
 
-      setComments((prevComments) => {
-        const updatedComments = prevComments.map((comment) => {
-          if (comment.id === parentId) {
-            return {
-              ...comment,
-              replies: [
-                ...(comment.replies || []),
-                newComment as CommentWithUser,
-              ],
-            };
-          }
-          return comment;
-        });
-        return updatedComments;
-      });
+      setComments((prevComments) =>
+        prevComments.map((comment) =>
+          comment.id === parentId
+            ? {
+                ...comment,
+                replies: [...(comment.replies || []), newComment],
+              }
+            : comment
+        )
+      );
     } catch (error) {
       console.error("Error adding reply:", error);
     }

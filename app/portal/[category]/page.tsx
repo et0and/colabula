@@ -104,6 +104,9 @@ export default async function CategoryPage({ params }: PageProps) {
     include: {
       user: true,
       comments: {
+        where: {
+          parentId: null, // Only fetch top-level comments
+        },
         include: {
           user: true,
           replies: {
