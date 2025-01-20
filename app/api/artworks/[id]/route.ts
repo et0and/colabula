@@ -1,6 +1,16 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+
+const s3 = new S3Client({
+  region: "auto",
+  endpoint: process.env.AWS_ENDPOINT_URL,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+});
 
 export async function PUT(
   req: Request,
@@ -8,44 +18,39 @@ export async function PUT(
 ) {
   const { params } = context;
   const id = (await params).id;
-
   const sessionData = await auth.api.getSession({ headers: req.headers });
 
   if (!sessionData?.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const existingArtwork = await prisma.artwork.findUnique({
-    where: { id },
-  });
-
-  if (!existingArtwork) {
-    return NextResponse.json({ error: "Artwork not found" }, { status: 404 });
-  }
-
-  if (existingArtwork.userId !== sessionData.user.id) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
-
   const formData = await req.formData();
+  const files = formData.getAll("file") as File[];
+  const newImageUrls = [];
 
+  // Process new file uploads
+  for (const file of files) {
+    const fileName = `${Date.now()}-${file.name}`;
+    const uploadCommand = new PutObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME!,
+      Key: fileName,
+      Body: Buffer.from(await file.arrayBuffer()),
+      ContentType: file.type,
+      ACL: "public-read",
+    });
+
+    await s3.send(uploadCommand);
+    newImageUrls.push(`${process.env.AWS_PUBLIC_ENDPOINT_URL}/${fileName}`);
+  }
+
+  // Get existing data
   const title = formData.get("title");
   const content = formData.get("content");
-  if (!title || !content) {
-    return NextResponse.json(
-      { error: "Title and content are required" },
-      { status: 400 }
-    );
-  }
+  const existingImages = JSON.parse(formData.get("existingImages") as string);
+  const tags = JSON.parse(formData.get("tags") as string);
 
-  let tags, imageUrls;
-  try {
-    tags = JSON.parse(formData.get("tags") as string);
-    imageUrls = JSON.parse(formData.get("existingImages") as string);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
-    return NextResponse.json({ error: "Invalid JSON format" }, { status: 400 });
-  }
+  // Combine existing and new image URLs
+  const combinedImageUrls = [...existingImages, ...newImageUrls];
 
   const updatedArtwork = await prisma.artwork.update({
     where: { id },
@@ -53,7 +58,7 @@ export async function PUT(
       title: title as string,
       content: content as string,
       tags,
-      imageUrls,
+      imageUrls: combinedImageUrls,
     },
   });
 
