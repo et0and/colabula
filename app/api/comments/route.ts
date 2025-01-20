@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   });
 
   if (!sessionData?.user) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
     const { content, artworkId, userId, parentId } = await req.json();
@@ -29,7 +29,6 @@ export async function POST(req: Request) {
       },
       include: {
         user: true,
-        // Only include replies if this is a top-level comment
         ...(parentId
           ? {}
           : {
