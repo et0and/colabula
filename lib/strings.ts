@@ -91,32 +91,55 @@ export const siteFooterContent = {
   copyright: {
     company: "Cold Sundays, Ltd.",
   },
-  links: [
-    {
-      title: "About us",
-      href: "/about",
+  links: {
+    company: {
+      title: "Company",
+      items: [
+        {
+          title: "About us",
+          href: "/about",
+        },
+        {
+          title: "Status",
+          href: "https://status.colabula.com",
+        },
+        {
+          title: "Source code",
+          href: "https://github.com/et0and/colabula",
+        },
+        {
+          title: "Analytics",
+          href: "https://eu.posthog.com/shared/ISH0sUo8cQvi_8fkSBVwsTF--cfIoQ",
+        },
+      ],
     },
-    {
-      title: "Status",
-      href: "https://status.colabula.com",
+    socials: {
+      title: "Socials",
+      items: [
+        {
+          title: "Github",
+          href: "https://github.com/et0and/colabula",
+        },
+        {
+          title: "X",
+          href: "https://x.com/tomhackshaw",
+        },
+      ],
     },
-    {
-      title: "Source code",
-      href: "https://github.com/et0and/colabula",
+    legal: {
+      title: "Legal",
+      items: [
+        {
+          title: "Privacy Policy",
+          href: "/privacy",
+        },
+        {
+          title: "Terms of Service",
+          href: "/tos",
+        },
+      ],
     },
-    {
-      title: "Privacy Policy",
-      href: "/privacy",
-    },
-    {
-      title: "Terms of Service",
-      href: "/tos",
-    },
-    {
-      title: "Analytics",
-      href: "https://eu.posthog.com/shared/ISH0sUo8cQvi_8fkSBVwsTF--cfIoQ",
-    },
-  ],
+  },
 };
 
 // Marketing landing content
@@ -160,6 +183,13 @@ export const productShowcaseContent = {
     "Share specific entries with others, or bookmark them for later",
   commentsFeatureCaption:
     "Threaded comments for better conversations with colleagues",
+};
+
+export const ctaContent = {
+  badge: "Try a better way",
+  title: "Join Colabula",
+  description:
+    "We are in early beta but are quickly growing and developing new features every week.",
 };
 
 // Marketing pages

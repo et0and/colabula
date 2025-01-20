@@ -1,5 +1,5 @@
 import { SiteHeader } from "@/components/(landing-page)/site-header";
-import { SiteFooter } from "@/components/(landing-page)/site-footer";
+import { Footer } from "@/components/(landing-page)/site-footer";
 import { openSourcePageContent } from "@/lib/strings";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <Footer />
     </div>
   );
 }

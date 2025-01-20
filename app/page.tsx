@@ -1,10 +1,9 @@
 import { SiteHeader } from "@/components/(landing-page)/site-header";
 import { HeroSection } from "@/components/(landing-page)/(sections)/hero-section";
 import { FeaturesSection } from "@/components/(landing-page)/(sections)/features-section";
-/* import { SiteFooter } from "@/components/(landing-page)/site-footer";
- */ import { ProductShowcase } from "@/components/(landing-page)/(sections)/product-showcase";
-import { CTA } from "@/components/ui/call-to-action";
-import { Footer } from "@/components/ui/large-name-footer";
+import { ProductShowcase } from "@/components/(landing-page)/(sections)/product-showcase";
+import { CTA } from "@/components/(landing-page)/(sections)/call-to-action";
+import { Footer } from "@/components/(landing-page)/site-footer";
 
 export default function Home() {
   return (
@@ -17,8 +16,6 @@ export default function Home() {
         <CTA />
       </main>
       <Footer />
-      {/*       <SiteFooter />
-       */}{" "}
     </div>
   );
 }

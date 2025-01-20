@@ -1,5 +1,5 @@
 import { SiteHeader } from "@/components/(landing-page)/site-header";
-import { SiteFooter } from "@/components/(landing-page)/site-footer";
+import { Footer } from "@/components/(landing-page)/site-footer";
 import { productPageContent } from "@/lib/strings";
 
 export default function ProductPage() {
@@ -33,7 +33,7 @@ export default function ProductPage() {
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <Footer />
     </div>
   );
 }
