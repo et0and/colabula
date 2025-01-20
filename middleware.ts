@@ -10,20 +10,33 @@ export default async function authMiddleware(request: NextRequest) {
     {
       baseURL: request.nextUrl.origin,
       headers: {
-        //get the cookie from the request
         cookie: request.headers.get("cookie") || "",
       },
-    },
+    }
   );
 
-  if (!session) {
+  // Check if the request is for an auth page
+  const isAuthPage =
+    request.nextUrl.pathname.startsWith("/sign-in") ||
+    request.nextUrl.pathname.startsWith("/sign-up");
+
+  // Redirect authenticated users away from auth pages
+  if (session && isAuthPage) {
+    return NextResponse.redirect(new URL("/portal/painting", request.url));
+  }
+
+  // Protect portal routes
+  if (!session && !isAuthPage) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
+
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
+    "/sign-in",
+    "/sign-up",
     "/portal/:path*",
     "/api/ratings/:path*",
     "/api/comments/:path*",
