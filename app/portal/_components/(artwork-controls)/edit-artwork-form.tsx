@@ -41,7 +41,7 @@ export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
 
       // Append new images if any
       newImages.forEach((file) => {
-        formDataToSend.append("newImages", file);
+        formDataToSend.append("file", file);
       });
 
       const response = await fetch(`/api/artworks/${artwork.id}`, {
