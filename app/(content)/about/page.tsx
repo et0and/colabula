@@ -1,5 +1,5 @@
 import { SiteHeader } from "@/components/(landing-page)/site-header";
-import { SiteFooter } from "@/components/(landing-page)/site-footer";
+import { Footer } from "@/components/(landing-page)/site-footer";
 import { aboutPageContent, companyInfo } from "@/lib/strings";
 
 export default function AboutPage() {
@@ -39,7 +39,7 @@ export default function AboutPage() {
           <p className="mb-4">{aboutPageContent.sections.promise.content}</p>
         </div>
       </main>
-      <SiteFooter />
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { SiteHeader } from "@/components/(landing-page)/site-header";
-import { SiteFooter } from "@/components/(landing-page)/site-footer";
+import { Footer } from "@/components/(landing-page)/site-footer";
 import { termsOfServiceContent } from "@/lib/strings";
 
 export default function TermsOfServicePage() {
@@ -22,7 +22,7 @@ export default function TermsOfServicePage() {
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <Footer />
     </div>
   );
 }
