@@ -36,7 +36,7 @@ export async function POST(req: Request) {
           content: [
             {
               type: "text",
-              text: "Generate a comma-separated list of relevant tags for this artwork. Focus on style, medium, subject matter, and mood. Do not use sentences in your response. It should be structured like this: 'expressionist,painting,death,dark' without a full-stop/period for the last tag.",
+              text: "Generate a comma-separated list of relevant tags for this artwork, no more than 5 tags in total. Focus on style, medium, subject matter, and mood. Do not use sentences in your response. It should be structured like this: 'expressionist,painting,death,dark' without a full-stop/period for the last tag.",
             },
             {
               type: "image_url",
