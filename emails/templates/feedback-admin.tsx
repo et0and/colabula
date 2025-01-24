@@ -8,6 +8,15 @@ import {
   Img,
   Text,
 } from "@react-email/components";
+import {
+  main,
+  container,
+  section,
+  footer,
+  logo,
+  heading,
+  paragraph,
+} from "../styles";
 import * as React from "react";
 
 interface FeedbackAdminEmailProps {
@@ -55,51 +64,4 @@ export const FeedbackAdminEmail = ({
     </Html>
   );
 };
-
-const main = {
-  backgroundColor: "#f6f9fc",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
-};
-
-const container = {
-  backgroundColor: "#ffffff",
-  margin: "0 auto",
-  padding: "20px 0 48px",
-  marginBottom: "64px",
-};
-
-const section = {
-  padding: "0 48px",
-};
-
-const footer = {
-  margin: "0 auto",
-  fontSize: "12px",
-  maxWidth: "580px",
-};
-
-const logo = {
-  display: "flex",
-  justifyContent: "center",
-  alingItems: "center",
-  padding: 30,
-};
-
-const heading = {
-  fontSize: "24px",
-  letterSpacing: "-0.5px",
-  lineHeight: "1.3",
-  fontWeight: "400",
-  color: "#484848",
-  padding: "17px 0 0",
-};
-
-const paragraph = {
-  margin: "0 0 15px",
-  fontSize: "15px",
-  lineHeight: "1.4",
-  color: "#3c4149",
-};
-
 export default FeedbackAdminEmail;
