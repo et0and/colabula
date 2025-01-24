@@ -53,12 +53,38 @@ const Split = (props: React.PropsWithChildren<SplitProps>) => {
 };
 
 const formSchema = yup.object({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
+  firstName: yup
+    .string()
+    .required()
+
+    .max(50)
+    .matches(
+      /^[a-zA-Z\s-']+$/,
+      "Only letters, spaces, hyphens and apostrophes allowed"
+    ),
+  lastName: yup
+    .string()
+    .required()
+
+    .max(50)
+    .matches(
+      /^[a-zA-Z\s-']+$/,
+      "Only letters, spaces, hyphens and apostrophes allowed"
+    ),
   school: yup.string().required(),
-  pastExperience: yup.string().required(),
-  email: yup.string().email().required(),
-  generalFeedback: yup.string().required(),
+  pastExperience: yup
+    .string()
+    .required()
+
+    .max(2000)
+    .matches(/^[\w\s.,!?()-]+$/, "Invalid characters detected"),
+  email: yup.string().email().required().max(254),
+  generalFeedback: yup
+    .string()
+    .required()
+
+    .max(5000)
+    .matches(/^[\w\s.,!?()-]+$/, "Invalid characters detected"),
 });
 
 export default function RouterForm() {
@@ -108,152 +134,150 @@ export default function RouterForm() {
     }
   }
   return (
-    <>
-      <div className="flex min-h-screen flex-col mx-auto mb-8">
-        <SiteHeader />
-        <Split left={LeftContent}>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-4 pt-8"
-            >
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>First name</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Miki"
-                        {...field}
-                        type="string"
-                        required
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Last name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Yufu" {...field} type="string" />
-                    </FormControl>
-                    <FormDescription>
-                      Enter your surname/family name
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="miki@yufugumi.com"
-                        {...field}
-                        type="email"
-                        required
-                      />
-                    </FormControl>
-                    <FormDescription>Enter your school email</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="school"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>School</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
+    <div className="flex min-h-screen flex-col mx-auto mb-8">
+      <SiteHeader />
+      <Split left={LeftContent}>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 pt-8"
+          >
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Miki"
+                      {...field}
+                      type="string"
                       required
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a school" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {feedbackFormContent.schools.map((school) => (
-                          <SelectItem key={school.value} value={school.value}>
-                            {school.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      Please select where you currently teach
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pastExperience"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {feedbackFormContent.pastExperience.label}
-                    </FormLabel>
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Yufu" {...field} type="string" />
+                  </FormControl>
+                  <FormDescription>
+                    Enter your surname/family name
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="miki@yufugumi.com"
+                      {...field}
+                      type="email"
+                      required
+                    />
+                  </FormControl>
+                  <FormDescription>Enter your school email</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="school"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>School</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    required
+                  >
                     <FormControl>
-                      <Textarea
-                        placeholder={
-                          feedbackFormContent.pastExperience.placeholder
-                        }
-                        {...field}
-                      />
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a school" />
+                      </SelectTrigger>
                     </FormControl>
-                    <FormDescription>
-                      {feedbackFormContent.pastExperience.description}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="generalFeedback"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {feedbackFormContent.generalFeedback.label}
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder={
-                          feedbackFormContent.generalFeedback.placeholder
-                        }
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {feedbackFormContent.generalFeedback.description}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Submit"}
-              </Button>
-            </form>
-          </Form>
-        </Split>
-      </div>
-    </>
+                    <SelectContent>
+                      {feedbackFormContent.schools.map((school) => (
+                        <SelectItem key={school.value} value={school.value}>
+                          {school.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    Please select where you currently teach
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pastExperience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {feedbackFormContent.pastExperience.label}
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder={
+                        feedbackFormContent.pastExperience.placeholder
+                      }
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    {feedbackFormContent.pastExperience.description}
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="generalFeedback"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {feedbackFormContent.generalFeedback.label}
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder={
+                        feedbackFormContent.generalFeedback.placeholder
+                      }
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    {feedbackFormContent.generalFeedback.description}
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </Button>
+          </form>
+        </Form>
+      </Split>
+    </div>
   );
 }
