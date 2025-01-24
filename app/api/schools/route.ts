@@ -40,7 +40,7 @@ export async function GET(req: Request) {
 
     // If no cached data, fetch from source
     const response = await fetch(
-      `https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT * FROM "4b292323-9fcc-41f8-814b-3c7b19cf14b3"`,
+      `https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT * FROM "4b292323-9fcc-41f8-814b-3c7b19cf14b3" ORDER BY "Org_Name"`,
     );
 
     if (!response.ok) {
@@ -48,16 +48,15 @@ export async function GET(req: Request) {
     }
 
     const data: SchoolApiResponse = await response.json();
-    const schools = data.result.records
-      .map((record) => record.Org_Name)
-      .sort((a, b) => a.localeCompare(b));
+    // After fetching and processing:
+const schools = data.result.records.map((record) => record.Org_Name); // No sorting needed
+const compressed = await compress(JSON.stringify(schools));
+await redis.set(CACHE_KEY, compressed, { ex: 2592000 }); // Cache compressed bytes
 
-    // Cache the results with Upstash
-    await redis.set(CACHE_KEY, schools, { ex: 2592000 }); // 30 days expiry
-
-    const compressed = await compress(JSON.stringify(schools));
-
-    return new NextResponse(compressed, {
+// On cache hit:
+const cachedCompressed = await redis.get<string>(CACHE_KEY);
+if (cachedCompressed) {
+  return new NextResponse(cachedCompressed, {
       headers: {
         "Content-Type": "application/json",
         "Content-Encoding": "gzip",
