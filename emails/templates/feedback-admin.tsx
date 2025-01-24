@@ -7,36 +7,44 @@ import {
   Section,
   Img,
   Text,
-  Link,
 } from "@react-email/components";
 import * as React from "react";
 
-interface VerificationEmailProps {
-  url: string;
+interface FeedbackAdminEmailProps {
+  firstName: string;
+  lastName: string;
+  school: string;
+  email: string;
+  pastExperience: string;
+  generalFeedback: string;
 }
 
-export const VerificationEmail = ({ url }: VerificationEmailProps) => {
+export const FeedbackAdminEmail = ({
+  firstName,
+  lastName,
+  school,
+  email,
+  pastExperience,
+  generalFeedback,
+}: FeedbackAdminEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Verify your Colabula account</Preview>
+      <Preview>Someone just submitted feedback on Colabula</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={logo}>
             <Img width={200} src="https://colabula.com/logo-dark.svg" />
           </Section>
           <Section style={section}>
-            <Text style={heading}>Verify your account</Text>
-            <Text style={paragraph}>
-              Click the button below to verify your Colabula account
-            </Text>
-            <Link style={link} href={url}>
-              Confirm
-            </Link>
+            <Text style={heading}>New feedback received</Text>
+            <Text style={paragraph}>First Name: {firstName}</Text>
+            <Text style={paragraph}>Last Name: {lastName}</Text>
+            <Text style={paragraph}>School: {school}</Text>
+            <Text style={paragraph}>Email: {email}</Text>
+            <Text style={paragraph}>Past Experience: {pastExperience}</Text>
+            <Text style={paragraph}>General Feedback: {generalFeedback}</Text>
 
-            <Text style={paragraph}>
-              If you didn&apos;t request this, you can safely ignore this email.
-            </Text>
             <Text style={footer}>
               © {new Date().getFullYear()} Cold Sundays, All Rights Reserved.
               Te Awa Kairangi ki Uta, Aotearoa.
@@ -94,20 +102,4 @@ const paragraph = {
   color: "#3c4149",
 };
 
-const link = {
-  backgroundColor: "#000000",
-  borderRadius: "5px",
-  color: "#fff",
-  fontSize: "15px",
-  textDecoration: "none",
-  textAlign: "center" as const,
-  display: "inline-block",
-  width: "auto",
-  padding: "14px 28px",
-  margin: "0 0 15px",
-  cursor: "pointer",
-};
-
-VerificationEmail.PreviewProps = {} as VerificationEmailProps;
-
-export default VerificationEmail;
+export default FeedbackAdminEmail;

@@ -2,6 +2,11 @@ import { SiteHeader } from "@/components/(landing-page)/site-header";
 import { Footer } from "@/components/(landing-page)/site-footer";
 import { aboutPageContent, companyInfo } from "@/lib/strings";
 
+export const metadata = {
+  title: "About",
+  description: "About Colabula",
+};
+
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col">

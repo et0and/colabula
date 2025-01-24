@@ -38,8 +38,8 @@ export const ResetPasswordEmail = ({ url }: ResetPasswordEmailProps) => {
               If you didn&apos;t request this, you can safely ignore this email.
             </Text>
             <Text style={footer}>
-              © 2025 Cold Sundays, All Rights Reserved. Te Awa Kairangi ki Uta,
-              Aotearoa.
+              © {new Date().getFullYear()} Cold Sundays, All Rights Reserved.
+              Te Awa Kairangi ki Uta, Aotearoa.
             </Text>
           </Section>
         </Container>
