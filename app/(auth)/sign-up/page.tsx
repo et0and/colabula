@@ -242,12 +242,23 @@ export default function SignUp() {
             </form>
           </CardContent>
           <CardFooter>
-            <div className="flex justify-center w-full border-t py-4">
+            <div className="flex flex-col justify-center w-full border-t py-4 gap-4">
               <p className="text-center text-xs text-neutral-500">
                 Have an account?{" "}
                 <Link href="/sign-in" className="link">
                   Login instead.
                 </Link>
+              </p>
+              <p className="text-xs text-center text-gray-500">
+                By creating an account, you agree to our{" "}
+                <Link href="/privacy" className="link">
+                  Privacy Policy
+                </Link>{" "}
+                and{" "}
+                <Link href="/tos" className="link">
+                  Terms of Service
+                </Link>
+                .
               </p>
             </div>
           </CardFooter>

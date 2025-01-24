@@ -225,6 +225,19 @@ export const privacyPageContent = {
       `,
     },
     {
+      heading: "Other Third-Party Services",
+      content: stripIndents`
+    We use select third-party services to enhance platform functionality and reliability.
+    
+    Sentry helps us monitor application performance and identify technical issues to maintain platform stability. This involves sharing error logs and performance data.
+    
+    For AI-powered features like automatic artwork tagging, we use Openrouter.ai to route requests to our Llama Vision endpoint, with Together.ai as our primary AI provider. These services process image data solely for generating relevant tags and descriptions.
+    
+    All third-party services are bound by strict data processing agreements and handle data in compliance with privacy regulations.
+  `,
+    },
+
+    {
       heading: "Content Ownership and Rights",
       content: stripIndents`
         Colabula, ${companyInfo.coldSundays.name}, and ${companyInfo.yufugumi.name} do not claim ownership of any 
