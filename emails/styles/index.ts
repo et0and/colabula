@@ -24,7 +24,7 @@ export const footer = {
 export const logo = {
   display: "flex",
   justifyContent: "center",
-  alingItems: "center",
+  alignItems: "center",
   padding: 30,
 };
 
