@@ -19,7 +19,7 @@ export async function submitFeedback(
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
         secret: process.env.TURNSTILE_SECRET_KEY || "",
-        response: data.turnstileToken || "",
+        response: data.turnstileToken ?? "",
       }),
     }
   );
