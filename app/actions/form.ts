@@ -5,7 +5,11 @@ import { resend } from "@/lib/email";
 import { FeedbackFormData } from "@/types/feedback";
 
 export async function submitFeedback(data: FeedbackFormData) {
-  const response = await fetch(process.env.FORM_API_ENDPOINT!, {
+  if (!process.env.FORM_API_ENDPOINT || !process.env.FORM_API_KEY) {
+    throw new Error("Missing required environment variables for form submission.");
+  }
+
+  const response = await fetch(process.env.FORM_API_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
