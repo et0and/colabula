@@ -9,7 +9,25 @@ import { JSDOM } from "jsdom";
 const window = new JSDOM("").window;
 const purify = DOMPurify(window);
 
-export async function submitFeedback(data: FeedbackFormData) {
+export async function submitFeedback(
+  data: FeedbackFormData & { turnstileToken?: string }
+) {
+  const turnstileVerification = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        secret: process.env.TURNSTILE_SECRET_KEY || "",
+        response: data.turnstileToken || "",
+      }),
+    }
+  );
+
+  const turnstileResult = await turnstileVerification.json();
+  if (!turnstileResult.success) {
+    throw new Error("Turnstile verification failed");
+  }
   const sanitizedData = {
     ...data,
     firstName: purify.sanitize(data.firstName),

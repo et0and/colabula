@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { toast } from "sonner";
 import { submitFeedback } from "@/app/actions/form";
-import { JSX, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { feedbackFormContent } from "@/lib/strings";
 import { Button } from "@/components/ui/button";
@@ -30,9 +30,16 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { FeedbackFormData } from "@/types/feedback";
 import Image from "next/image";
+import Script from "next/script";
 
 interface SplitProps {
   left: JSX.Element;
+}
+
+declare global {
+  interface Window {
+    onTurnstileSuccess: (token: string) => void;
+  }
 }
 
 const Split = (props: React.PropsWithChildren<SplitProps>) => {
@@ -91,6 +98,13 @@ export default function RouterForm() {
   const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+
+  useEffect(() => {
+    window.onTurnstileSuccess = (token: string) => {
+      setTurnstileToken(token);
+    };
+  }, []);
 
   const form = useForm({
     resolver: yupResolver(formSchema),
@@ -119,7 +133,8 @@ export default function RouterForm() {
   async function onSubmit(data: FeedbackFormData) {
     setIsSubmitting(true);
     try {
-      const success = await submitFeedback(data);
+      // Include the Turnstile token with other form data
+      const success = await submitFeedback({ ...data, turnstileToken });
       if (success) {
         toast.success(feedbackFormContent.toasts.success);
         router.push("/feedback/thanks");
@@ -133,8 +148,14 @@ export default function RouterForm() {
       setIsSubmitting(false);
     }
   }
+
   return (
     <div className="flex min-h-screen flex-col mx-auto mb-8">
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer
+      />
       <SiteHeader />
       <Split left={LeftContent}>
         <Form {...form}>
@@ -142,6 +163,15 @@ export default function RouterForm() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4 pt-8"
           >
+            <div
+              className="cf-turnstile"
+              data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+              data-action="submit"
+              data-callback="onTurnstileSuccess"
+              data-response-field="cf-turnstile-response"
+              style={{ display: "none" }}
+            ></div>
+
             <FormField
               control={form.control}
               name="firstName"
