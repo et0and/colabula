@@ -600,3 +600,47 @@ export const assessmentLevelDescriptions = {
   "3.4":
     "This standard focuses on producing a systematic body of work that integrates conventions and regenerates ideas",
 };
+
+// Feedback form content
+
+export const feedbackFormContent = {
+  title: "Feedback",
+  intro:
+    "Thank you for participating in the Colabula beta programme. We are constantly trying to improve and would love your feedback.",
+  schools: [
+    {
+      value: "albany",
+      label: "Albany Senior High School",
+    },
+    {
+      value: "tgs",
+      label: "Takapuna Grammar School",
+    },
+    {
+      value: "liston-college",
+      label: "Liston College",
+    },
+  ],
+  pastExperience: {
+    label: "Previous methods of online collaboration",
+    placeholder: "In the past I have used ...",
+    description:
+      "How have you previously shared examples of portfolios or asked questions to other teachers in New Zealand?",
+  },
+  generalFeedback: {
+    label: "How have you felt using Colabula so far?",
+    placeholder: "I have enjoyed/hated ...",
+    description:
+      "Feel free to be brutally honest! Let us know what you would like on the platform, or of anything issues that you have identified",
+  },
+  toasts: {
+    success: "Feedback submitted successfully!",
+    error: "Failed to submit feedback",
+    submitError: "Error submitting feedback",
+  },
+};
+
+export const feedbackThanksContent = {
+  title: "Thank you for your feedback!",
+  message: "You should receive an email copy of your responses shortly",
+};

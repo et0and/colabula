@@ -31,6 +31,11 @@ jobs:
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
       SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      FORM_API_KEY: ${{ secrets.FORM_API_KEY }}
+      FORM_API_ENDPOINT: ${{ secrets.FORM_API_ENDPOINT }}
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
+      TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+
     steps:
       - uses: actions/checkout@v4
         with:
