@@ -17,11 +17,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../../../components/ui/select";
+} from "@/components/ui/select";
 import { ArtCategory } from "@prisma/client";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Textarea } from "../../../../../components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
 import { trpc } from "@/app/(backend)/server/trpc";
@@ -29,8 +29,16 @@ import { trpc } from "@/app/(backend)/server/trpc";
 export function UploadForm() {
   const [open, setOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [generatedTags, setGeneratedTags] = useState<string>("");
+  const [generatedTags, setGeneratedTags] = useState("");
   const [isGeneratingTags, setIsGeneratingTags] = useState(false);
+
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState<ArtCategory | "">("");
+  const [assessmentLevel, setAssessmentLevel] = useState("");
+  const [content, setContent] = useState("");
+  const [school, setSchool] = useState("");
+
   const router = useRouter();
 
   const { data: schools = [], isLoading: loadingSchools } = useQuery<string[]>({
@@ -40,51 +48,99 @@ export function UploadForm() {
       return response.json();
     },
     staleTime: 1000 * 60 * 60, // Cache for 1 hour
-    gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours (formerly cacheTime)
+    gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours
+  });
+
+  const llamaMutation = trpc.llama.analyzeImage.useMutation();
+
+  // Wrap analyzeImage in its own useCallback so it remains stable
+  const analyzeImage = useCallback(
+    async (file: File) => {
+      setIsGeneratingTags(true);
+      try {
+        const bytes = await file.arrayBuffer();
+        const base64 = Buffer.from(bytes).toString("base64");
+        const { tags } = await llamaMutation.mutateAsync({ base64 });
+        setGeneratedTags(tags || "");
+      } catch (error) {
+        console.error("Error analyzing image:", error);
+        toast.error("Sorry, I couldn't analyse this portfolio");
+      } finally {
+        setIsGeneratingTags(false);
+      }
+    },
+    [llamaMutation]
+  );
+
+  // We reference analyzeImage here, so we include it in the dependency array
+  const handleFiles = useCallback(
+    (files: FileList | null) => {
+      if (!files) return;
+      const allFiles = Array.from(files);
+      setSelectedFiles(allFiles);
+      if (allFiles.length > 0) {
+        analyzeImage(allFiles[0]);
+      }
+    },
+    [analyzeImage]
+  );
+
+  // If you don’t need the first param "data", remove it or rename it to _
+  const uploadMutation = trpc.upload.uploadPortfolio.useMutation({
+    onSuccess: () => {
+      setOpen(false);
+      if (category) {
+        router.push(`/portal/${category.toLowerCase()}`);
+      }
+      router.refresh();
+    },
+    onError: (err: unknown) => {
+      if (err instanceof Error) {
+        toast.error(`Upload failed: ${err.message}`);
+      } else {
+        toast.error("Upload failed: Unknown error");
+      }
+    },
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsUploading(true);
 
-    const formData = new FormData(e.currentTarget);
-
     try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const imagesBase64 = await Promise.all(
+        selectedFiles.map(
+          (file) =>
+            new Promise<string>((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => {
+                const result = reader.result as string;
+                // Remove the "data:image/..." prefix
+                const base64 = result.split(",")[1] ?? "";
+                resolve(base64);
+              };
+              reader.onerror = reject;
+              reader.readAsDataURL(file);
+            })
+        )
+      );
 
-      if (response.ok) {
-        setOpen(false);
-        const category = formData.get("category")?.toString().toLowerCase();
-        router.push(`/portal/${category}`);
-        router.refresh();
-      }
+      await uploadMutation.mutateAsync({
+        images: imagesBase64,
+        title: title.trim(),
+        category: category as ArtCategory,
+        assessmentLevel,
+        tags: generatedTags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+        content,
+        school,
+      });
     } finally {
       setIsUploading(false);
     }
   }
-
-  const llamaMutation = trpc.llama.analyzeImage.useMutation();
-
-  const analyzeImage = async (file: File) => {
-    setIsGeneratingTags(true);
-    try {
-      // Convert file to base64
-      const bytes = await file.arrayBuffer();
-      const base64 = Buffer.from(bytes).toString("base64");
-
-      // Call the tRPC mutation
-      const { tags } = await llamaMutation.mutateAsync({ base64 });
-      setGeneratedTags(tags || "");
-    } catch (error) {
-      console.error("Error analyzing image:", error);
-      toast.error("Sorry, I couldn't analyse this portfolio");
-    } finally {
-      setIsGeneratingTags(false);
-    }
-  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -94,6 +150,7 @@ export function UploadForm() {
           From computer
         </Button>
       </DialogTrigger>
+
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Upload portfolio</DialogTitle>
@@ -104,13 +161,13 @@ export function UploadForm() {
             <Input
               id="file"
               type="file"
-              accept="image/jpeg,image/png,image/webp,image/jpg,image/heic"
-              name="file"
+              accept="image/*"
               multiple
               required
               onChange={(e) => {
-                const files = Array.from(e.target.files || []);
-                const totalSize = files.reduce(
+                const files = e.target.files;
+                if (!files) return;
+                const totalSize = Array.from(files).reduce(
                   (sum, file) => sum + file.size,
                   0
                 );
@@ -118,20 +175,13 @@ export function UploadForm() {
                   e.target.value = "";
                   alert("Total file size must be less than 50MiB");
                   return;
-                } else {
-                  console.warn(
-                    "File size validation skipped due to zero or undefined file size."
-                  );
                 }
-                // Analyze the first image
-                if (files.length > 0) {
-                  analyzeImage(files[0]);
-                }
+                handleFiles(files);
               }}
             />
             <p className="text-xs text-muted-foreground">
-              Add one or more images (JPG, PNG or WEBP up to 50MiB). We will
-              scan the first image for tags.
+              Add one or more images (JPG, PNG, or WEBP up to 50MiB). We scan
+              the first image for tags.
             </p>
           </div>
 
@@ -142,19 +192,26 @@ export function UploadForm() {
               name="title"
               placeholder="Enter a name for this portfolio"
               required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="category">Category</Label>
-            <Select name="category" required>
+            <Select
+              name="category"
+              required
+              value={category}
+              onValueChange={(val) => setCategory(val as ArtCategory)}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
               <SelectContent>
-                {Object.values(ArtCategory).map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category.charAt(0) + category.slice(1).toLowerCase()}
+                {Object.values(ArtCategory).map((cat) => (
+                  <SelectItem key={cat} value={cat}>
+                    {cat.charAt(0) + cat.slice(1).toLowerCase()}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -163,7 +220,12 @@ export function UploadForm() {
 
           <div className="space-y-2">
             <Label htmlFor="assessmentLevel">Assessment level</Label>
-            <Select name="assessmentLevel" required>
+            <Select
+              name="assessmentLevel"
+              required
+              value={assessmentLevel}
+              onValueChange={(val) => setAssessmentLevel(val)}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select level" />
               </SelectTrigger>
@@ -198,12 +260,19 @@ export function UploadForm() {
               name="content"
               placeholder="Describe this portfolio..."
               required
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="school">From what school?</Label>
-            <Select name="school" required>
+            <Select
+              name="school"
+              required
+              value={school}
+              onValueChange={(val) => setSchool(val)}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select school" />
               </SelectTrigger>

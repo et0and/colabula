@@ -73,7 +73,6 @@ export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Existing image preview */}
       <div className="grid grid-cols-3 gap-4">
         {formData.imageUrls.map((url, index) => (
           <div key={index} className="relative">
@@ -108,7 +107,6 @@ export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
               toast.error("Total file size must be less than 50MiB");
               return;
             } else {
-              // Optionally inform the user or log the event
               console.warn(
                 "File size validation skipped due to zero or undefined file size."
               );
@@ -121,7 +119,6 @@ export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
         </p>
       </div>
 
-      {/* Existing form fields */}
       <Input
         value={formData.title}
         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
