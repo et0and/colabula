@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { PostHogProvider } from "./(providers)/posthog";
 import { TRPCProvider } from "./(providers)/trpc";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -104,7 +105,9 @@ export default function RootLayout({
       >
         {" "}
         <TRPCProvider>
-          <PostHogProvider>{children}</PostHogProvider>
+          <PostHogProvider>
+            {children} <SpeedInsights />
+          </PostHogProvider>
         </TRPCProvider>
         <Toaster />
       </body>
