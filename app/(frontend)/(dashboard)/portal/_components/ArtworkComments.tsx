@@ -2,20 +2,27 @@
 import { useSession } from "@/lib/auth-client";
 import { CommentComponent } from "./Comment";
 import { CommentForm } from "./CommentForm";
-import type { Artwork, Comment } from "@prisma/client";
+import type { Artwork } from "@prisma/client";
 import { useState } from "react";
 import { trpc } from "@/app/(backend)/server/trpc";
 
-export type CommentWithUser = Comment & {
+export type CommentWithUser = {
+  id: string;
+  content: string;
+  createdAt: string | Date;
+  updatedAt: string | Date;
+  userId: string;
+  artworkId: string;
+  parentId: string | null;
   user: { id: string; name: string; image: string | null };
   replies: CommentWithUser[];
 };
 
 export function ArtworkComments({
   artwork,
-}: {
+}: Readonly<{
   artwork: Artwork & { comments: CommentWithUser[] };
-}) {
+}>) {
   const { data: session } = useSession();
   const userId = session?.user?.id;
   const [comments, setComments] = useState(artwork.comments);
@@ -25,14 +32,24 @@ export function ArtworkComments({
   const handleCommentAdded = async (content: string) => {
     if (!userId) return;
     try {
-      // 2. Call the TRPC mutation instead of fetch
       const newComment = await createCommentMutation.mutateAsync({
         content,
         artworkId: artwork.id,
         userId,
         parentId: null,
       });
-      setComments([...comments, newComment]);
+      setComments([
+        ...comments,
+        {
+          ...newComment,
+          user: {
+            id: newComment.userId,
+            name: newComment.user.name,
+            image: newComment.user.image,
+          },
+          replies: [],
+        } as CommentWithUser,
+      ]);
     } catch (error) {
       console.error("Error adding comment:", error);
     }
