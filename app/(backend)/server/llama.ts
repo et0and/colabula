@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as yup from "yup";
 import { publicProcedure, router } from "./index";
 import { TRPCError } from "@trpc/server";
 import OpenAI from "openai";
@@ -8,9 +8,8 @@ const openai = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-// Schema for analyzing an image. We simply expect a base64 input of the image.
-const analyzeImageSchema = z.object({
-  base64: z.string().nonempty("Base64 data is required"),
+const analyzeImageSchema = yup.object({
+  base64: yup.string().required("Base64 data is required"),
 });
 
 export const llamaRouter = router({
