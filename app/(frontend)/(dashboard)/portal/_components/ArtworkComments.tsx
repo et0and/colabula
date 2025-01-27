@@ -4,6 +4,7 @@ import { CommentComponent } from "./Comment";
 import { CommentForm } from "./CommentForm";
 import type { Artwork, Comment } from "@prisma/client";
 import { useState } from "react";
+import { trpc } from "@/app/(backend)/server/trpc";
 
 export type CommentWithUser = Comment & {
   user: { id: string; name: string; image: string | null };
@@ -19,23 +20,19 @@ export function ArtworkComments({
   const userId = session?.user?.id;
   const [comments, setComments] = useState(artwork.comments);
 
+  const createCommentMutation = trpc.comments.create.useMutation();
+
   const handleCommentAdded = async (content: string) => {
     if (!userId) return;
-
     try {
-      const newComment = await fetch(`/api/comments`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content,
-          artworkId: artwork.id,
-          userId,
-        }),
-      }).then((res) => res.json());
-
-      setComments([...comments, newComment as CommentWithUser]);
+      // 2. Call the TRPC mutation instead of fetch
+      const newComment = await createCommentMutation.mutateAsync({
+        content,
+        artworkId: artwork.id,
+        userId,
+        parentId: null,
+      });
+      setComments([...comments, newComment]);
     } catch (error) {
       console.error("Error adding comment:", error);
     }

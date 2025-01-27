@@ -22,9 +22,13 @@ export function CommentComponent({
 }: CommentComponentProps) {
   const [showReplyForm, setShowReplyForm] = useState(false);
 
-  const handleReplySubmitted = (content: string) => {
-    onReplyAdded(content, comment.id);
-    setShowReplyForm(false);
+  const handleReplySubmitted = async (content: string) => {
+    try {
+      await onReplyAdded(content, comment.id);
+      setShowReplyForm(false);
+    } catch (error) {
+      console.error("Error creating reply:", error);
+    }
   };
 
   return (
