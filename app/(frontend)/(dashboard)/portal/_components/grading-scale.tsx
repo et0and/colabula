@@ -4,6 +4,7 @@ import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useSession } from "@/lib/auth-client";
+import { trpc } from "@/app/(backend)/server/trpc";
 
 interface PostRatingProps {
   artworkId: string;
@@ -28,11 +29,31 @@ export const PostRating: React.FC<PostRatingProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [existingRating, setExistingRating] = useState<number | null>(null);
 
+  // tRPC mutations
+  const submitRating = trpc.ratings.submitRating.useMutation({
+    onSuccess: () => {
+      toast.success("Rating submitted successfully");
+      setExistingRating(rating);
+    },
+    onError: () => {
+      toast.error("Failed to submit rating");
+    },
+  });
+
+  const updateRating = trpc.ratings.updateRating.useMutation({
+    onSuccess: () => {
+      toast.success("Rating updated successfully");
+      setExistingRating(rating);
+    },
+    onError: () => {
+      toast.error("Failed to update rating");
+    },
+  });
+
   useEffect(() => {
-    // Update to use initialRating prop instead of fetching
     if (session?.user?.id && initialRating?.length) {
       const userRating = initialRating.find(
-        (r) => r.user.id === session.user.id,
+        (r) => r.user.id === session.user.id
       );
       if (userRating) {
         setRating(userRating.rating);
@@ -53,27 +74,19 @@ export const PostRating: React.FC<PostRatingProps> = ({
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/ratings", {
-        method: existingRating ? "PUT" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      if (existingRating) {
+        await updateRating.mutateAsync({
           artworkId,
           rating,
           userId: session.user.id,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit rating");
+        });
+      } else {
+        await submitRating.mutateAsync({
+          artworkId,
+          rating,
+          userId: session.user.id,
+        });
       }
-
-      setExistingRating(rating);
-      toast.success("Rating submitted successfully");
-    } catch (error) {
-      console.error("Error submitting rating:", error);
-      toast.error("Failed to submit rating");
     } finally {
       setIsSubmitting(false);
     }

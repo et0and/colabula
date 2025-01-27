@@ -22,7 +22,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { AppSidebar } from "@/app/portal/_components/app-sidebar";
+import { AppSidebar } from "@/app/(frontend)/(dashboard)/portal/_components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -37,11 +37,11 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { ArtworkComments } from "@/app/portal/_components/ArtworkComments";
+import { ArtworkComments } from "@/app/(frontend)/(dashboard)/portal/_components/ArtworkComments";
 import { Metadata } from "next";
-import { ShareCard } from "@/app/portal/_components/share-card";
+import { ShareCard } from "@/app/(frontend)/(dashboard)/portal/_components/share-card";
 import { headers } from "next/headers";
-import { PostRating } from "@/app/portal/_components/grading-scale";
+import { PostRating } from "@/app/(frontend)/(dashboard)/portal/_components/grading-scale";
 import {
   Dialog,
   DialogContent,

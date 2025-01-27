@@ -7,7 +7,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Artwork } from "@prisma/client";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { DialogTitle } from "../../../components/ui/dialog";
+import { DialogTitle } from "../../../../../components/ui/dialog";
 
 type ArtworkWithUser = Artwork & {
   user: {

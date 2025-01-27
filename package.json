@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -34,6 +34,9 @@
     "@tabler/icons-react": "^3.27.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tanstack/react-query": "^5.63.0",
+    "@trpc/client": "^11.0.0-rc.729",
+    "@trpc/react-query": "^11.0.0-rc.729",
+    "@trpc/server": "^11.0.0-rc.729",
     "@upstash/redis": "^1.34.3",
     "better-auth": "^1.1.8",
     "class-variance-authority": "^0.7.1",

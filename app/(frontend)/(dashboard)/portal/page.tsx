@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/app/portal/_components/app-sidebar";
+import { AppSidebar } from "@/app/(frontend)/(dashboard)/portal/_components/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,

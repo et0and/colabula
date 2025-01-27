@@ -17,13 +17,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../components/ui/select";
+} from "../../../../../components/ui/select";
 import { ArtCategory } from "@prisma/client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Textarea } from "../../../components/ui/textarea";
+import { Textarea } from "../../../../../components/ui/textarea";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
+import { trpc } from "@/app/(backend)/server/trpc";
 
 export function UploadForm() {
   const [open, setOpen] = useState(false);
@@ -65,25 +66,21 @@ export function UploadForm() {
     }
   }
 
+  const llamaMutation = trpc.llama.analyzeImage.useMutation();
+
   const analyzeImage = async (file: File) => {
     setIsGeneratingTags(true);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
+      // Convert file to base64
+      const bytes = await file.arrayBuffer();
+      const base64 = Buffer.from(bytes).toString("base64");
 
-      const response = await fetch("/api/llama", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        toast.error("Sorry, I couldn't analyse this portfolio");
-      }
-
-      const data = await response.json();
-      setGeneratedTags(data.tags || "");
+      // Call the tRPC mutation
+      const { tags } = await llamaMutation.mutateAsync({ base64 });
+      setGeneratedTags(tags || "");
     } catch (error) {
       console.error("Error analyzing image:", error);
+      toast.error("Sorry, I couldn't analyse this portfolio");
     } finally {
       setIsGeneratingTags(false);
     }

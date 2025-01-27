@@ -36,7 +36,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { Input } from "../../../components/ui/input";
+import { Input } from "../../../../../components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,13 +44,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu";
+} from "../../../../../components/ui/dropdown-menu";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "../../../components/ui/avatar";
-import { Button } from "../../../components/ui/button";
+} from "../../../../../components/ui/avatar";
+import { Button } from "../../../../../components/ui/button";
 import { UploadForm } from "./upload-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -107,9 +107,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     "bg-gradient-to-l from-red-500 via-orange-400 to-orange-600",
   ];
 
-  const userSpecificGradient = gradients[
-    (data?.user?.id?.charCodeAt(0) || 0) % gradients.length
-  ];
+  const userSpecificGradient =
+    gradients[(data?.user?.id?.charCodeAt(0) || 0) % gradients.length];
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>

@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { toast } from "sonner";
-import { submitFeedback } from "@/app/actions/form";
+import { submitFeedback } from "@/app/(backend)/actions/form";
 import { JSX, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { feedbackFormContent } from "@/lib/strings";
