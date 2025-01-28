@@ -2,9 +2,8 @@
 
 import { portalNavigation } from "@/lib/strings";
 import { formatDistanceToNow } from "date-fns";
-import { signOut } from "@/lib/auth-client";
+import { useSession, signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
-import { useSession } from "@/lib/auth-client";
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -108,7 +107,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   ];
 
   const userSpecificGradient =
-    gradients[(data?.user?.id?.charCodeAt(0) || 0) % gradients.length];
+    gradients[(data?.user?.id?.charCodeAt(0) ?? 0) % gradients.length];
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
@@ -166,15 +165,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <Avatar className="h-8 w-8">
                         <AvatarImage
                           src={
-                            data?.user.image ||
+                            data?.user.image ??
                             "/placeholder.svg?height=32&width=32"
                           }
-                          alt={data?.user.name || "@user"}
+                          alt={data?.user.name ?? "@user"}
                         />
                         <AvatarFallback
                           className={`${userSpecificGradient} text-white`}
                         >
-                          {data?.user.name?.slice(0, 2).toUpperCase() || "U"}
+                          {data?.user.name?.slice(0, 2).toUpperCase() ?? "U"}
                         </AvatarFallback>
                       </Avatar>
                     </Button>
@@ -183,10 +182,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <DropdownMenuLabel className="font-normal">
                       <div className="flex flex-col space-y-1">
                         <p className="text-sm font-medium leading-none">
-                          {data?.user.name || "Guest"}
+                          {data?.user.name ?? "Guest"}
                         </p>
                         <p className="text-xs leading-none text-muted-foreground">
-                          {data?.user.email || "Not signed in"}
+                          {data?.user.email ?? "Not signed in"}
                         </p>
                       </div>
                     </DropdownMenuLabel>
@@ -268,7 +267,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <div>
                       <div className="font-semibold">{artwork.title}</div>
                       <div className="text-sm text-muted-foreground">
-                        posted by {artwork.user?.name || "Unknown"}{" "}
+                        posted by {artwork.user?.name ?? "Unknown"}{" "}
                         {formatDistanceToNow(artwork.createdAt, {
                           addSuffix: true,
                         })}
