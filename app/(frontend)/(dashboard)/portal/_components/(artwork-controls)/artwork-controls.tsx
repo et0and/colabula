@@ -25,7 +25,7 @@ interface ArtworkControlsProps {
   };
 }
 
-export function ArtworkControls({ artwork }: ArtworkControlsProps) {
+export function ArtworkControls({ artwork }: Readonly<ArtworkControlsProps>) {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex space-x-2">

@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { trpc } from "@/app/(backend)/server/trpc";
 
 interface EditArtworkFormProps {
   artwork: {
@@ -19,37 +20,47 @@ interface EditArtworkFormProps {
   onCancel: () => void;
 }
 
-export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
+export function EditArtworkForm({
+  artwork,
+  onCancel,
+}: Readonly<EditArtworkFormProps>) {
   const [formData, setFormData] = useState(artwork);
   const [newImages, setNewImages] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+
+  const { mutateAsync: updateArtwork } =
+    trpc.artworks.updateArtwork.useMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("title", formData.title);
-      formDataToSend.append("content", formData.content);
-      formDataToSend.append("tags", JSON.stringify(formData.tags));
-      formDataToSend.append(
-        "existingImages",
-        JSON.stringify(formData.imageUrls)
+      // Convert new images to base64
+      const newImagesBase64 = await Promise.all(
+        newImages.map(
+          (file) =>
+            new Promise<string>((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => {
+                const dataUrl = reader.result as string;
+                resolve(dataUrl.split(",")[1] ?? "");
+              };
+              reader.onerror = (err) => reject(err);
+              reader.readAsDataURL(file);
+            })
+        )
       );
 
-      // Append new images if any
-      newImages.forEach((file) => {
-        formDataToSend.append("file", file);
+      await updateArtwork({
+        id: artwork.id,
+        title: formData.title,
+        content: formData.content,
+        tags: formData.tags,
+        existingImages: formData.imageUrls,
+        newImages: newImagesBase64,
       });
-
-      const response = await fetch(`/api/artworks/${artwork.id}`, {
-        method: "PUT",
-        body: formDataToSend,
-      });
-
-      if (!response.ok) throw new Error("Failed to update artwork");
 
       toast.success("Artwork updated successfully");
       router.refresh();
@@ -75,7 +86,7 @@ export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-3 gap-4">
         {formData.imageUrls.map((url, index) => (
-          <div key={index} className="relative">
+          <div key={`artwork-${url}`} className="relative">
             <img
               src={url}
               alt={`Artwork ${index + 1}`}
@@ -94,7 +105,6 @@ export function EditArtworkForm({ artwork, onCancel }: EditArtworkFormProps) {
         ))}
       </div>
 
-      {/* New image upload */}
       <div className="space-y-2">
         <Input
           type="file"

@@ -14,25 +14,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { trpc } from "@/app/(backend)/server/trpc";
 
 interface DeleteArtworkButtonProps {
   artworkId: string;
 }
 
-export function DeleteArtworkButton({ artworkId }: DeleteArtworkButtonProps) {
+export function DeleteArtworkButton({
+  artworkId,
+}: Readonly<DeleteArtworkButtonProps>) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
+  const { mutateAsync: deleteArtwork } =
+    trpc.artworks.deleteArtwork.useMutation();
+
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
-      const response = await fetch(`/api/artworks/${artworkId}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) throw new Error("Failed to delete artwork");
-
+      await deleteArtwork({ id: artworkId });
       toast.success("Artwork deleted successfully");
       router.refresh();
       setOpen(false);
