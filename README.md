@@ -1,6 +1,9 @@
 ![Colabula splash screen](/public/og.png)
 
 # Colabula
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/et0and/colabula/.github%2Fworkflows%2Fci.yml)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=et0and_colabula&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=et0and_colabula)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 Colabula is an open-source platform designed specifically for New Zealand's art education community. It enables art educators from schools to share, review, and collaborate on student portfolio work at every stage of development.
 
