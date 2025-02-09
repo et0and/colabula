@@ -65,21 +65,35 @@ export const ratingsRouter = router({
         });
       }
 
-      // Make sure there’s an existing rating to update; handle errors as needed
-      const updatedRating = await prisma.rating.update({
-        where: {
-          userId_artworkId: {
-            userId: ctx.session.user.id,
-            artworkId: input.artworkId,
+      // Make sure there's an existing rating to update; handle errors as needed
+      try {
+        const updatedRating = await prisma.rating.update({
+          where: {
+            userId_artworkId: {
+              userId: ctx.session.user.id,
+              artworkId: input.artworkId,
+            },
           },
-        },
-        data: {
-          value: input.rating,
-        },
-        include: {
-          user: true,
-        },
-      });
-      return updatedRating;
+          data: {
+            value: input.rating,
+          },
+          include: {
+            user: true,
+          },
+        });
+        return updatedRating;
+      } catch (error) {
+        if (
+          error instanceof Error &&
+          "code" in error &&
+          error.code === "P2025"
+        ) {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Rating not found",
+          });
+        }
+        throw error;
+      }
     }),
 });

@@ -18,7 +18,7 @@ const s3 = new S3Client({
 const MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024; // 50 MiB
 
 const uploadSchema = yup.object({
-  images: yup.array().of(yup.string().required()).required(),
+  images: yup.array().of(yup.string().required()).max(10).required(),
   title: yup.string().required(),
   category: yup.mixed<ArtCategory>().required(),
   school: yup.string().required(),

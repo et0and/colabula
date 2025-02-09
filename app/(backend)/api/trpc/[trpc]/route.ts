@@ -4,22 +4,27 @@ import { createContext } from "@/app/(backend)/server/context";
 
 export const runtime = "nodejs";
 
+const handlerConfig = {
+  endpoint: "/api/trpc",
+  router: appRouter,
+  createContext,
+  batching: {
+    enabled: true,
+  },
+};
+
 // For GET requests
 export const GET = async (req: Request) => {
   return fetchRequestHandler({
-    endpoint: "/api/trpc",
+    ...handlerConfig,
     req,
-    router: appRouter,
-    createContext,
   });
 };
 
 // For POST requests
 export const POST = async (req: Request) => {
   return fetchRequestHandler({
-    endpoint: "/api/trpc",
+    ...handlerConfig,
     req,
-    router: appRouter,
-    createContext,
   });
 };
