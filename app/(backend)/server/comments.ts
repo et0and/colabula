@@ -4,7 +4,12 @@ import { TRPCError } from "@trpc/server";
 import * as yup from "yup";
 
 const createCommentSchema = yup.object({
-  content: yup.string().trim().required(),
+  content: yup.string()
+    .trim()
+    .required()
+    .min(1, 'Comment cannot be empty')
+    .max(1000, 'Comment is too long')
+    .matches(/^[^<>]*$/, 'HTML tags are not allowed'),
   artworkId: yup.string().required(),
   userId: yup.string().required(),
   parentId: yup.string().nullable(),
