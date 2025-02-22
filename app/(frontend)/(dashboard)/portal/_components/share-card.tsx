@@ -19,7 +19,11 @@ interface ShareCardProps {
   artworkId: string;
 }
 
-export function ShareCard({ baseUrl, category, artworkId }: ShareCardProps) {
+export function ShareCard({
+  baseUrl,
+  category,
+  artworkId,
+}: Readonly<ShareCardProps>) {
   const shareUrl = `${baseUrl}/portal/${category}/artwork/${artworkId}`;
 
   return (

@@ -6,12 +6,12 @@ import { useState } from "react";
 
 export function CommentForm({
   onCommentAdded,
-}: {
+}: Readonly<{
   artworkId: string;
   userId: string;
   parentId?: string;
   onCommentAdded: (content: string) => void;
-}) {
+}>) {
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 

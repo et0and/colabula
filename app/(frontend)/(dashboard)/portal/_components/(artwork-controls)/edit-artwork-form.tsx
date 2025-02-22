@@ -47,7 +47,7 @@ export function EditArtworkForm({
                 const dataUrl = reader.result as string;
                 resolve(dataUrl.split(",")[1] ?? "");
               };
-              reader.onerror = (err) => reject(err);
+              reader.onerror = () => reject(new Error("Failed to read file"));
               reader.readAsDataURL(file);
             })
         )

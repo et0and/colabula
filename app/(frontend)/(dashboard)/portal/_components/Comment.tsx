@@ -19,7 +19,7 @@ export function CommentComponent({
   onReplyAdded,
   setComments,
   artworkId,
-}: CommentComponentProps) {
+}: Readonly<CommentComponentProps>) {
   const [showReplyForm, setShowReplyForm] = useState(false);
 
   const handleReplySubmitted = async (content: string) => {
@@ -35,7 +35,7 @@ export function CommentComponent({
     <div className="space-y-4">
       <div className="flex items-start space-x-4">
         <Avatar>
-          <AvatarImage src={comment.user.image || ""} />
+          <AvatarImage src={comment.user.image ?? ""} />
           <AvatarFallback>{comment.user.name[0]}</AvatarFallback>
         </Avatar>
         <div className="flex-1">

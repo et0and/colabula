@@ -66,7 +66,6 @@ interface PageProps {
   params: Promise<{
     category: string;
   }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({
@@ -85,10 +84,10 @@ export async function generateMetadata({
     },
   };
 }
-export default async function CategoryPage({ params }: PageProps) {
+export default async function CategoryPage({ params }: Readonly<PageProps>) {
   const { category } = await params;
   const headersList = await headers();
-  const host = (await headersList).get("host") || "";
+  const host = headersList.get("host") ?? "";
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
@@ -164,7 +163,7 @@ export default async function CategoryPage({ params }: PageProps) {
                 <CardHeader className="flex flex-row items-center space-x-4 pb-4">
                   <Avatar className="border">
                     <AvatarImage
-                      src={artwork.user.image || ""}
+                      src={artwork.user.image ?? ""}
                       alt={artwork.user.name}
                     />
                     <AvatarFallback>{artwork.user.name[0]}</AvatarFallback>
@@ -264,7 +263,7 @@ export default async function CategoryPage({ params }: PageProps) {
                   <Carousel className="w-full max-w-xl mx-auto">
                     <CarouselContent>
                       {artwork.imageUrls.map((imageUrl, index) => (
-                        <CarouselItem key={index}>
+                        <CarouselItem key={`${artwork.id}-image-${index}`}>
                           <div className="p-1">
                             <div className="block md:hidden">
                               <Image
@@ -301,7 +300,7 @@ export default async function CategoryPage({ params }: PageProps) {
                             </Dialog>
                           </div>
                         </CarouselItem>
-                      ))}
+                      ))}{" "}
                     </CarouselContent>
                     <CarouselPrevious />
                     <CarouselNext />

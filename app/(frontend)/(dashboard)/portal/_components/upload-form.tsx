@@ -53,7 +53,6 @@ export function UploadForm() {
 
   const llamaMutation = trpc.llama.analyzeImage.useMutation();
 
-  // Wrap analyzeImage in its own useCallback so it remains stable
   const analyzeImage = useCallback(
     async (file: File) => {
       setIsGeneratingTags(true);
@@ -72,7 +71,6 @@ export function UploadForm() {
     [llamaMutation]
   );
 
-  // We reference analyzeImage here, so we include it in the dependency array
   const handleFiles = useCallback(
     (files: FileList | null) => {
       if (!files) return;
@@ -85,7 +83,6 @@ export function UploadForm() {
     [analyzeImage]
   );
 
-  // If you don’t need the first param "data", remove it or rename it to _
   const uploadMutation = trpc.upload.uploadPortfolio.useMutation({
     onSuccess: () => {
       setOpen(false);

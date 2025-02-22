@@ -56,12 +56,19 @@ const CommandMenu = () => {
     setSearchTerm("");
   };
 
+  const handleOverlayKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setOpen(false);
+    }
+  };
+
   return (
     <>
       {open && (
-        <div
+        <button
           className="fixed inset-0 bg-black/30 backdrop-blur-sm transition-all animate-in fade-in"
           onClick={() => setOpen(false)}
+          onKeyDown={handleOverlayKeyDown}
         />
       )}
 
@@ -91,7 +98,7 @@ const CommandMenu = () => {
               <div className="flex flex-col gap-1">
                 <div className="font-semibold">{artwork.title}</div>
                 <div className="text-sm text-muted-foreground">
-                  posted by {artwork.user?.name || "Unknown"}{" "}
+                  posted by {artwork.user?.name ?? "Unknown"}{" "}
                   {formatDistanceToNow(artwork.createdAt, { addSuffix: true })}
                 </div>
               </div>
@@ -102,5 +109,4 @@ const CommandMenu = () => {
     </>
   );
 };
-
 export default CommandMenu;

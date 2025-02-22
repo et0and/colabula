@@ -96,29 +96,21 @@ export const PostRating: React.FC<PostRatingProps> = ({
     return <p className="text-sm text-muted-foreground">Sign in to rate</p>;
   }
 
+  const getGradeLabel = (rating: number) => {
+    const gradeLabels = ["NØ", "N1", "N2", "A3", "A4", "M5", "M6", "E7", "E8"];
+    return gradeLabels[rating] || "E8";
+  };
+
+  const getButtonLabel = () => {
+    if (isSubmitting) return "Submitting...";
+    return existingRating ? "Update grade" : "Submit grade";
+  };
+
   return (
     <div className="space-y-4 p-4">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium">Your grade:</span>
-        <span className="text-2xl font-bold">
-          {rating === 0
-            ? "NØ"
-            : rating === 1
-              ? "N1"
-              : rating === 2
-                ? "N2"
-                : rating === 3
-                  ? "A3"
-                  : rating === 4
-                    ? "A4"
-                    : rating === 5
-                      ? "M5"
-                      : rating === 6
-                        ? "M6"
-                        : rating === 7
-                          ? "E7"
-                          : "E8"}
-        </span>
+        <span className="text-2xl font-bold">{getGradeLabel(rating)}</span>
       </div>
       <Slider
         min={0}
@@ -140,11 +132,7 @@ export const PostRating: React.FC<PostRatingProps> = ({
         <span>E8</span>
       </div>
       <Button onClick={handleSubmit} disabled={isSubmitting} className="w-full">
-        {isSubmitting
-          ? "Submitting..."
-          : existingRating
-            ? "Update grade"
-            : "Submit grade"}
+        {getButtonLabel()}
       </Button>
     </div>
   );

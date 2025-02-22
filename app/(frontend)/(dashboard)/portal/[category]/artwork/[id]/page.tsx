@@ -5,7 +5,7 @@ import {
   assessmentLevelUrls,
 } from "@/lib/strings";
 
-import { ArtCategory, Artwork, User, Comment } from "@prisma/client";
+import { ArtCategory, Artwork, User, Comment, Rating } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import {
@@ -39,7 +39,6 @@ import {
 import { Info } from "lucide-react";
 import { ArtworkComments } from "@/app/(frontend)/(dashboard)/portal/_components/ArtworkComments";
 import { Metadata } from "next";
-import { Rating } from "@prisma/client";
 import { ShareCard } from "@/app/(frontend)/(dashboard)/portal/_components/share-card";
 import { PostRating } from "@/app/(frontend)/(dashboard)/portal/_components/grading-scale";
 import { headers } from "next/headers";
@@ -87,7 +86,6 @@ interface PageProps {
     category: string;
     id: string;
   }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({
@@ -113,10 +111,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function ArtworkPage({ params }: PageProps) {
+export default async function ArtworkPage({ params }: Readonly<PageProps>) {
   const { category, id } = await params;
   const headersList = await headers();
-  const host = (await headersList).get("host") || "";
+  const host = headersList.get("host") ?? "";
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
@@ -192,7 +190,7 @@ export default async function ArtworkPage({ params }: PageProps) {
             <CardHeader className="flex flex-row items-center space-x-4 pb-4">
               <Avatar>
                 <AvatarImage
-                  src={artwork.user.image || ""}
+                  src={artwork.user.image ?? ""}
                   alt={artwork.user.name}
                 />
                 <AvatarFallback>{artwork.user.name[0]}</AvatarFallback>
@@ -285,7 +283,7 @@ export default async function ArtworkPage({ params }: PageProps) {
               <Carousel className="w-full max-w-xl mx-auto">
                 <CarouselContent>
                   {artwork.imageUrls.map((imageUrl, index) => (
-                    <CarouselItem key={index}>
+                    <CarouselItem key={`artwork-image-${artwork.id}-${index}`}>
                       <div className="p-1">
                         <div className="block md:hidden">
                           <Image

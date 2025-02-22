@@ -259,10 +259,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {searchResults.length > 0 && searchTerm !== "" && (
               <ul className="absolute top-12 left-0 w-full bg-white rounded-md shadow-md z-10 border">
                 {searchResults.map((artwork) => (
-                  <li
+                  <button
                     key={artwork.id}
-                    className="px-3 py-2 cursor-pointer hover:bg-gray-100 flex items-center gap-2"
+                    className="w-full text-left px-3 py-2 cursor-pointer hover:bg-gray-100 flex items-center gap-2"
                     onClick={() => handleSuggestionClick(artwork)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        handleSuggestionClick(artwork);
+                      }
+                    }}
                   >
                     <div>
                       <div className="font-semibold">{artwork.title}</div>
@@ -273,7 +278,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         })}
                       </div>
                     </div>
-                  </li>
+                  </button>
                 ))}
               </ul>
             )}

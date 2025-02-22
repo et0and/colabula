@@ -13,10 +13,10 @@ import { useRouter } from "next/navigation";
 export default function SettingsPage() {
   const router = useRouter();
   const { data: session } = useSession();
-  const [name, setName] = useState(session?.user.name || "");
+  const [name, setName] = useState(session?.user.name ?? "");
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(
-    session?.user.image || null
+    session?.user.image ?? null
   );
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +42,7 @@ export default function SettingsPage() {
 
       await authClient.updateUser({
         name,
-        image: imageData || "",
+        image: imageData ?? "",
       });
 
       toast.success("Profile updated successfully!");
