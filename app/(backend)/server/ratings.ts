@@ -41,6 +41,13 @@ export const ratingsRouter = router({
         });
       }
 
+      if (input.userId !== ctx.session.user.id) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Cannot submit a rating on behalf of another user",
+        });
+      }
+
       const newRating = await prisma.rating.create({
         data: {
           value: input.rating,
