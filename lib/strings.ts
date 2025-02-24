@@ -570,10 +570,6 @@ export const portalNavigation = {
           title: "Achievement standards",
           url: "https://www.nzqa.govt.nz/ncea/assessment/search.do?query=visual+arts&view=all&level=all",
         },
-        {
-          title: "Contribution guide",
-          url: "/portal/contributing",
-        },
       ],
     },
   ],
