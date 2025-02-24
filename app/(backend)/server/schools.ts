@@ -6,8 +6,10 @@ import * as yup from "yup";
 
 // Initialize Redis client
 const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+  url: process.env.UPSTASH_REDIS_REST_URL ??
+    (() => { throw new Error('UPSTASH_REDIS_REST_URL is required') })(),
+  token: process.env.UPSTASH_REDIS_REST_TOKEN ??
+    (() => { throw new Error('UPSTASH_REDIS_REST_TOKEN is required') })(),
 });
 
 // Cache key for Upstash
