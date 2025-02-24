@@ -2,6 +2,7 @@ import { publicProcedure, router } from "./index";
 import { Redis } from "@upstash/redis";
 import { TRPCError } from "@trpc/server";
 import { SchoolApiResponse } from "@/types/schools";
+import * as yup from "yup";
 
 // Initialize Redis client
 const redis = new Redis({
@@ -11,6 +12,20 @@ const redis = new Redis({
 
 // Cache key for Upstash
 const CACHE_KEY = "schools_list";
+
+// Yup schema for validating the school name
+const schoolNameSchema = yup.string().required();
+
+// Yup schema for validating the API response
+const schoolApiResponseSchema = yup.object({
+  result: yup.object({
+    records: yup.array().of(
+      yup.object({
+        Org_Name: schoolNameSchema,
+      })
+    ),
+  }),
+});
 
 export const schoolsRouter = router({
   getSchools: publicProcedure.query(async ({ ctx }) => {
@@ -43,6 +58,18 @@ export const schoolsRouter = router({
 
       // 3. Process and cache
       const data: SchoolApiResponse = await response.json();
+
+      // Validate the API response using Yup
+      try {
+        await schoolApiResponseSchema.validate(data);
+      } catch (validationError) {
+        console.error("Validation error:", validationError);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `Failed to validate schools data`,
+        });
+      }
+
       const schools = data.result.records.map((record) => record.Org_Name);
 
       await redis.set(CACHE_KEY, schools, { ex: 2592000 }); // 30 days
