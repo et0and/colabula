@@ -31,35 +31,33 @@ export const ratingsRouter = router({
       return { rating };
     }),
 
-  submitRating: publicProcedure
-    .input(ratingSchema)
-    .mutation(async ({ ctx, input }) => {
-      if (!ctx.session) {
-        throw new TRPCError({
-          code: "UNAUTHORIZED",
-          message: "You must be logged in to submit ratings",
-        });
-      }
+const ratingSchema = yup.object({
+  artworkId: yup.string().required(),
+  rating: yup.number().min(0).max(8).required(),
+});
 
-      if (input.userId !== ctx.session.user.id) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "Cannot submit a rating on behalf of another user",
-        });
-      }
-
-      const newRating = await prisma.rating.create({
-        data: {
-          value: input.rating,
-          artworkId: input.artworkId,
-          userId: input.userId,
-        },
-        include: {
-          user: true,
-        },
+submitRating: publicProcedure
+  .input(ratingSchema)
+  .mutation(async ({ ctx, input }) => {
+    if (!ctx.session) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "You must be logged in to submit ratings",
       });
-      return newRating;
-    }),
+    }
+
+    const newRating = await prisma.rating.create({
+      data: {
+        value: input.rating,
+        artworkId: input.artworkId,
+        userId: ctx.session.user.id,
+      },
+      include: {
+        user: true,
+      },
+    });
+    return newRating;
+  }),
 
   // Add this procedure to support updating an existing rating
   updateRating: publicProcedure
