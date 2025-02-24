@@ -1,7 +1,6 @@
 import { publicProcedure, router } from "./index";
 import { Redis } from "@upstash/redis";
 import { TRPCError } from "@trpc/server";
-import { compress } from "@/lib/compression";
 import { SchoolApiResponse } from "@/types/schools";
 
 // Initialize Redis client
@@ -24,16 +23,16 @@ export const schoolsRouter = router({
     }
 
     try {
-      // 1. Check cache for already-compressed data
-      const cachedCompressed = await redis.get<string>(CACHE_KEY);
-      if (cachedCompressed) {
-        // Return the compressed data directly
-        return cachedCompressed;
+      // 1. Check cache for data
+      const cachedSchools = await redis.get<string[]>(CACHE_KEY);
+      if (cachedSchools) {
+        // Return the cached data directly
+        return cachedSchools;
       }
 
       // 2. Fetch from source if no cache hit
       const response = await fetch(
-        `https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT * FROM "4b292323..." ORDER BY "Org_Name"`
+        `https://catalogue.data.govt.nz/api/3/action/datastore_search_sql?sql=SELECT * FROM "4b292323-9fcc-41f8-814b-3c7b19cf14b3"`
       );
       if (!response.ok) {
         throw new TRPCError({
@@ -42,15 +41,14 @@ export const schoolsRouter = router({
         });
       }
 
-      // 3. Compress the new data and store in Redis
+      // 3. Process and cache
       const data: SchoolApiResponse = await response.json();
       const schools = data.result.records.map((record) => record.Org_Name);
 
-      const compressed = await compress(JSON.stringify(schools));
-      await redis.set(CACHE_KEY, compressed, { ex: 2592000 }); // 30 days
+      await redis.set(CACHE_KEY, schools, { ex: 2592000 }); // 30 days
 
-      // 4. Return compressed data
-      return compressed;
+      // 4. Return data
+      return schools;
     } catch (error) {
       console.error("Error in schools tRPC API:", error);
       throw new TRPCError({

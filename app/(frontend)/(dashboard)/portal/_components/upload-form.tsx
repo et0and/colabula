@@ -23,7 +23,6 @@ import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { useQuery } from "@tanstack/react-query";
 import { trpc } from "@/app/(backend)/server/trpc";
 
 export function UploadForm() {
@@ -41,15 +40,9 @@ export function UploadForm() {
 
   const router = useRouter();
 
-  const { data: schools = [], isLoading: loadingSchools } = useQuery<string[]>({
-    queryKey: ["schools"],
-    queryFn: async () => {
-      const response = await fetch("/api/schools");
-      return response.json();
-    },
-    staleTime: 1000 * 60 * 60, // Cache for 1 hour
-    gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours
-  });
+  // Use tRPC query instead of direct API call
+  const { data: schools, isLoading: loadingSchools } =
+    trpc.schools.getSchools.useQuery();
 
   const llamaMutation = trpc.llama.analyzeImage.useMutation();
 
@@ -148,7 +141,7 @@ export function UploadForm() {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[600px max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Upload portfolio</DialogTitle>
         </DialogHeader>
@@ -279,7 +272,7 @@ export function UploadForm() {
                     <Loader2 className="h-6 w-6 animate-spin" />
                   </div>
                 ) : (
-                  schools.map((schoolName) => (
+                  schools?.map((schoolName) => (
                     <SelectItem key={schoolName} value={schoolName}>
                       {schoolName}
                     </SelectItem>
