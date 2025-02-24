@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { authClient, useSession } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,24 +13,33 @@ import { useRouter } from "next/navigation";
 export default function SettingsPage() {
   const router = useRouter();
   const { data: session } = useSession();
-  const [name, setName] = useState(session?.user.name ?? "");
+  const initialName = session?.user.name ?? "";
+  const initialImage = session?.user.image ?? null;
+
+  const [name, setName] = useState(initialName);
   const [image, setImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(
-    session?.user.image ?? null
-  );
+  const [imagePreview, setImagePreview] = useState<string | null>(initialImage);
   const [loading, setLoading] = useState(false);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
+  const handleImageChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
       setImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
-    }
-  };
+    },
+    []
+  );
+
+  const handleRemoveImage = useCallback(() => {
+    setImage(null);
+    setImagePreview(null);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,6 +64,10 @@ export default function SettingsPage() {
     }
   };
 
+  const handleCancel = () => {
+    router.back();
+  };
+
   return (
     <div className="px-4 flex min-h-screen items-center justify-center bg-neutral-50">
       <Card>
@@ -63,14 +76,13 @@ export default function SettingsPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label htmlFor="name">Display Name</label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
+            <FormInput
+              label="Display Name"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
             <div className="space-y-2">
               <label htmlFor="image">Profile Image</label>
               <div className="flex items-end gap-4">
@@ -93,17 +105,12 @@ export default function SettingsPage() {
                     className="w-full"
                   />
                   {imagePreview && (
-                    <X
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setImage(null);
-                        setImagePreview(null);
-                      }}
-                    />
+                    <X className="cursor-pointer" onClick={handleRemoveImage} />
                   )}
                 </div>
               </div>
             </div>
+
             <div className="flex items-center gap-2">
               <Button type="submit" disabled={loading}>
                 {loading ? (
@@ -112,11 +119,7 @@ export default function SettingsPage() {
                   "Save Changes"
                 )}
               </Button>
-              <Button
-                variant="outline"
-                type="button"
-                onClick={() => router.back()}
-              >
+              <Button variant="outline" type="button" onClick={handleCancel}>
                 Cancel
               </Button>
             </div>
@@ -134,4 +137,20 @@ async function convertImageToBase64(file: File): Promise<string> {
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
+}
+
+interface FormInputProps {
+  label: string;
+  id: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function FormInput({ label, id, value, onChange }: FormInputProps) {
+  return (
+    <div className="space-y-2">
+      <label htmlFor={id}>{label}</label>
+      <Input id={id} value={value} onChange={onChange} />
+    </div>
+  );
 }
