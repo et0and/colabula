@@ -78,13 +78,11 @@ export const PostRating: React.FC<PostRatingProps> = ({
         await updateRating.mutateAsync({
           artworkId,
           rating,
-          userId: session.user.id,
         });
       } else {
         await submitRating.mutateAsync({
           artworkId,
           rating,
-          userId: session.user.id,
         });
       }
     } finally {
