@@ -6,11 +6,7 @@ import { useSession, signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faDropbox,
-  faGoogleDrive,
-  faMicrosoft,
-} from "@fortawesome/free-brands-svg-icons";
+import { faDropbox, faMicrosoft } from "@fortawesome/free-brands-svg-icons";
 import {
   CodeXml,
   Cookie,
@@ -51,6 +47,7 @@ import {
 } from "../../../../../components/ui/avatar";
 import { Button } from "../../../../../components/ui/button";
 import { UploadForm } from "./upload-form";
+import { GoogleDriveUpload } from "./GoogleDrive";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
@@ -142,9 +139,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     >
                       <UploadForm />
                     </DropdownMenuItem>
-                    <DropdownMenuItem disabled>
-                      <FontAwesomeIcon icon={faGoogleDrive} className="ml-2" />{" "}
-                      <span>From Google Drive</span>
+
+                    <DropdownMenuItem
+                      className="p-0"
+                      onSelect={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }}
+                    >
+                      <GoogleDriveUpload />
                     </DropdownMenuItem>
                     <DropdownMenuItem disabled>
                       <FontAwesomeIcon icon={faMicrosoft} className="ml-2" />
