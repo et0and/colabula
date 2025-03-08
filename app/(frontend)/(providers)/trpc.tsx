@@ -5,7 +5,9 @@ import { httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 import { trpc } from "@/app/(backend)/server/trpc";
 
-export function TRPCProvider({ children }: { children: React.ReactNode }) {
+export function TRPCProvider({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
