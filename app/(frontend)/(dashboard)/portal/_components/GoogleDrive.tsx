@@ -48,6 +48,8 @@ export function GoogleDriveUpload() {
   const [driveFiles, setDriveFiles] = useState<DriveFile[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<DriveFile[]>([]);
   const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [tokenExpiresAt, setTokenExpiresAt] = useState<number | null>(null);
+  const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [nextPageToken, setNextPageToken] = useState<string | undefined>();
 
   const [title, setTitle] = useState("");
@@ -63,10 +65,120 @@ export function GoogleDriveUpload() {
     trpc.schools.getSchools.useQuery();
   const getAuthUrlMutation = trpc.googleDrive.getAuthUrl.useMutation();
   const getTokensMutation = trpc.googleDrive.getTokens.useMutation();
-  const { data: fileListData } = trpc.googleDrive.listFiles.useQuery(
-    { accessToken: accessToken ?? "", pageSize: 20, pageToken: nextPageToken },
-    { enabled: !!accessToken } // Only run query when accessToken is available
+  const refreshTokenMutation = trpc.googleDrive.refreshToken.useMutation();
+
+  // Function to check if token is expired
+  const isTokenExpired = () => {
+    if (!tokenExpiresAt) return true;
+    // Add a 60-second buffer to avoid edge cases
+    return Date.now() > tokenExpiresAt - 60000;
+  };
+
+  // Function to securely store token data
+  const storeTokenData = (
+    accessToken: string,
+    expiresAt: number,
+    refreshToken?: string | null
+  ) => {
+    const tokenData = JSON.stringify({
+      accessToken,
+      expiresAt,
+      refreshToken,
+    });
+    sessionStorage.setItem("google_token_data", tokenData);
+  };
+
+  // Function to get stored token data
+  const getStoredTokenData = () => {
+    const tokenData = sessionStorage.getItem("google_token_data");
+    if (!tokenData) return null;
+
+    try {
+      return JSON.parse(tokenData);
+    } catch (e) {
+      console.error("Error parsing stored token data", e);
+      return null;
+    }
+  };
+
+  // Function to ensure a valid token before API calls
+  const ensureValidToken = async () => {
+    if (!isTokenExpired()) {
+      return accessToken;
+    }
+
+    // Token is expired, try to refresh
+    if (refreshToken) {
+      try {
+        const { tokens, expiresAt } = await refreshTokenMutation.mutateAsync({
+          refreshToken,
+        });
+
+        // Update states with new token info
+        setAccessToken(tokens.access_token ?? null);
+        setTokenExpiresAt(expiresAt);
+        if (tokens.refresh_token) {
+          setRefreshToken(tokens.refresh_token);
+        }
+
+        // Store updated token data
+        storeTokenData(
+          tokens.access_token ?? "",
+          expiresAt,
+          tokens.refresh_token ?? refreshToken
+        );
+
+        return tokens.access_token;
+      } catch (error) {
+        console.error("Error refreshing token:", error);
+        setIsAuthorized(false);
+        sessionStorage.removeItem("google_token_data");
+        toast.error(
+          "Your session has expired. Please reconnect to Google Drive."
+        );
+        return null;
+      }
+    } else {
+      // No refresh token, need to re-authenticate
+      setIsAuthorized(false);
+      sessionStorage.removeItem("google_token_data");
+      toast.error(
+        "Your session has expired. Please reconnect to Google Drive."
+      );
+      return null;
+    }
+  };
+
+  // File list query with token validation
+  const {
+    data: fileListData,
+    refetch: refetchFiles,
+    error: fileListError,
+  } = trpc.googleDrive.listFiles.useQuery(
+    {
+      accessToken: accessToken ?? "",
+      pageSize: 20,
+      pageToken: nextPageToken,
+    },
+    {
+      enabled: !!accessToken,
+    }
   );
+
+  useEffect(() => {
+    if (fileListError) {
+      console.error("Error fetching files:", fileListError);
+      if (
+        fileListError.message.includes("invalid_token") ||
+        fileListError.message.includes("Invalid Credentials")
+      ) {
+        // Handle expired token error
+        ensureValidToken().then((valid) => {
+          if (valid) refetchFiles();
+        });
+      }
+    }
+  }, [fileListError, refetchFiles]);
 
   const getFileContentMutation = trpc.googleDrive.getFileContent.useMutation();
   const llamaMutation = trpc.llama.analyzeImage.useMutation();
@@ -95,6 +207,7 @@ export function GoogleDriveUpload() {
           id: file.id ?? "",
           name: file.name ?? "",
           mimeType: file.mimeType ?? "",
+          thumbnailLink: file.thumbnailLink ?? undefined,
         }))
       );
       setNextPageToken(fileListData.nextPageToken ?? undefined);
@@ -113,14 +226,22 @@ export function GoogleDriveUpload() {
       if (code) {
         try {
           setIsLoading(true);
-          const { tokens } = await getTokensMutation.mutateAsync({ code });
+          const { tokens, expiresAt } = await getTokensMutation.mutateAsync({
+            code,
+          });
 
           if (tokens.access_token) {
             setAccessToken(tokens.access_token);
+            setTokenExpiresAt(expiresAt);
+            setRefreshToken(tokens.refresh_token ?? null);
             setIsAuthorized(true);
 
-            // Store token in session/local storage if needed
-            sessionStorage.setItem("google_access_token", tokens.access_token);
+            // Store token info securely
+            storeTokenData(
+              tokens.access_token,
+              expiresAt,
+              tokens.refresh_token ?? null
+            );
 
             // Clean up URL
             window.history.replaceState(
@@ -139,10 +260,24 @@ export function GoogleDriveUpload() {
     };
 
     // Check for stored token
-    const storedToken = sessionStorage.getItem("google_access_token");
-    if (storedToken) {
-      setAccessToken(storedToken);
-      setIsAuthorized(true);
+    const storedData = getStoredTokenData();
+    if (storedData) {
+      setAccessToken(storedData.accessToken);
+      setTokenExpiresAt(storedData.expiresAt);
+      setRefreshToken(storedData.refreshToken || null);
+
+      // Validate the token expiration
+      if (!isTokenExpired()) {
+        setIsAuthorized(true);
+      } else if (storedData.refreshToken) {
+        // Try to refresh the token silently on component mount
+        ensureValidToken().then((valid) => {
+          setIsAuthorized(!!valid);
+        });
+      } else {
+        // Token expired and no refresh token - need to re-authenticate
+        sessionStorage.removeItem("google_token_data");
+      }
     }
 
     handleAuthCallback();
@@ -160,26 +295,30 @@ export function GoogleDriveUpload() {
     }
   };
 
-  const selectFile = (file: DriveFile) => {
+  const selectFile = async (file: DriveFile) => {
     if (selectedFiles.some((f) => f.id === file.id)) {
       setSelectedFiles(selectedFiles.filter((f) => f.id !== file.id));
     } else {
       setSelectedFiles([...selectedFiles, file]);
       // Analyze first selected file for tags if this is the first selection
       if (selectedFiles.length === 0) {
-        analyzeGoogleDriveImage(file.id);
+        const validToken = await ensureValidToken();
+        if (validToken) {
+          analyzeGoogleDriveImage(file.id);
+        }
       }
     }
   };
 
   const analyzeGoogleDriveImage = async (fileId: string) => {
-    if (!accessToken) return;
+    const validToken = await ensureValidToken();
+    if (!validToken) return;
 
     setIsGeneratingTags(true);
     try {
       // Get file content as base64 using tRPC
       const { base64Data } = await getFileContentMutation.mutateAsync({
-        accessToken,
+        accessToken: validToken,
         fileId,
       });
 
@@ -196,8 +335,11 @@ export function GoogleDriveUpload() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!accessToken || selectedFiles.length === 0) {
-      toast.error("Please select at least one image");
+    const validToken = await ensureValidToken();
+    if (!validToken || selectedFiles.length === 0) {
+      if (!selectedFiles.length) {
+        toast.error("Please select at least one image");
+      }
       return;
     }
 
@@ -208,7 +350,7 @@ export function GoogleDriveUpload() {
       const imagesBase64 = await Promise.all(
         selectedFiles.map(async (file) => {
           const { base64Data } = await getFileContentMutation.mutateAsync({
-            accessToken,
+            accessToken: validToken,
             fileId: file.id,
           });
           return base64Data;
