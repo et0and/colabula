@@ -160,7 +160,7 @@ export const googleDriveRouter = router({
         );
 
         // Convert buffer to base64
-        const buffer = Buffer.from(response.data);
+        const buffer = Buffer.from(response.data as string);
         const base64Data = buffer.toString("base64");
 
         return {
